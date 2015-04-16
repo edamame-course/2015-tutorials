@@ -51,4 +51,4 @@ Just like with `ssh` we have to identify the keyfile using `-i` so that `scp` ca
 ````
 scp -i "path to your keyfile.pem" ubuntu@"your public DNS":"path to the file you want to copy" "path where to save the file on your computer"
 ````
-Now have the tools work with your EC2 instance!
+Now you have the tools work with your EC2 instance!
