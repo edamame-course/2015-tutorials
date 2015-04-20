@@ -9,6 +9,7 @@ date: 2015-06-22 18:44:36
 ###0. Find your EC2's Public DNS:
 Before you can connect to your EC2 instance you first need to find it's Public DNS. This essentially acts as an address for your EC2 instance so that your local computer can access it. Go to [AWS](http://aws.amazon.com/) and sign into the Console. Select EC2, and then view your running instances. On this page, click on your instance and find it's public DNS under the "Description" tab.
 
+![PublicDNS](../img/EC2_Public_DNS.png)
 
 ###1. Open a Terminal:
 
@@ -28,17 +29,17 @@ chmod 400 **/path/to/your/key/**EDAMAME.pem
 ###3. Enter the following command into the terminal:
 
 ```
-ssh -i **/path/to/your/key/**EDAMAME.pem ubuntu@ec2-**UNIQUE SET OF NUMBERS**.compute-1.amazonaws.com
+ssh -i **/path/to/your/key/**EDAMAME.pem ubuntu@"your public DNS"
 ```
 SUCCESS! You have now logged into your computer in the cloud!
 
 ###4. After the first login
 
 After the first login to the EC2, you do not need to repeat the chmod to change permissions for the key.
-Every time you start an previously-stopped EC2 instance, there will be a new Public DNS.  To connect to the EC2 after the first login, copy and paste that new Public DNS into "UNIQUE SET OF NUMBERS", open terminal, and paste:
+Every time you start an previously-stopped EC2 instance, there will be a new Public DNS.  To connect to the EC2 after the first login, copy and paste that new Public DNS in the corresponding place below:
 
 ```
-ssh -i **/path/to/your/key/**EDAMAME.pem ubuntu@ec2-**UNIQUE SET OF NUMBERS**.compute-1.amazonaws.com
+ssh -i **/path/to/your/key/**EDAMAME.pem ubuntu@"your public DNS"
 ```
 
 ###5. Transferring files to and from the EC2
