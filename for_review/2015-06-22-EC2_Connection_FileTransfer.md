@@ -7,7 +7,7 @@ date: 2015-06-22 18:44:36
 
 ##Mac OS & Linux Users, connecting to your Amazon EC2 instance at the command line is pretty easy.
 ###0. Find your EC2's Public DNS:
-Before you can connect to your EC2 instance you first need to find it's Public DNS. This essentially acts as an address for your EC2 instance so that your local computer can access it. Go to [AWS](http://aws.amazon.com/) and sign into the Console. Select EC2, and then view your running instances. On this page, click on your instance and find it's public DNS under the "Description" tab.
+Before you can connect to your EC2 instance you first need to find its Public DNS. This essentially acts as an address for your EC2 instance so that your local computer can access it. Go to [AWS](http://aws.amazon.com/) and sign into the Console. Select EC2, and then view your running instances. On this page, click on your instance and find it's public DNS under the "Description" tab.
 
 ![PublicDNS](../img/EC2_Public_DNS.png)
 
