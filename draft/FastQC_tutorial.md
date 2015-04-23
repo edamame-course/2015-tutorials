@@ -2,7 +2,7 @@
 
 ####Information in this tutorial is based on the FastQC manual which can be accessed [here](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
 
-FastQC is a relatively quick and labor-unintesive way to check the quality of your sequencing data.
+FastQC is a relatively quick and labor-un-intesive way to check the quality of your Illumina sequencing data.
 
 Before starting, we need to make sure we have sequencing files that end in .gz
 
@@ -17,12 +17,12 @@ Let's look at the html file. It should say "FastQC report" at the top and contai
 ###1: Basic Statistics
 [screenshot here]
 
-Basic statistics is a chart containing information about your file, including the name, how many reads there are for this sequence, and whether or not any of the reads were flagged for poor quality. 
+Basic statistics is a chart containing information about your file, including the name, how many reads were analyzed, and whether or not any of the reads were flagged for poor quality. 
 
 ###2: Per base sequence quality
 [screenshot here]
 
-Per base sequence quality is exactly what it sounds like: a graph displaying the quality of the sequence at every base. It displays this information using box and whisker plots to give you a sense of how much variation there was among the reads. Any plot that is within the green region is considered acceptable quality, while anything in the orange or red regions should be trimmed. 
+Per base sequence quality is exactly what it sounds like: a graph displaying the quality of each sequence at every base. It displays this information using box and whisker plots to give you a sense of how much variation there was among the reads. Any plot that is within the green region is considered acceptable quality, while anything in the orange or red regions is not. 
 
 ###3: Per tile sequence quality
 [screenshot here]
@@ -37,7 +37,7 @@ Per sequence quality scores reprent the quality of each read for the sequence. S
 ###5: Per base sequence content
 [screenshot here]
 
-Per base sequence content shows the percent of the sequence that is composed of each of the 4 bases. Since we expect the composition to be roughly the same for each base, the lines should be parallel. 
+Per base sequence content shows, for each position of every sequence, the base composition as a percentage of As, Ts, Cs and Gs. In a typical genome we expect the percentages of each base to be roughly equal, so the lines should be parallel and within about 10% of each other. 
 
 ###6: Per sequence GC content
 [screenshot here]
@@ -47,13 +47,20 @@ Per sequence GC content displays the GC content for all reads along with the "th
 ###7: Per base N content
 [screenshot here]
 
-Per base N content shows any positions within the sequence which have not been called as A, T, C or G. Ideally the per base N content will be a completely flat line at 0% on the y-axis, indicating that all bases have been called. 
+Per base N content shows any positions within the sequences which have not been called as A, T, C or G. Ideally the per base N content will be a completely flat line at 0% on the y-axis, indicating that all bases have been called with a certain level of confidence. 
 
 ###8: Sequence length distribution
 [screenshot here]
 
-This is simply showing the length of each read for this sequence. They should all be the same size, with a couple of bp variation being acceptable. 
+This is simply showing the length of each sequence. They should all be the same size, with a couple of bp variation being acceptable. 
 
 ###9: Sequence duplication levels
 [screenshot here]
+
+The sequence duplication levels plot shows the number of times a sequence is duplicated on the x-axis with the percent of sequences showing this duplication level on the y-axis. Normally a genome will have a sequence duplication level of 1 to 3 for the majority of sequences, with only a handful having a duplication level higher than this; the line should have an inverse log shape. A high duplication level for a large percentage of sequences is usually indicative of contamination. 
+
+###10: Overrepresented sequences
+[screenshot here]
+
+If a certain sequence is calculated to represent more than 0.1% of the entire genome, it will be flagged as an overrepresented sequence. A frequent source of "overrepresented sequences" is in fact Illumina adapters, which is why it's a good idea to trim sequences before running FastQC. Another occasional source of overrepresented sequences is high copy-number plasmids. FastQC checks for possible matches to these overrepresented sequences, although this search frequently returns "no hit". However it is usually quite easy to identify the overrepresented sequences by doing a simple BLAST search.
 
