@@ -4,11 +4,11 @@
 
 FastQC is a relatively quick and labor-un-intesive way to check the quality of your Illumina sequencing data.
 
-Before starting, we need to make sure we have sequencing files that end in .gz
+Before starting, we need to make sure we have sequencing files that end in .fastq
 
 FastQC is already loaded and active in our AMI, so all we have to do is use the 'fastqc' command:
 ```
-fastqc [filename].gz
+fastqc [filename].fastq
 ```
 This will create two new files with the same name and the extensions `.fastqc.zip` and `fastqc.html`. As you may be able to guess, these are processed files in zip and html format. 
 
