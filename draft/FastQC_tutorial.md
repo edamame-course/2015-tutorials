@@ -1,6 +1,6 @@
 #Data quality checking with FastQC
 
-####Information in this tutorial is based on the FastQC manual which can be accessed [here](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
+####Information in this tutorial is based on the FastQC manual which can be accessed [here](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/).
 
 FastQC is a relatively quick and labor-un-intesive way to check the quality of your Illumina sequencing data.
 
@@ -34,7 +34,8 @@ Per tile sequence quality is a measure of the flow cell quality by individual ti
 ###4: Per sequence quality scores
 ![per sequence quality scores](../img/per_sequence_quality_scores.jpg)
 
-Per sequence quality scores reprent the quality of each read for the sequence. This is done using a Phred score. Some of the reads may be of poor quality due to positioning within the flow cell.
+Per sequence quality scores reprent the quality of each read for the sequence. This is done using a Phred score, which is based on a logarithmic scale. A Phred score of 30 indicates an error rate of 1 base in 1000, or an accuracy of 99.9%, while a Phred score of 40 indicates an error rate of 1 base in 10,000, or an accuracy of 99.99%. 
+Some of the reads may be of poor quality due to positioning within the flow cell.
 
 ###5: Per base sequence content
 ![per base sequence content](../img/per_base_sequence_content.jpg)
