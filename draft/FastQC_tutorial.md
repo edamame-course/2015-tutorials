@@ -73,6 +73,6 @@ If a certain sequence is calculated to represent more than 0.1% of the entire ge
 
 ###12: Kmer content
 ![kmer content](../img/kmer_content.jpg)
-![kmer content 2[(../img/kmer_content_part_II.jpg)
+![kmer content 2](../img/kmer_content_part_II.jpg)
 
 
