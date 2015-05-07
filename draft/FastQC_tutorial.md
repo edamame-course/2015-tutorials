@@ -13,27 +13,28 @@ fastqc C02_05102014_R1_D03_TTACTGTGCGAT.fastq
 This will create two new files with the same name and the extensions `.fastqc.zip` and `fastqc.html`. As you may be able to guess, these are processed files in zip and html format. 
 
 Using scp, transfer the html file to your desktop. Now double-click on the file and it should open in your browser. 
+On the left-hand side of the screen, there will be a summary of the analyses with some combination of green checkmarks, yellow exclamation points, and red Xs, depending on whether or not the sequences pass the quality check for each module. 
 
 
 ###1: Basic Statistics
 ![basic statistics](../img/basic_statistics.jpg)
 
-Basic statistics is a chart containing information about your file, including the name, how many reads were analyzed, and whether or not any of the reads were flagged for poor quality. 
+Basic statistics displays a chart containing information about your file, including the name, how many reads were analyzed, and whether or not any of the reads were flagged for poor quality. In this case, we had 197235 sequences. None of them were flagged as poor quality. The average sequence length was 253 bases, with 55% GC content.
 
 ###2: Per base sequence quality
 ![per base sequence quality](../img/per_base_sequence_quality.jpg)
 
-Per base sequence quality is exactly what it sounds like: a graph displaying the quality of each sequence at every base. It displays this information using box and whisker plots to give you a sense of how much variation there was among the reads. Any plot that is within the green region is considered acceptable quality, while anything in the orange or red regions is not. 
+Per base sequence quality shows the quality of each sequence at every base. It displays this information using box and whisker plots to give you a sense of how much variation there was among the reads. Any plot that is within the green region is considered acceptable quality, while anything in the orange or red regions is not. In this example, the sequence has passed the quality check. Ideally, however, the error bars would be entirely within the green section rather than the red. 
 
 ###3: Per tile sequence quality
 ![per tile sequence quality](../img/per_tile_sequence_quality.jpg)
 
-Per tile sequence quality is a measure of the flow cell quality by individual tiles. If the figure is entirely a solid bright blue, the flow cell tile quality was consistently great! If there are patches of lighter blue or any other color, there was a problem associated with one of the tiles and this may correspond with a decrease in sequence quality in those regions.
+Per tile sequence quality is a measure of the flow cell quality by individual tiles. If the figure is entirely a solid bright blue, the flow cell tile quality was consistently great! If there are patches of lighter blue or any other color, there was a problem associated with one of the tiles and this may correspond with a decrease in sequence quality in those regions. Above you can see light blue patches which indicate potential problems with the sequencing lane. However, it still good enough to pass
 
 ###4: Per sequence quality scores
 ![per sequence quality scores](../img/per_sequence_quality_scores.jpg)
 
-Per sequence quality scores reprent the quality of each read for the sequence. Some of the reads may be of poor quality due to positioning within the flow cell.
+Per sequence quality scores reprent the quality of each read for the sequence. This is done using a Phred score. Some of the reads may be of poor quality due to positioning within the flow cell.
 
 ###5: Per base sequence content
 ![per base sequence content](../img/per_base_sequence_content.jpg)
