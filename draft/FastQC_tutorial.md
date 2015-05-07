@@ -64,3 +64,15 @@ The sequence duplication levels plot shows the number of times a sequence is dup
 
 If a certain sequence is calculated to represent more than 0.1% of the entire genome, it will be flagged as an overrepresented sequence. A frequent source of "overrepresented sequences" is in fact Illumina adapters, which is why it's a good idea to trim sequences before running FastQC. Another occasional source of overrepresented sequences is high copy-number plasmids. FastQC checks for possible matches to these overrepresented sequences, although this search frequently returns "no hit". However it is usually quite easy to identify the overrepresented sequences by doing a simple BLAST search.
 
+
+###11: Adapter content
+![adapter content](../img/adapter_content.jpg)
+
+
+
+
+###12: Kmer content
+![kmer content](../img/kmer_content.jpg)
+![kmer content 2[(../img/kmer_content_part_II.jpg)
+
+
