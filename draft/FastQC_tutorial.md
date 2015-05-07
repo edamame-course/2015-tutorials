@@ -12,7 +12,8 @@ fastqc C02_05102014_R1_D03_TTACTGTGCGAT.fastq
 ```
 This will create two new files with the same name and the extensions `.fastqc.zip` and `fastqc.html`. As you may be able to guess, these are processed files in zip and html format. 
 
-Let's look at the html file. It should say "FastQC report" at the top and contain 12 charts and graphs.
+Using scp, transfer the html file to your desktop. Now double-click on the file and it should open in your browser. 
+
 
 ###1: Basic Statistics
 ![basic statistics](../img/basic_statistics.jpg)
