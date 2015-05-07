@@ -8,7 +8,7 @@ Before starting, we need to make sure we have sequencing files that end in .fast
 
 FastQC is already loaded and active in our AMI, so all we have to do is use the 'fastqc' command:
 ```
-fastqc [filename].fastq
+fastqc C02_05102014_R1_D03_TTACTGTGCGAT.fastq
 ```
 This will create two new files with the same name and the extensions `.fastqc.zip` and `fastqc.html`. As you may be able to guess, these are processed files in zip and html format. 
 
