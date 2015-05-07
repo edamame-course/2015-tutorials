@@ -1,0 +1,22 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	new file:   adapter content.jpg
+#	new file:   basic statistics.jpg
+#	new file:   kmer content part II.jpg
+#	new file:   kmer content.jpg
+#	new file:   overrepresented sequences.jpg
+#	new file:   per base N content.jpg
+#	new file:   per base sequence content.jpg
+#	new file:   per base sequence quality.jpg
+#	new file:   per sequence GC content.jpg
+#	new file:   per sequence quality scores.jpg
+#	new file:   per tile sequence quality.jpg
+#	new file:   sequence duplication levels.jpg
+#	new file:   sequence length distribution.jpg
+#
+
