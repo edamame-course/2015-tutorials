@@ -2,7 +2,7 @@
 
 ####Information in this tutorial is based on the FastQC manual which can be accessed [here](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/).
 
-FastQC is a relatively quick and labor-un-intesive way to check the quality of your Illumina sequencing data.
+FastQC is a relatively quick and non labor-intesive way to check the quality of your NGS data.
 
 Before starting, we need to make sure we have sequencing files that end in .fastq
 
