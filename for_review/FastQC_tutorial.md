@@ -77,7 +77,9 @@ This module searches for specific adapter sequences. A sequence that makes up mo
 ###12: Kmer content
 ![kmer content](../img/kmer_content.jpg)
 ![kmer content 2](../img/kmer_content_part_II.jpg)
+
+
 In a completely random library, any kmers would be expected to be seen about equally in each position (from 1-253 in this case). Any kmers that are specifically enriched at a particular site are reported in this module. If a kmer is enriched at a specific site with a p-value of less than 0.01, a warning will be displayed. A failure for this module occurs if a kmer is enriched at a site with a p-value of less than 10^-5. It is relatively common to see enriched kmers near the beginning of a sequence, once again because of adapter sequences. The warning seen in the example is likely due to adapters based on the position of the kmers.
 
 
-###Questions about FastQC can usually be answered with the [documentation](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/). Happy quality checking!
+###For FastQC question, check the [documentation](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/). Happy quality checking!
