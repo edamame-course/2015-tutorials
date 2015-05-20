@@ -24,10 +24,7 @@ This tutorial data files can be downloaded from github: [https://github.com/edam
 
 ## What is the shell?
 
-The *shell* is a program that presents a command line interface
-which allows you to control your computer using commands entered
-with a keyboard instead of controlling graphical user interfaces
-(GUIs) with a mouse/keyboard combination.
+The *shell* is a program that presents a command line interface which allows you to control your computer using commands entered with a keyboard instead of controlling graphical user interfaces (GUIs) with a mouse/keyboard combination.
 
 There are many reasons to learn about the shell.
 
@@ -40,8 +37,7 @@ There are many reasons to learn about the shell.
 
 Unix is user-friendly. It's just very selective about who its friends are.
 
-Today we're going to go through how to access Unix/Linux and some of the basic
-shell commands.
+Today we're going to go through how to access Unix/Linux and some of the basic shell commands.
 
 ## Information on the shell
 
@@ -53,13 +49,12 @@ Here are some great shell cheat sheets:
 
 ## How to access the shell
 
-The shell is already available on Mac and Linux. For Windows, you'll
-have to download a separate program.
+The shell is already available on Mac and Linux. For Windows, you'll have to download a separate program.
 
 Mac
 ---
 On Mac the shell is available through Terminal
-Applications -> Utilities -> Terminal
+*Applications -> Utilities -> Terminal*
 Go ahead and drag the Terminal application to your Dock for easy access.
 
 Windows
@@ -75,11 +70,9 @@ Well, you should be set if you're already using Linux
 
 ## Starting with the shell
 
-We will spend most of our time learning about the basics of the shell
-by manipulating some experimental data.
+We will spend most of our time learning about the basics of the shell by manipulating some experimental data.
 
-Now we're going to download the data for the tutorial. For this you'll need
-internet access, because you're going to get it off the web.
+Now we're going to download the data for the tutorial. For this you'll need internet access, because you're going to get it off the web.
 
 Open the shell
 
@@ -89,9 +82,7 @@ Enter the command:
 git clone https://github.com/edamame-course/edamame-data.git
 ```
 
-This command will grab all of the data needed for this workshop from
-the internet.  (We're not going to talk about git right now, but it's a tool for
-doing version control.)
+This command will grab all of the data needed for this workshop from the internet.  (We're not going to talk about git right now, but it's a tool for doing version control.)
 
 Now let's go in to that directory
 
@@ -100,48 +91,38 @@ cd edamame-data
 ```
 The command 'cd' stands for 'change directory'
 
-In this directory, there should be some things we just downloaded.
-Let's check. Type:
+In this directory, there should be some things we just downloaded. Let's check. Type:
+
 ```
 ls
 ```
+
 `ls` stands for 'list' and it lists the contents of a directory.
 
-There's a few directories there, but not too much. Let's go look in the shell
-lesson.
+There's a few directories there, but not too much. Let's go look in the shell lesson.
 
 ```
 cd shell
 ls
 ```
 
-In there, all mixed up together are files and directories/folders. If we want to
-know which is which, we can type:
+In there, all mixed up together are files and directories/folders. If we want to know which is which, we can type:
+
 ```
 ls -F
 ```
 
-Anything with a "/" after it is a directory.
-Things with a "\*" after them are programs.
-It there's nothing there it's a file.
+Anything with a "/" after it is a directory. Things with a "\*" after them are programs. It there's nothing there it's a file.
 
-You can also use the command `ls -l` to see whether items in a
-directory are files or directories. `ls -l` gives a lot more
-information too, such as the size of the file
+You can also use the command `ls -l` to see whether items in a directory are files or directories. `ls -l` gives a lot more information too, such as the size of the file
 
 So, we can see that we have several files, directories and a program. Great!
 
 ## The Unix directory file structure (a.k.a. where am I?)
 
-As you've already just seen, you can move around in different directories
-or folders at the command line. Why would you want to do this, rather
-than just navigating around the normal way.
+As you've already just seen, you can move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way.
 
-When you're working with bioinformatics programs, you're working with
-your data and it's key to be able to have that data in the right place
-and make sure the program has access to the data. Many of the problems
-people run in to with command line bioinformatics programs is not having the
-data in the place the program expects it to be.
+When you're working with bioinformatics programs, you're working with your data and it's key to be able to have that data in the right place and make sure the program has access to the data. Many of the problems people run in to with command line bioinformatics programs is not having the data in the place the program expects it to be.
 
 
 ## Moving around the file system
@@ -152,23 +133,19 @@ We're going to work in that `shell` directory we just downloaded.
 
 First let's navigate there using the regular way by clicking on the different folders.
 
-First we did something like go to the folder of our username. Then we opened
-'edamame-data' then 'shell'
+First we did something like go to the folder of our username. Then we opened 'edamame-data' then 'shell'
 
 Let's draw out how that went.
 
 Now let's draw some of the other files and folders we could have clicked on.
 
-This is called a hierarchical file system structure, like an upside down tree
-with root (/) at the base that looks like this.
-
+This is called a hierarchical file system structure, like an upside down tree with root (/) at the base that looks like this.
 
 ![Unix](img/shell/Slide1.jpg)
 
 That (/) at the base is often also called the 'top' level.
 
-When you are working at your computer or log in to a remote computer,
-you are on one of the branches of that tree, your home directory (/home/username)
+When you are working at your computer or log in to a remote computer, you are on one of the branches of that tree, your home directory (/home/username)
 
 Now let's go do that same navigation at the command line.
 
@@ -182,8 +159,7 @@ This put's you in your home directory. This folder here that you are already in.
 
 Now let's use `cd` and `ls`, go in to the 'shell' directory and list its contents.
 
-Let's also check to see where we are. Sometimes when we're wandering around
-in the file system, it's easy to lose track of where we are and get lost.
+Let's also check to see where we are. Sometimes when we're wandering around in the file system, it's easy to lose track of where we are and get lost.
 
 If you want to know what directory you're currently in, type:
 
@@ -191,11 +167,9 @@ If you want to know what directory you're currently in, type:
 pwd
 ```
 
-This stands for 'print working directory'. The directory you're currently
-working in.
+This stands for 'print working directory'. The directory you're currently working in.
 
-What if we want to move back up and out of the 'data' directory? Can we just
-type 'edamame-data'? Try it and see what happens.
+What if we want to move back up and out of the 'data' directory? Can we just type 'edamame-data'? Try it and see what happens.
 
 To go 'back up a level' we need to use `..`
 
@@ -205,25 +179,19 @@ Type:
 cd ..
 ```
 
-Now do `ls` and `pwd`. See now that we went back up in to the 'edamame'
-directory. `..` just means go back up a level.
+Now do `ls` and `pwd`. See now that we went back up in to the 'edamame' directory. `..` just means go back up a level.
 
 ***
 **Exercise**
 
-Now we're going to try a hunt.
-Move around in the 'hidden' directory and try to find the file 'youfoundit.txt'
+Now we're going to try a hunt. Move around in the 'hidden' directory and try to find the file 'youfoundit.txt'
 ***
 
 ## Arguments
 
-Most programs take additional arguments that control their exact
-behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls`
-program, like many programs, take a lot of arguments. But how do we
-know what the options are to particular commands?
+Most programs take additional arguments that control their exact behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls` program, like many programs, take a lot of arguments. But how do we know what the options are to particular commands?
 
-Most commonly used shell programs have a manual. You can access the
-manual using the `man` program. Try entering:
+Most commonly used shell programs have a manual. You can access the manual using the `man` program. Try entering:
 
 ```
 man ls
@@ -270,23 +238,13 @@ Try finding the 'anotherfile.txt' file without changing directories.
 
 ## Full vs. Relative Paths
 
-The `cd` command takes an argument which is the directory
-name. Directories can be specified using either a *relative* path or a
-full *path*. The directories on the computer are arranged into a
-hierarchy. The full path tells you where a directory is in that
-hierarchy. Navigate to the home directory. Now, enter the `pwd`
-command and you should see:
+The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative* path or a full *path*. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory. Now, enter the `pwd` command and you should see:
 
 ```
 /home/username
 ```
 
-which is the full name of your home directory. This tells you that you
-are in a directory called `username`, which sits inside a directory called
-`home` which sits inside the very top directory in the hierarchy. The
-very top of the hierarchy is a directory called `/` which is usually
-referred to as the *root directory*. So, to summarize: `username` is a
-directory in `home` which is a directory in `/`.
+which is the full name of your home directory. This tells you that you are in a directory called `username`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `username` is a directory in `home` which is a directory in `/`.
 
 Now enter the following command:
 
@@ -294,136 +252,96 @@ Now enter the following command:
 cd /home/username/edamame-data/shell/hidden
 ```
 
-This jumps to `hidden`. Now go back to the home directory (cd). We saw
-earlier that the command:
+This jumps to `hidden`. Now go back to the home directory (cd). We saw earlier that the command:
 
 ```
 cd edamame-data/shell/hidden
 ```
 
-had the same effect - it took us to the `hidden` directory. But,
-instead of specifying the full path
-(`/home/username/edamame-data/shell`), we specified a *relative path*. In
-other words, we specified the path relative to our current
-directory. A full path always starts with a `/`. A relative path does
-not.
+had the same effect - it took us to the `hidden` directory. But, instead of specifying the full path (`/home/username/edamame-data/shell`), we specified a *relative path*. In other words, we specified the path relative to our current directory. A full path always starts with a `/`. A relative path does not.
 
-A relative path is like getting directions
-from someone on the street. They tell you to "go right at the Stop sign, and
-then turn left on Main Street". That works great if you're standing there
-together, but not so well if you're trying to tell someone how to get there
-from another country. A full path is like GPS coordinates.
-It tells you exactly where something
-is no matter where you are right now.
+A relative path is like getting directions from someone on the street. They tell you to "go right at the Stop sign, and then turn left on Main Street". That works great if you're standing there together, but not so well if you're trying to tell someone how to get there from another country. A full path is like GPS coordinates. It tells you exactly where something is no matter where you are right now.
 
-You can usually use either a full path or a relative path
-depending on what is most convenient. If we are in the home directory,
-it is more convenient to just enter the relative path since it
-involves less typing.
+You can usually use either a full path or a relative path depending on what is most convenient. If we are in the home directory, it is more convenient to just enter the relative path since it involves less typing.
 
-Over time, it will become easier for you to keep a mental note of the
-structure of the directories that you are using and how to quickly
-navigate amongst them.
+Over time, it will become easier for you to keep a mental note of the structure of the directories that you are using and how to quickly navigate amongst them.
 
-* * * *
+****
 **Short Exercise**
 
-Now, list the contents of the /bin directory. Do you see anything
-familiar in there?
+Now, list the contents of the /bin directory. Do you see anything familiar in there?
 
-* * * *
+****
 
 ## Saving time with shortcuts, wild cards, and tab completion
 
 ### Shortcuts
 
-There are some shortcuts which you should know about. Dealing with the
-home directory is very common. So, in the shell the tilde character,
-""~"", is a shortcut for your home directory. Navigate to the `edamame`
-directory:
+There are some shortcuts which you should know about. Dealing with the home directory is very common. So, in the shell the tilde character, `~`, is a shortcut for your home directory. Navigate to the `edamame` directory:
 
-    cd
-    cd edamame-data
-    cd shell
+```
+cd
+cd edamame-data
+cd shell
+```
 
 Then enter the command:
 
-    ls ~
+```
+ls ~
+```
 
-This prints the contents of your home directory, without you having to
-type the full path. The shortcut `..` always refers to the directory
-above your current directory. Thus:
+This prints the contents of your home directory, without you having to type the full path. The shortcut `..` always refers to the directory above your current directory. Thus:
 
-    ls ..
+```
+ls ..
+```
 
-prints the contents of the `/home/username/edamame-data`. You can chain
-these together, so:
+prints the contents of the `/home/username/edamame-data`. You can chain these together, so:
 
-    ls ../../
+```
+ls ../../
+```
 
-prints the contents of `/home/username` which is your home
-directory. Finally, the special directory `.` always refers to your
-current directory. So, `ls`, `ls .`, and `ls ././././.` all do the
-same thing, they print the contents of the current directory. This may
-seem like a useless shortcut right now, but we'll see when it is
-needed in a little while.
+prints the contents of `/home/username` which is your home directory. Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but we'll see when it is needed in a little while.
 
-To summarize, while you are in the `shell` directory, the commands
-`ls ~`, `ls ~/.`, `ls ../../`, and `ls /home/username` all do exactly the
-same thing. These shortcuts are not necessary, they are provided for
-your convenience.
+To summarize, while you are in the `shell` directory, the commands `ls ~`, `ls ~/.`, `ls ../../`, and `ls /home/username` all do exactly the same thing. These shortcuts are not necessary, they are provided for your convenience.
 
 ### Our data set: FASTQ files
 
-We did an experiment and want to look at the bacterial communities
-of mice in two treatments using 16S sequencing. We have 10 mice in
-one treatment and 9 in another.each treatment. We also sequenced a Mock community, so we can
-check the quality of our data. So, we have 20 samples all together and
-we've done paired-end MiSeq sequencing.
+We did an experiment and want to look at the bacterial communities of mice in two treatments using 16S sequencing. We have 10 mice in one treatment and 9 in another.each treatment. We also sequenced a Mock community, so we can check the quality of our data. So, we have 20 samples all together and we've done paired-end MiSeq sequencing.
 
-We get our data back from the sequencing center as FASTQ files, and
-we stick them all in a folder called MiSeq. This data is actually
-the data we're going to use for several sections of the course,
-and it's data generated by Pat Schloss.
+We get our data back from the sequencing center as FASTQ files, and we stick them all in a folder called MiSeq. This data is actually the data we're going to use for several sections of the course, and it's data generated by Pat Schloss.
 
 We want to be able to look at these files and do some things with them.
 
-
 ### Wild cards
 
-Navigate to the `~/edamame-data/shell/MiSeq` directory. This
-directory contains our FASTQ files and some other ones
-we'll need for analyses. If we type `ls`,
-we will see that there are a bunch of files with long file names.
-Some of the end with .fastq
+Navigate to the `~/edamame-data/shell/MiSeq` directory. This directory contains our FASTQ files and some other ones we'll need for analyses. If we type `ls`, we will see that there are a bunch of files with long file names. Some of the end with .fastq
 
-The `*` character is a shortcut for "everything". Thus, if
-you enter `ls *`, you will see all of the contents of a given
-directory. Now try this command:
+The `*` character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
 
-    ls *fastq
+```
+ls *fastq
+```
 
 This lists every file that ends with a `fastq`. This command:
 
-    ls /usr/bin/*.sh
+```
+ls /usr/bin/*.sh
+```
 
 Lists every file in `/usr/bin` that ends in the characters `.sh`.
 
-We have paired end sequencing, so for every sample we have two files. If we
-want to just see the list of the files for the forward direction sequencing
-we can use:
+We have paired end sequencing, so for every sample we have two files. If we want to just see the list of the files for the forward direction sequencing we can use:
 
-    ls *R1*fastq
+```
+ls *R1*fastq
+```
 
-lists every file in the current directory whose name contains the
-number `R1`, and ends with `fastq`. There are twenty such files which
-we would expect because we have 20 samples.
+lists every file in the current directory whose name contains the number `R1`, and ends with `fastq`. There are twenty such files which we would expect because we have 20 samples.
 
-So how does this actually work? Well...when the shell (bash) sees a
-word that contains the `\*` character, it automatically looks for filenames
-that match the given pattern. In this case, it identified four such
-files. Then, it replaced the `*R1*fastq` with the list of files, separated
-by spaces. In other words, the two commands:
+So how does this actually work? Well...when the shell (bash) sees a word that contains the `\*` character, it automatically looks for filenames that match the given pattern. In this case, it identified four such files. Then, it replaced the `*R1*fastq` with the list of files, separated by spaces. In other words, the two commands:
 
 ```
 ls *R1*fastq
