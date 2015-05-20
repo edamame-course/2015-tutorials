@@ -731,8 +731,7 @@ The `rm` file removes the file. Be careful with this command. It doesn't
 just nicely put the files in the Trash. They're really gone.
 
 
-
-* * * *
+****
 **Short Exercise**
 
 Do the following:
@@ -741,26 +740,25 @@ Do the following:
 2.  Create a directory in the `MiSeq` directory called `new`
 3.  Then, copy the `stability.files` file into `new`
 
-* * * *
+****
 
 By default, `rm`, will NOT delete directories. You can tell `rm` to
 delete a directory using the `-r` option. Let's delete that `new` directory
 we just made. Enter the following command:
 
-    rm -r new
+```
+rm -r new
+```
 
 ## Writing files
 
-We've been able to do a lot of work with files that already exist, but what
-if we want to write our own files. Obviously, we're not going to type in
-a FASTA file, but you'll see as we go through other tutorials, there are
-a lot of reasons we'll want to write a file, or edit an existing file.
+We've been able to do a lot of work with files that already exist, but what if we want to write our own files. Obviously, we're not going to type in a FASTA file, but you'll see as we go through other tutorials, there are a lot of reasons we'll want to write a file, or edit an existing file.
 
-To write in files, we're going to use the program `nano`. We're going to create
-a file that contains the favorite grep command so you can remember it for later. We'll name this file
-'awesome.sh'.
+To write in files, we're going to use the program `nano`. We're going to create a file that contains the favorite grep command so you can remember it for later. We'll name this file 'awesome.sh'.
 
-    nano awesome.sh
+```
+nano awesome.sh
+```
 
 Now you have something that looks like
 
@@ -770,167 +768,146 @@ Type in your command, so it looks like
 
 ![nano2.png](img/shell/nano2.png)
 
-Now we want to save the file and exit. At the bottom of nano, you see the "^X Exit". That
-means that we use Ctrl-X to exit. Type `Ctrl-X`. It will ask if you want to save it. Type `y` for yes.
-Then it asks if you want that file name. Hit 'Enter'.
+Now we want to save the file and exit. At the bottom of nano, you see the "^X Exit". That means that we use Ctrl-X to exit. Type `Ctrl-X`. It will ask if you want to save it. Type `y` for yes. Then it asks if you want that file name. Hit 'Enter'.
 
 Now you've written a file. You can take a look at it with less or cat, or open it up again and edit it.
 
 ***
 **Exercise**
 
-Open 'awesome.sh' and add "echo AWESOME!" after the grep command and save the file.
+Open `awesome.sh` and add `echo AWESOME\!` after the grep command and save the file.
 
 We're going to come back and use this file in just a bit.
 
 ***
 
-
 ## Running programs
 
-Commands like `ls`, `rm`, `echo`, and `cd` are just ordinary programs
-on the computer. A program is just a file that you can *execute*. The
-program `which` tells you the location of a particular program. For
-example:
+Commands like `ls`, `rm`, `echo`, and `cd` are just ordinary programs on the computer. A program is just a file that you can *execute*. The program `which` tells you the location of a particular program. For example:
 
-    which ls
+```
+which ls
+```
 
-Will return "/bin/ls". Thus, we can see that `ls` is a program that
-sits inside of the `/bin` directory. Now enter:
+Will return "/bin/ls". Thus, we can see that `ls` is a program that sits inside of the `/bin` directory. Now enter:
 
-    which find
+```
+which find
+```
 
-You will see that `find` is a program that sits inside of the
-`/usr/bin` directory.
+You will see that `find` is a program that sits inside of the `/usr/bin` directory.
 
-So ... when we enter a program name, like `ls`, and hit enter, how
-does the shell know where to look for that program? How does it know
-to run `/bin/ls` when we enter `ls`. The answer is that when we enter
-a program name and hit enter, there are a few standard places that the
-shell automatically looks. If it can't find the program in any of
-those places, it will print an error saying "command not found". Enter
-the command:
+So ... when we enter a program name, like `ls`, and hit enter, how does the shell know where to look for that program? How does it know to run `/bin/ls` when we enter `ls`. The answer is that when we enter a program name and hit enter, there are a few standard places that the shell automatically looks. If it can't find the program in any of those places, it will print an error saying "command not found". Enter the command:
 
-    echo $PATH
+```
+echo $PATH
+```
 
-This will print out the value of the `PATH` environment variable. More
-on environment variables later. Notice that a list of directories,
-separated by colon characters, is listed. These are the places the
-shell looks for programs to run. If your program is not in this list,
-then an error is printed. The shell ONLY checks in the places listed
-in the `PATH` environment variable.
+This will print out the value of the `PATH` environment variable. More on environment variables later. Notice that a list of directories, separated by colon characters, is listed. These are the places the shell looks for programs to run. If your program is not in this list, then an error is printed. The shell ONLY checks in the places listed in the `PATH` environment variable.
 
-Navigate to the `shell` directory and list the contents. You will
-notice that there is a program (executable file) called `hello.sh` in
-this directory. Now, try to run the program by entering:
+Navigate to the `shell` directory and list the contents. You will notice that there is a program (executable file) called `hello.sh` in this directory. Now, try to run the program by entering:
 
-    hello.sh
+```
+hello.sh
+```
 
-You should get an error saying that hello.sh cannot be found. That is
-because the directory `/home/username/edamame-data/shell` is not in the
-`PATH`. You can run the `hello.sh` program by entering:
+You should get an error saying that hello.sh cannot be found. That is because the directory `/home/username/edamame-data/shell` is not in the `PATH`. You can run the `hello.sh` program by entering:
 
-    ./hello.sh
+```
+./hello.sh
+```
 
-Remember that `.` is a shortcut for the current working
-directory. This tells the shell to run the `hello.sh` program which is
-located right here. So, you can run any program by entering the path
-to that program. You can run `hello.sh` equally well by specifying:
+Remember that `.` is a shortcut for the current working directory. This tells the shell to run the `hello.sh` program which is located right here. So, you can run any program by entering the path to that program. You can run `hello.sh` equally well by specifying:
 
-    /home/username/edamame-data/shell/hello.sh
+```
+/home/username/edamame-data/shell/hello.sh
+```
 
 Or by entering:
 
-    ~/edamame-data/shell/hello.sh
+```
+~/edamame-data/shell/hello.sh
+```
 
-When there are no `/` characters, the shell assumes you want to look
-in one of the default places for the program.
+When there are no `/` characters, the shell assumes you want to look in one of the default places for the program.
 
 ## Writing scripts
 
-We know how to write files and run scripts, so I bet you can guess where
-this is headed. We're going to run our own script!
+We know how to write files and run scripts, so I bet you can guess where this is headed. We're going to run our own script!
 
-Go in to the 'MiSeq' directory where we created 'awesome.sh' before. Remember we wrote our
-favorite grep command in there. Since we like it so much, we might want to run it
-again, or even all the time. Instead of writing it out every time, we can just run it as
-a script.
+Go in to the 'MiSeq' directory where we created 'awesome.sh' before. Remember we wrote our favorite grep command in there. Since we like it so much, we might want to run it again, or even all the time. Instead of writing it out every time, we can just run it as a script.
 
 It's a command, so we should just be able to run it. Give it try.
 
-    ./awesome.sh
+```
+./awesome.sh
+```
 
-Alas, we get `-bash: ./awesome.sh: Permission denied`. This is because we haven't told
-the computer that it's a program. To do that we have to make it 'executable'. We do this
-by changing its mode. The command for that is `chmod` - change mode. We're going to change the mode
-of this file, so that it's executable and the computer knows it's OK to run it as a program.
+Alas, we get `-bash: ./awesome.sh: Permission denied`. This is because we haven't told the computer that it's a program. To do that we have to make it 'executable'. We do this by changing its mode. The command for that is `chmod` - change mode. We're going to change the mode of this file, so that it's executable and the computer knows it's OK to run it as a program.
 
-    chmod +x awesome.sh
+```
+chmod +x awesome.sh
+```
 
-Now let's try running it again
+Now let's try running it again:
 
-    ./awesome.sh
+```
+./awesome.sh
+```
 
-Now you should have seen some output, and of course, it's AWESOME!
-Congratulations, you just created your first shell script! You're set to rule the world.
-
-
+Now you should have seen some output, and of course, it's AWESOME! Congratulations, you just created your first shell script! You're set to rule the world.
 
 # For Future Reference
 
 # Finding files
 
-The `find` program can be used to find files based on arbitrary
-criteria. Navigate to the `data` directory and enter the following
-command:
+The `find` program can be used to find files based on arbitrary criteria. Navigate to the `data` directory and enter the following command:
 
-    find . -print
+```
+find . -print
+```
 
-This prints the name of every file or directory, recursively, starting
-from the current directory. Let's exclude all of the directories:
+This prints the name of every file or directory, recursively, starting from the current directory. Let's exclude all of the directories:
 
-    find . -type f -print
+```
+find . -type f -print
+```
 
 This tells `find` to locate only files. Now try these commands:
 
-    find . -type f -name "*1*"
-    find . -type f -name "*1*" -or -name "*2*" -print
-    find . -type f -name "*1*" -and -name "*2*" -print
+```
+find . -type f -name "*1*"
+find . -type f -name "*1*" -or -name "*2*" -print
+find . -type f -name "*1*" -and -name "*2*" -print
+```
 
-The `find` command can acquire a list of files and perform some
-operation on each file. Try this command out:
+The `find` command can acquire a list of files and perform some operation on each file. Try this command out:
 
-    find . -type f -exec grep Volume {} \;
+```
+find . -type f -exec grep Volume {} \;
+```
 
-This command finds every file starting from `.`. Then it searches each
-file for a line which contains the word "Volume". The `{}` refers to
-the name of each file. The trailing `\;` is used to terminate the
-command.  This command is slow, because it is calling a new instance
-of `grep` for each item the `find` returns.
+This command finds every file starting from `.`. Then it searches each file for a line which contains the word "Volume". The `{}` refers to the name of each file. The trailing `\;` is used to terminate the command.  This command is slow, because it is calling a new instance of `grep` for each item the `find` returns.
 
 A faster way to do this is to use the `xargs` command:
 
-    find . -type f -print | xargs grep Volume
+```
+find . -type f -print | xargs grep Volume
+```
 
-`find` generates a list of all the files we are interested in,
-then we pipe them to `xargs`.  `xargs` takes the items given to it
-and passes them as arguments to `grep`.  `xargs` generally only creates
-a single instance of `grep` (or whatever program it is running).
+`find` generates a list of all the files we are interested in, then we pipe them to `xargs`.  `xargs` takes the items given to it and passes them as arguments to `grep`.  `xargs` generally only creates a single instance of `grep` (or whatever program it is running).
 
 
 
 ## Where can I learn more about the shell?
 
-- Software Carpentry tutorial - [The Unix shell](http://software-carpentry.org/v4/shell/index.html)
-- The shell handout - [Command Reference](http://files.fosswire.com/2007/08/fwunixref.pdf)
-- [explainshell.com](http://explainshell.com)
-- http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
-- man bash
-- Google - if you don't know how to do something, try Googling it. Other people
-have probably had the same question.
-- Learn by doing. There's no real other way to learn this than by trying it
-out.  Write your next paper in nano (really emacs or vi), open pdfs from
-the command line, automate something you don't really need to automate.
+* Software Carpentry tutorial - [The Unix shell](http://software-carpentry.org/v4/shell/index.html)
+* The shell handout - [Command Reference](http://files.fosswire.com/2007/08/fwunixref.pdf)
+* [explainshell.com](http://explainshell.com)
+* [Intro to Bash Programming](http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html)
+* man bash
+* Google - if you don't know how to do something, try Googling it. Other people have probably had the same question.
+* Learn by doing. There's no real other way to learn this than by trying it out.  Write your next paper in nano (really emacs or vi), open pdfs from the command line, automate something you don't really need to automate.
 
 
 ## Bonus:
