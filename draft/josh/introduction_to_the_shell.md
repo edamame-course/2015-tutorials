@@ -420,22 +420,22 @@ number `R1`, and ends with `fastq`. There are twenty such files which
 we would expect because we have 20 samples.
 
 So how does this actually work? Well...when the shell (bash) sees a
-word that contains the `*` character, it automatically looks for filenames
+word that contains the `\*` character, it automatically looks for filenames
 that match the given pattern. In this case, it identified four such
 files. Then, it replaced the `*R1*fastq` with the list of files, separated
 by spaces. In other words, the two commands:
 
-    ls *R1*fastq
-    ls F3D0_S188_L001_R1_001.fastq F3D141_S207_L001_R1_001.fastq (list the rest)
+```
+ls *R1*fastq
+ls F3D0_S188_L001_R1_001.fastq F3D141_S207_L001_R1_001.fastq (list the rest)
+```
 
-are exactly identical. The `ls` command cannot tell the difference
-between these two things.
+are exactly identical. The `ls` command cannot tell the difference between these two things.
 
-* * * *
+****
 **Short Exercise**
 
-Do each of the following using a single `ls` command without
-navigating to a different directory.
+Do each of the following using a single `ls` command without navigating to a different directory.
 
 1.  List all of the files in `/bin` that start with the letter 'c
 2.  List all of the files in `/bin` that contain the letter 'a'
@@ -443,292 +443,248 @@ navigating to a different directory.
 
 BONUS: List all of the files in '/bin' that contain the letter 'a' or 'c'
 
-* * * *
+****
 
 ### Tab Completion
 
-Navigate to the home directory. Typing out directory names can waste a
-lot of time. When you start typing out the name of a directory, then
-hit the tab key, the shell will try to fill in the rest of the
-directory name. For example, enter:
+Navigate to the home directory. Typing out directory names can waste a lot of time. When you start typing out the name of a directory, then hit the tab key, the shell will try to fill in the rest of the directory name. For example, enter:
 
-    cd e<tab>
+```
+cd e<tab>
+```
 
-The shell will fill in the rest of the directory name for
-`edamame-data`. Now go to edamame-data/shell/MiSeq
+The shell will fill in the rest of the directory name for `edamame-data`. Now go to edamame-data/shell/MiSeq
 
-    ls F3D<tab><tab>
+```
+ls F3D<tab><tab>
+```
 
-When you hit the first tab, nothing happens. The reason is that there
-are multiple directories in the home directory which start with
-`F3D`. Thus, the shell does not know which one to fill in. When you hit
-tab again, the shell will list the possible choices.
+When you hit the first tab, nothing happens. The reason is that there are multiple directories in the home directory which start with `F3D`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
 
-Tab completion can also fill in the names of programs. For example,
-enter `e<tab><tab>`. You will see the name of every program that
-starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you
-will see that tab completion works.
+Tab completion can also fill in the names of programs. For example, enter `e<tab><tab>`. You will see the name of every program that starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you will see that tab completion works.
 
 ## Command History
 
-You can easily access previous commands.  Hit the up arrow.
-Hit it again.  You can step backwards through your command history.
-The down arrow takes your forwards in the command history.
+You can easily access previous commands.  Hit the up arrow. Hit it again.  You can step backwards through your command history. The down arrow takes your forwards in the command history.
 
 ^-C will cancel the command you are writing, and give you a fresh prompt.
 
-^-R will do a reverse-search through your command history.  This
-is very useful.
+^-R will do a reverse-search through your command history.  This is very useful.
 
 You can also review your recent commands with the `history` command.  Just enter:
 
-    history
+```
+history
+```
 
-to see a numbered list of recent commands, including this just issues
-`history` command.  You can reuse one of these commands directly by
-referring to the number of that command.
+to see a numbered list of recent commands, including this just issues `history` command.  You can reuse one of these commands directly by referring to the number of that command.
 
 If your history looked like this:
 
-    259  ls *
-    260  ls /usr/bin/*.sh
-    261  ls *R1*fastq
+```
+259  ls *
+260  ls /usr/bin/*.sh
+261  ls *R1*fastq
+```
 
 then you could repeat command #260 by simply entering:
 
-    !260
+```
+!260
+```
 
-(that's an exclamation mark).
+(that's an exclamation mark by the way).
 
-* * * *
+****
 **Short Exercise**
 
 1. Find the line number in your history for the last exercise (listing
 files in /bin) and reissue that command.
 
-* * * *
-
-
+****
 
 ## Examining Files
 
-We now know how to switch directories, run programs, and look at the
-contents of directories, but how do we look at the contents of files?
+We now know how to switch directories, run programs, and look at the contents of directories, but how do we look at the contents of files?
 
-The easiest way to examine a file is to just print out all of the
-contents using the program `cat`. Enter the following command:
+The easiest way to examine a file is to just print out all of the contents using the program `cat`. Enter the following command:
 
-    cat F3D0_S188_L001_R1_001.fastq
+```
+cat F3D0_S188_L001_R1_001.fastq
+```
 
 This prints out the contents of the `F3D0_S188_L001_R1_001.fastq` file.
 
-* * * *
+****
 **Short Exercises**
 
-1.  Print out the contents of the `~/edamame-data/shell/MiSeq/stability.files`
-    file. What does this file contain?
+1.  Print out the contents of the `~/edamame-data/shell/MiSeq/stability.files` file. What does this file contain?
 
-2.  Without changing directories, (you should still be in `edamame-data`),
-    use one short command to print the contents of all of the files in
-    the `/home/username/edamame-data/shell/MiSeq` directory.
+2.  Without changing directories, (you should still be in `edamame-data`), use one short command to print the contents of all of the files in the `/home/username/edamame-data/shell/MiSeq` directory.
 
-* * * *
+****
 
-Make sure we're in the right place for the next set of the lessons. We
-want to be in the `shell` directory. Check if you're there with `pwd`
-and if not navigate there. One way to do that would be
+Make sure we're in the right place for the next set of the lessons. We want to be in the `shell` directory. Check if you're there with `pwd` and if not navigate there. One way to do that would be
 
-    cd ~/edamame-data/shell/MiSeq
+```
+cd ~/edamame-data/shell/MiSeq
+```
 
-`cat` is a terrific program, but when the file is really big, it can
-be annoying to use. The program, `less`, is useful for this
-case. Enter the following command:
+`cat` is a terrific program, but when the file is really big, it can be annoying to use. The program, `less`, is useful for this case. Enter the following command:
 
-    less F3D0_S188_L001_R1_001.fastq
+```
+less F3D0_S188_L001_R1_001.fastq
+```
 
-`less` opens the file, and lets you navigate through it. The commands
-are identical to the `man` program.
+`less` opens the file, and lets you navigate through it. The commands are identical to the `man` program.
 
-**Some commands in `less`**
 
-| key     | action |
-| ------- | ---------- |
-| "space" | to go forward |
-|  "b"    | to go backwarsd |
-|  "g"    | to go to the beginning |
-|  "G"    | to go to the end |
-|  "q"    | to quit |
+ | Some commands using `less` |                        |
+-|----------------------------|------------------------|-
+ | key                        | action                 |
+ | : ------- :                | : ---------- :         |
+ | "space"                    | to go forward          |
+ | "b"                        | to go backwarsd        |
+ | "g"                        | to go to the beginning |
+ | "G"                        | to go to the end       |
+ | "q"                        | to quit                |
 
-`less` also gives you a way of searching through files. Just hit the
-"/" key to begin a search. Enter the name of the word you would like
-to search for and hit enter. It will jump to the next location where
-that word is found. Try searching the `dictionary.txt` file for the
-word "cat". If you hit "/" then "enter", `less` will just repeat
-the previous search. `less` searches from the current location and
-works its way forward. If you are at the end of the file and search
-for the word "cat", `less` will not find it. You need to go to the
-beginning of the file and search.
+`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. Try searching the `dictionary.txt` file for the word "cat". If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
 
-For instance, let's search for the sequence `1101:14341` in our file.
-You can see that we go right to that sequence and can see
-what it looks like.
+For instance, let's search for the sequence `1101:14341` in our file. You can see that we go right to that sequence and can see what it looks like.
 
-Remember, the `man` program actually uses `less` internally and
-therefore uses the same commands, so you can search documentation
-using "/" as well!
+Remember, the `man` program actually uses `less` internally and therefore uses the same commands, so you can search documentation using "/" as well!
 
-There's another way that we can look at files, and in this case, just
-look at part of them. This can be particularly useful if we just want
-to see the beginning or end of the file, or see how it's formatted.
+There's another way that we can look at files, and in this case, just look at part of them. This can be particularly useful if we just want to see the beginning or end of the file, or see how it's formatted.
 
-The commands are `head` and `tail` and they just let you look at
-the beginning and end of a file respectively.
+The commands are `head` and `tail` and they just let you look at the beginning and end of a file respectively.
 
+```
 head F3D0_S188_L001_R1_001.fastq
 tail F3D0_S188_L001_R1_001.fastq
+```
 
-The `-n` option to either of these commands can be used to print the
-first or last `n` lines of a file. To print the first/last line of the
-file use:
+The `-n` option to either of these commands can be used to print the first or last `n` lines of a file. To print the first/last line of the file use:
 
+```
 head -n 1 F3D0_S188_L001_R1_001.fastq
 tail -n 1 F3D0_S188_L001_R1_001.fastq
-
+```
 
 ## Searching files
 
-We showed a little how to search within a file using `less`. We can also
-search within files without even opening them, using `grep`. Grep is a command-line
-utility for searching plain-text data sets for lines matching a string or regular expression.
-Let's give it a try!
+We showed a little how to search within a file using `less`. We can also search within files without even opening them, using `grep`. Grep is a command-line utility for searching plain-text data sets for lines matching a string or regular expression. Let's give it a try!
 
 Let's search for that sequence 1101:14341 in the F3D0_S188_L001_R1_001.fastq file.
 
-    grep 1101:14341 F3D0_S188_L001_R1_001.fastq
+```
+grep 1101:14341 F3D0_S188_L001_R1_001.fastq
+```
 
-We get back the whole line that had '1101:14341' in it. What if we wanted all
-four lines, the whole part of that FASTQ sequence, back instead.
+We get back the whole line that had '1101:14341' in it. What if we wanted all four lines, the whole part of that FASTQ sequence, back instead.
 
-    grep -A 3 1101:14341 F3D0_S188_L001_R1_001.fastq
+```
+grep -A 3 1101:14341 F3D0_S188_L001_R1_001.fastq
+```
 
-The `-A` flag stands for "after match" so it's returning the line that
-matches plus the three after it. The `-B` flag returns that number of lines
-before the match.
+The `-A` flag stands for "after match" so it's returning the line that matches plus the three after it. The `-B` flag returns that number of lines before the match.
 
+****
 ** Exercise **
 
-Search for the sequence 'TTATCCGGATTTATTGGGTTTAAAGGGT' in the
-F3D0_S188_L001_R1_001.fastq file and in the output have the
-sequence name and the sequence. e.g.
+Search for the sequence `TTATCCGGATTTATTGGGTTTAAAGGGT` in the `F3D0_S188_L001_R1_001.fastq` file and in the output have the sequence name and the sequence. e.g.
+
+```
 @M00967:43:000000000-A3JHG:1:2114:11799:28499 1:N:0:188
 TACGGAGGATGCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGTAGGCGGGATGCAG
+```
 
 Search for that sequence in all the FASTQ files.
+****
 
 ## Redirection
 
-We're excited we have all these sequences that we care about that we
-just got from the FASTQ files. That is a really important motif
-that is going to help us answer our important question. But all those
-sequences just went whizzing by with grep. How can we capture them?
+We're excited we have all these sequences that we care about that we just got from the FASTQ files. That is a really important motif that is going to help us answer our important question. But all those sequences just went whizzing by with grep. How can we capture them?
 
-We can do that with something called "redirection". The idea is that
-we're redirecting the output to the terminal (all the stuff that went
-whizzing by) to something else. In this case, we want to print it
-to a file, so that we can look at it later.
+We can do that with something called "redirection". The idea is that we're redirecting the output to the terminal (all the stuff that went whizzing by) to something else. In this case, we want to print it to a file, so that we can look at it later.
 
 The redirection command for putting something in a file is `>`
 
-Let's try it out and put all the sequences that contain 'TTATCCGGATTTATTGGGTTTAAAGGGT'
-from all the files in to another file called 'good-data.txt'
+Let's try it out and put all the sequences that contain 'TTATCCGGATTTATTGGGTTTAAAGGGT' from all the files in to another file called 'good-data.txt'
 
-    grep -B 2 TTATCCGGATTTATTGGGTTTAAAGGGT * > good-data.txt
+```
+grep -B 2 TTATCCGGATTTATTGGGTTTAAAGGGT * > good-data.txt
+```
 
-The prompt should sit there a little bit, and then it should look like nothing
-happened. But type `ls`. You should have a new file called good-data.txt. Take
-a look at it and see if it has what you think it should.
+The prompt should sit there a little bit, and then it should look like nothing happened. But type `ls`. You should have a new file called good-data.txt. Take a look at it and see if it has what you think it should.
 
-There's one more useful redirection command that we're going to show, and that's
-called the pipe command, and it is `|`. It's probably not a key on
-your keyboard you use very much. What `|` does is take the output that
-scrolling by on the terminal and then can run it through another command.
-When it was all whizzing by before, we wished we could just slow it down and
-look at it, like we can with `less`. Well it turns out that we can! We pipe
-the `grep` command through `less`
+There's one more useful redirection command that we're going to show, and that's called the pipe command, and it is `|`. It's probably not a key on your keyboard you use very much. What `|` does is take the output that scrolling by on the terminal and then can run it through another command. When it was all whizzing by before, we wished we could just slow it down and look at it, like we can with `less`. Well it turns out that we can! We pipe the `grep` command through `less`.
 
-    grep TTATCCGGATTTATTGGGTTTAAAGGGT * | less
+```
+grep TTATCCGGATTTATTGGGTTTAAAGGGT * | less
+```
 
 Now we can use the arrows to scroll up and down and use `q` to get out.
 
-We can also do something tricky and use the command `wc`. `wc` stands for
-`word count`. It counts the number of lines or characters. So, we can use
-it to count the number of lines we're getting back from our `grep` command.
-And that will magically tell us how many sequences we're finding. We're
+We can also do something tricky and use the command `wc`. `wc` stands for `word count`. It counts the number of lines or characters. So, we can use it to count the number of lines we're getting back from our `grep` command. And that will magically tell us how many sequences we're finding. We're
 
-    grep TTATCCGGATTTATTGGGTTTAAAGGGT * | wc
+```
+grep TTATCCGGATTTATTGGGTTTAAAGGGT * | wc
+```
 
-That tells us the number of lines, words and characters in the file. If we
-just want the number of lines, we can use the `-l` flag for `lines`.
+That tells us the number of lines, words and characters in the file. If we just want the number of lines, we can use the `-l` flag for `lines`.
 
-    grep TTATCCGGATTTATTGGGTTTAAAGGGT * | wc -l
+```
+grep TTATCCGGATTTATTGGGTTTAAAGGGT * | wc -l
+```
 
-Redirecting is not super intuitive, but it's really powerful for stringing
-together these different commands, so you can do whatever you need to do.
+Redirecting is not super intuitive, but it's really powerful for stringing together these different commands, so you can do whatever you need to do.
 
-The philosophy behind these command line programs is that none of them
-really do anything all that impressive. BUT when you start chaining
-them together, you can do some really powerful things really
-efficiently. If you want to be proficient at using the shell, you must
-learn to become proficient with the pipe and redirection operators:
-`|`, `>`, `>>`.
+The philosophy behind these command line programs is that none of them really do anything all that impressive. BUT when you start chaining them together, you can do some really powerful things really efficiently. If you want to be proficient at using the shell, you must learn to become proficient with the pipe and redirection operators: `|`, `>`, `>>`.
 
 ## Creating, moving, copying, and removing
 
-Now we can move around in the file structure, look at files, search files,
-redirect. But what if we want to do normal things like copy files or move
-them around or get rid of them. Sure we could do most of these things
-without the command line, but what fun would that be?! Besides it's often
-faster to do it at the command line, or you'll be on a remote server
-like Amazon where you won't have another option.
+Now we can move around in the file structure, look at files, search files, redirect. But what if we want to do normal things like copy files or move them around or get rid of them. Sure we could do most of these things without the command line, but what fun would that be?! Besides it's often faster to do it at the command line, or you'll be on a remote server like Amazon where you won't have another option.
 
-The stability.files file is one that tells us what sample name
-goes with what sequences. This is a really important file, so
-we want to make a copy so we don't lose it.
+The stability.files file is one that tells us what sample name goes with what sequences. This is a really important file, so we want to make a copy so we don't lose it.
 
-Lets copy the file using the `cp` command. The `cp`
-command backs up the file. Navigate to the `data` directory and enter:
+Lets copy the file using the `cp` command. The `cp` command backs up the file. Navigate to the `data` directory and enter:
 
-    cp stability.files stability.files_backup
+```
+cp stability.files stability.files_backup
+```
 
 Now `stability.files_backup` has been created as a copy of `stability.files`.
 
 Let's make a `backup` directory where we can put this file.
 
-The `mkdir` command is used to make a directory. Just enter `mkdir`
-followed by a space, then the directory name.
+The `mkdir` command is used to make a directory. Just enter `mkdir` followed by a space, then the directory name.
 
-    mkdir backup
+```
+mkdir backup
+```
 
-We can now move our backed up file in to this directory. We can
-move files around using the command `mv`. Enter this command:
+We can now move our backed up file in to this directory. We can move files around using the command `mv`. Enter this command:
 
-    mv stability.files_backup backup/
+```
+mv stability.files_backup backup/
+```
 
-This moves `stability.files_backup` into the directory `backup/` or
-the full path would be `~/edamame-data/shell/MiSeq/backup`
+This moves `stability.files_backup` into the directory `backup/` or the full path would be `~/edamame-data/shell/MiSeq/backup`
 
-The `mv` command is also how you rename files. Since this file is so
-important, let's rename it:
+The `mv` command is also how you rename files. Since this file is so important, let's rename it:
 
-    mv stability.files stability.files_IMPORTANT
+```
+mv stability.files stability.files_IMPORTANT
+```
 
-Now the file name has been changed to stability.files_IMPORTANT. Let's delete
-the backup file now:
+Now the file name has been changed to stability.files_IMPORTANT. Let's delete the backup file now:
 
-    rm backup/stability.files_backup
+```
+rm backup/stability.files_backup
+```
 
-The `rm` file removes the file. Be careful with this command. It doesn't
-just nicely put the files in the Trash. They're really gone.
+The `rm` file removes the file. Be careful with this command. It doesn't just nicely put the files in the Trash. They're really gone.
 
 
 ****
