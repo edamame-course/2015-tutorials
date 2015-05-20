@@ -37,5 +37,5 @@ Now that we've eliminated many more erroneous k-mers from the dataset, let's dit
 We will first normalize the reads:
 
 ```
-normalize-by-median.py -C 5 --savetable normC5k20.kh --loadtable normC5k20.kh *.fastq.gz.keep.abundfilt
+normalize-by-median.py -C 5 --savetable normC5k20.kh *.fastq.gz.keep.abundfilt
 ```
