@@ -117,9 +117,12 @@ ls
 
 In there, all mixed up together are files and directories/folders. If we want to
 know which is which, we can type:
-    ls -F
+```
+ls -F
+```
+
 Anything with a "/" after it is a directory.
-Things with a "*" after them are programs.
+Things with a "\*" after them are programs.
 It there's nothing there it's a file.
 
 You can also use the command `ls -l` to see whether items in a
@@ -169,17 +172,25 @@ you are on one of the branches of that tree, your home directory (/home/username
 
 Now let's go do that same navigation at the command line.
 
-Type
-    cd
-This put's you in your home directory. This folder here.
+Let's type:
 
-Now using `cd` and `ls`, go in to the 'shell' directory and list its contents.
+```
+cd
+```
+
+This put's you in your home directory. This folder here that you are already in.
+
+Now let's use `cd` and `ls`, go in to the 'shell' directory and list its contents.
 
 Let's also check to see where we are. Sometimes when we're wandering around
 in the file system, it's easy to lose track of where we are and get lost.
 
-If you want to know what directory you're currently in, type
-    pwd
+If you want to know what directory you're currently in, type:
+
+```
+pwd
+```
+
 This stands for 'print working directory'. The directory you're currently
 working in.
 
@@ -188,8 +199,11 @@ type 'edamame-data'? Try it and see what happens.
 
 To go 'back up a level' we need to use `..`
 
-Type
-    cd ..
+Type:
+
+```
+cd ..
+```
 
 Now do `ls` and `pwd`. See now that we went back up in to the 'edamame'
 directory. `..` just means go back up a level.
@@ -211,44 +225,39 @@ know what the options are to particular commands?
 Most commonly used shell programs have a manual. You can access the
 manual using the `man` program. Try entering:
 
-    man ls
+```
+man ls
+```
 
-This will open the manual page for `ls`. Use the space key to go
-forward and b to go backwards. When you are done reading, just hit `q`
-to quit.
+This will open the manual page for `ls`. Use the space key to go forward and b to go backwards. When you are done reading, just hit `q` to quit.
 
-Programs that are run from the shell can get extremely complicated. To
-see an example, open up the manual page for the `find` program.
-No one can possibly learn all of
-these arguments, of course. So you will probably find yourself
-referring back to the manual page frequently.
-
-
+Programs that are run from the shell can get extremely complicated. To see an example, open up the manual page for the `find` program. No one can possibly learn all of these arguments, of course. So you will probably find yourself referring back to the manual page frequently.
 
 ## Examining the contents of other directories
 
-By default, the `ls` commands lists the contents of the working
-directory (i.e. the directory you are in). You can always find the
-directory you are in using the `pwd` command. However, you can also
-give `ls` the names of other directories to view. Navigate to the
-home directory if you are not already there.
+By default, the `ls` commands lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the `pwd` command. However, you can also give `ls` the names of other directories to view. Navigate to the home directory if you are not already there.
 
 Type:
 
-    cd
+```
+cd
+```
 
 Then enter the command:
 
-    ls edamame-data
+```
+ls edamame-data
+```
 
 This will list the contents of the `edamame-data` directory without
 you having to navigate there.
 
-
 The `cd` command works in a similar way. Try entering:
 
-    cd
-    cd edamame-data/shell/hidden
+```
+cd
+cd edamame-data/shell/hidden
+```
 
 and you will jump directly to `hidden` without having to go through
 the intermediate directory.
@@ -268,7 +277,9 @@ hierarchy. The full path tells you where a directory is in that
 hierarchy. Navigate to the home directory. Now, enter the `pwd`
 command and you should see:
 
-    /home/username
+```
+/home/username
+```
 
 which is the full name of your home directory. This tells you that you
 are in a directory called `username`, which sits inside a directory called
@@ -279,12 +290,16 @@ directory in `home` which is a directory in `/`.
 
 Now enter the following command:
 
-    cd /home/username/edamame-data/shell/hidden
+```
+cd /home/username/edamame-data/shell/hidden
+```
 
 This jumps to `hidden`. Now go back to the home directory (cd). We saw
 earlier that the command:
 
-    cd edamame-data/shell/hidden
+```
+cd edamame-data/shell/hidden
+```
 
 had the same effect - it took us to the `hidden` directory. But,
 instead of specifying the full path
