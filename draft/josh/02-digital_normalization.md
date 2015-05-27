@@ -29,7 +29,7 @@ filter-abund.py -V normC20k20.kh *.keep
 
 The output from this step produces files ending in `.abundfilt` that contain the trimmed sequences.
 
-If you read the manual, you see that the `-V` option is used to make this work better for variable coverage data sets, such as those you would find in metagenomic sequencing.  If you're using this tool for genome sequencing, you wouldn't use the `-V` flag.
+If you read the manual, you see that the `-V` option is used to make this work better for variable coverage data sets, such as those you would find in metagenomic sequencing.  If you're using this tool for a genome sequencing project, you wouldn't use the `-V` flag.
 
 # Normalize down to a coverage of five
 Now that we've eliminated many more erroneous k-mers from the dataset, let's ditch some more high-coverage data.
@@ -39,3 +39,11 @@ We will first normalize the reads:
 ```
 normalize-by-median.py -C 5 --savetable normC5k20.kh *.fastq.gz.keep.abundfilt
 ```
+
+Now, we'll have a file (or list of files if you're using your own data) which will have the name: `{your-file}.fastq.gz.keep.abundfilt.keep`.  We're going to check the file integrity to make sure it's not faulty and we're going to clean up the names.
+
+Let's rename your files:
+```
+mv {your-file}.fastq.gz.keep.abundfilt.keep {your-file}_single.fastq.gz  
+```
+These files will be used in the next section where we assemble your metagenomic reads.
