@@ -25,3 +25,11 @@ Each assembler program takes data input in slightly different formats.  Velvet i
 Since we're going to use megahit, which takes single-end reads (in this case we have disregarded the paired-end metagenomic data and combined the paired reads into a single file -- yes, this throws out some of the information you get from having paired reads), we want our data in a single file as the input.  We've been running our data as single end from the start, but you should know that if you have paired end data and you want to utilize the information from the pairs you'll have to plan accordingly.
 
 ## Running megahit
+
+First read the [megahit manual here](https://github.com/voutcn/megahit).  The paper can be found here: [Li et al. 2015 MEGAHIT: an ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph](http://bioinformatics.oxfordjournals.org/content/31/10/1674.abstract).
+
+We're going to run this code:
+
+```
+megahit -m 0.9 -l 500 --cpu-only -r pooled_trim.fastq.keep.abundfilt.keep -o megahit_assembly
+```
