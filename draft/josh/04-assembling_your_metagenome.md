@@ -28,8 +28,18 @@ Since we're going to use megahit, which takes single-end reads (in this case we 
 
 First read the [megahit manual here](https://github.com/voutcn/megahit).  The paper can be found here: [Li et al. 2015 MEGAHIT: an ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph](http://bioinformatics.oxfordjournals.org/content/31/10/1674.abstract).
 
-We're going to run this code:
+You'll want to read the (minimal) manual first, but we're going to use a couple of flags:
+  1. We have to set the memory you will use in the analysis, I suggest for our case to use `-m 0.9` which means we'll use 90% of the available CPU memory.  You don't want to use 100% or your computer will not be able to run essential operations.
+  2. Megahit requires us to set the length of the reads that will be ignored.  Just to be safe I have used `-l 500` here, but change it and see if it changes your assembly.  I would not go below your average read length.
+
+Taking that into consideration, we're going to run this code:
 
 ```
 megahit -m 0.9 -l 500 --cpu-only -r pooled_trim.fastq.keep.abundfilt.keep -o megahit_assembly
+```
+
+You should see something similar to the following output:
+
+```
+output
 ```
