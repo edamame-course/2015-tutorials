@@ -60,7 +60,7 @@ MEGAHIT v0.2.1-beta
 [Thu Jun  25 10:23:02 2015] Extracting iterative edges from k = 51 to 61
 ```
 
-...and at the end you'll see something like this:
+...and this is going to run for a while (perhaps until a k of 91 or greater) and eventually at the end you'll see something like this:
 
 ```
 [Thu Jun  25 18:43:16 2015] Merging to output final contigs.
@@ -95,4 +95,18 @@ Maximum length: 234281
 
 This tells us that we have 58510 contigs, more than half of our assembly is represented by contigs larger than 5464 bases, and that our average contig size is 1482 bases.  Our assembly is a total of 234281 bases.  There may be some odd terminology in some of the log file, [see this wiki for more information on terminology arising from the Celera Assembler](http://wgs-assembler.sourceforge.net/wiki/index.php/Celera_Assembler_Terminology) (the first assembly program designed for the Human Genome Project)
 
-I'm sure you're wondering just how much of our input sequencing actually assembled here?  Well, we have to run some stats on our original input files.  Let's use the handy [fastx-toolkit](http://hannonlab.cshl.edu/fastx_toolkit/), which is already installed on the EDAMAME ami.
+I'm sure you're wondering just how much of our input sequencing actually assembled here?  Well, we have to run some stats on our original input files.  Let's use the handy [fastx-toolkit](http://hannonlab.cshl.edu/fastx_toolkit/), which is already installed on the EDAMAME ami.  
+
+Let's get some more stats on our assembly:
+
+```
+fastx_quality_stats -i pooled_trim.fastq.keep.abundfilt.keep > trimmed_data.txt
+
+fastx_quality_stats -i ./megahit_assembly/final.contigs.fa > assembly.txt
+```
+
+You can print this to screen, but we'll send it to two files which will be tab-separated values files of some statistics of our files.
+
+You should keep in mind that the total dataset we started with consisted of 4.9854 x 10e9 bases of data, which means we only assembled 5.74% of our total reads.  This is not a bad number, but it will give you an idea of what you are up against.
+
+Next, we'll try to focus in on a few of our contigs to see if we can "stitch" them together into real genomes.
