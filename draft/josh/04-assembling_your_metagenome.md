@@ -12,7 +12,7 @@ tags: []
 
 Ok, so we've just spent a little while quality checking, quality trimming, normalizing, and (possibly, but probably not) partitioning and it's time to get some results -- we're going to assemble our reads into longer contigs and (hopefully!) entire bacterial and archaeal genomes
 
-**Disclaimer:** Assembling metagenomes is really difficult and fraught with confounding issues.  It was only a few years ago that this was first done for a very simple community that [resulted in a paper in Science](http://www.sciencemag.org/content/335/6068/587.abstract)).  You're entering treacherous territory and there will be a lot of time spent assessing your output each step of the way.  
+**Disclaimer:** Assembling metagenomes is really difficult and fraught with confounding issues.  It was only a few years ago that this was first done for a very simple community that [resulted in a paper in Science](http://www.sciencemag.org/content/335/6068/587.abstract)).  You're entering treacherous territory and there will be a lot of time spent assessing your output each step of the way, along with a ton of waiting and re-running things! Enjoy!
 
 First, there are many, many options for assembling metagenomic data.  Most assemblers ([Velvet](http://www.ebi.ac.uk/~zerbino/velvet/), [IDBA](https://code.google.com/p/hku-idba/), [SPAdes](http://bioinf.spbau.ru/spades/)) that work well on genomic data can just as easily be used for metagenomic data, but since they were designed for use on single organisms, they might not be the best choice when you have many (to potentially thousands of) organisms which share genomic signatures.  It's difficult enough to get a good genome assembly from a pure culture of a single organism -- let alone many organisms not sequenced to the depth you need.
 
@@ -67,6 +67,8 @@ MEGAHIT v0.2.1-beta
 [Thu Jun  25 18:43:18 2015] ALL DONE.
 ```
 
+## Assembly Assessment
+
 So, now we want to take a look at our assembly and see how it "looks".  We'll navigate into the folder we named (`megahit_assembly`) as the output by typing `cd megahit-assembly` and then `ls -lah` the contents of the folder.  You should see something like this:
 
 ```
@@ -91,6 +93,6 @@ Total length: 86752217, N50: 5464, Mean: 1482, number of contigs: 58510
 Maximum length: 234281
 ```
 
-This tells us that we have 58510 contigs, more than half of our assembly is represented by contigs larger than 5464 bases, and that our average contig size is 1482 bases.  Our assembly is a total of 234281 bases.
+This tells us that we have 58510 contigs, more than half of our assembly is represented by contigs larger than 5464 bases, and that our average contig size is 1482 bases.  Our assembly is a total of 234281 bases.  There may be some odd terminology in some of the log file, [see this wiki for more information on terminology arising from the Celera Assembler](http://wgs-assembler.sourceforge.net/wiki/index.php/Celera_Assembler_Terminology) (the first assembly program designed for the Human Genome Project)
 
 I'm sure you're wondering just how much of our input sequencing actually assembled here?  Well, we have to run some stats on our original input files.  Let's use the handy [fastx-toolkit](http://hannonlab.cshl.edu/fastx_toolkit/), which is already installed on the EDAMAME ami.
