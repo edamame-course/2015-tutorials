@@ -28,7 +28,7 @@ Navigate into the new rdp_assigned_taxonomy directory and inspect the head of th
 head cdhit_rep_seqs_tax_assignments.txt
 ```
 
-![img11](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial2_IMG/IMG_11.jpg)
+![img11](../img/taxonomy.jpg)
 
 This assignment file is used anytime an OTU ID (the number) needs to be linked with its taxonomic assignment.
 *Note* that this list of OTUs and taxonomic assignments includes our "failed-to-align" representative sequences.  We will remove these at the next step.
