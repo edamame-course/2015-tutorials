@@ -101,7 +101,7 @@ This creates a new file called "list.txt", in which all instances of the charact
 head list.txt
 ```
 
-![img3](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_03.jpg)  
+![img3](../img/list.jpg)  
 
 Our positive control worked, and we should be convinced and joyous that we executed `grep` correctly AND that the primers were trimmed by PANDAseq.  We can now remove the list file.
 
@@ -148,7 +148,7 @@ Let's spend few moments getting to know the mapping file:
 more Centralia_full_map_corrected.txt
 ```
 
-[image of updated mapping file screen shot goes here]
+![img5](../img/mapping_file.jpg)
 
 A clear and comprehensive mapping file should contain all of the information that will be used in downstream analyses.  The mapping file includes both categorical (qualitative) and numeric (quantitative) contextual information about a sample. This could include, for example, information about the subject (sex, weight), the experimental treatment, time or spatial location, and all other measured variables (e.g., pH, oxygen, glucose levels). Creating a clear mapping file will provide direction as to appropriate analyses needed to test hypotheses.  Basically, all information for all anticipated analyses should be in the mapping file.
 
@@ -177,7 +177,7 @@ This script creates a new directory called "combined_fasta."  Use `cd` and `ls` 
 head combined_seqs.fna
 ```
 
-![img6](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_06.jpg)  
+![img6](../img/combined_seqs.fna.jpg)  
 
 
 Observe that QIIME has added the SampleIDs from the mapping file to the start of each sequence.  This allows QIIME to quickly link each sequence to its sampleID and metadata.
@@ -230,7 +230,7 @@ In the above script:
 
 Inspect the log and the resulting combined_seqs_otus.txt file, using `head`.  You should see an OTU ID (yellow box), starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
 
-![img7](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_07.jpg)
+![img7](../img/combined_seqs_otus.jpg)
 
 From the head of the combined_seqs_otus.txt file, we can see that OTU 0 has many sequence associated with it, including sequence 9757 from from sample F3D8.S196. We also see that OTU 3 only has one sequence associated with it. The log file has goodies about the algorithm and options chosen.  Keep this (and all) log file, because when you are writing the paper you may not remember what version of which clustering algorithm you used.
 
@@ -241,13 +241,14 @@ Representative sequences are those that will be aligned and used to build a tree
 
 ```
 pick_open_reference_otus.py -i ./C01.05102014.R1.D01.fasta,C01.05102014.R1.D02.fasta,C01.05102014.R1.D03.fasta,C02.05102014.R1.D01.fasta,C02.05102014.R1.D02.fasta,C02.05102014.R1.D03.fasta,C03.05102014.R1.D01.fasta,C03.05102014.R1.D02.fasta,C03.05102014.R1.D03.fasta,C04.05102014.R1.D01.fasta,C04.05102014.R1.D02.fasta,C04.05102014.R1.D03.fasta,C05.05102014.R1.D01.fasta,C05.05102014.R1.D02.fasta,C05.05102014.R1.D03.fasta,C06.05102014.R1.D01.fasta,C06.05102014.R1.D02.fasta,C06.05102014.R1.D03.fasta,C07.05102014.R1.D01.fasta,C07.05102014.R1.D02.fasta,C07.05102014.R1.D03.fasta,C08.05102014.R1.D01.fasta,C08.05102014.R1.D02.fasta,C08.05102014.R1.D03.fasta,C09.05102014.R2.D04.fasta,C09.05102014.R2.D05.fasta,C09.05102014.R2.D06.fasta,C10.05102014.R1.D01.fasta,C10.05102014.R1.D02.fasta,C10.05102014.R1.D03.fasta,C11.06102014.R1.D01.fasta,C11.06102014.R1.D02.fasta,C11.06102014.R1.D03.fasta,C12.06102014.R2.D01.fasta,C12.06102014.R2.D02.fasta,C12.06102014.R2.D03.fasta,C13.06102014.R2.D10.fasta,C13.06102014.R2.D11.fasta,C13.06102014.R2.D12.fasta,C14.06102014.R1.D01.fasta,C14.06102014.R1.D02.fasta,C14.06102014.R1.D03.fasta,C15.06102014.R2.D01.fasta,C15.06102014.R2.D02.fasta,C15.06102014.R2.D03.fasta,C16.06102014.R1.D01.fasta,C16.06102014.R1.D02.fasta,C16.06102014.R1.D03.fasta,C17.06102014.R1.D01.fasta,C17.06102014.R1.D02.fasta,C17.06102014.R1.D03.fasta,C18.06102014.RE1.D04.fasta,C18.06102014.RE1.D05.fasta,C18.06102014.RE1.D06.fasta -o usearch61_openref_prefilter0_90/ -m usearch61 -f
+
 ```
 
 As before, we specify the input files (the script needs the OTU clusters and the raw sequence file as input), and then we additionally specified the a new directory for the results.
 Inspect the head of the new fasta file, cdhit_rep_seqs.fasta.
 
 
-![img8](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_08.jpg)
+![img8](../img/rep_seqs.jpg)
 
 As before, we see the OTU ID given first (consecutively, starting with 0), and then the sequence ID of the representative sequence, and then the full nucleotide information for the sequence. Notice that for OTU 0, which only had one sequence in its "cluster", is defined by that one sequence.  Don't be shy - go ahead and compare it to the combined_seqs_otus.txt file of OTU clusters.
 
