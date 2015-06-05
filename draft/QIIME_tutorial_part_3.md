@@ -83,7 +83,7 @@ cd plotting_PCoA2d_even4708_wu/
 open _2D_PCoA_plots.html
 ```
 
-![img19](../img/pcoa_2D.jpg)
+![img19](../img/pcoa_2D.png)
 
 This is where  a comprehensive mapping file is priceless because any values or categories reported in the mapping file will be automatically color-coded for data exploration.  In the example above, there is an obvious difference in the community structure of the gut microbiota of the F3 mouse over time (using).
 
