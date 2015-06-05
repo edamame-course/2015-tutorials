@@ -44,7 +44,7 @@ biom summarize_table -i usearch61_openref_prefilter0_90/otu_table_mc2_w_tax.biom
 
 The summary file contains information about the number of sequences per sample, which will help us to make decisions about rarefaction (subsampling).  When we inspect the file, we see that sample F3D142.S208 has 2212 reads, the minimum observed.  This is what we will use as a subsampling depth.  Also, a lot of the info in this file is typically reported in methods sections of manuscripts.
 
-![img13](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial2_IMG/IMG_13.jpg)
+![img13](../img/summary_table.jpg)
 
 
 ### 3.3 Make a phylogenetic tree
@@ -90,8 +90,7 @@ We append _even2998 to the end of the table to distinguish it from the full tabl
 ```
 biom summarize_table -i Subsampling_otu_table_even2998.biom -o summary_Subsampling_otu_table_even2998.txt
 ```
-##[screenshot]
-
+![img14](../img/summary_rarefaction.jpg)
 Our "clean" dataset has 19 samples and 858 OTUs defined at 97% sequence identity.
 
 There is a [recent paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531) that suggests that even subsampling is not necessary, but this is very actively debated.
@@ -139,7 +138,6 @@ When the script is finished, navigate into the results file, and into the "taxa_
 open area_charts.html
 ```
 
-##[screenshot]
 
 To view the HTML files, the EC2 users will need to execute the following command:
 
@@ -154,6 +152,7 @@ The links above and below the charts point to the raw data or other summaries.  
 ```
 open bar_charts.html
 ```
+##[screenshot]
 
 As you are navigating to these html files, notice that the script has produced an OTU/biom table for every taxonomic level (designated by the "L").  The "L" stands for "lineage", and each "level" is designated by a number.  L1 is Domain, L2 is Phylum, L3 is Class, etc.  The more resolved the lineage (higher number), the less accurate the definition (e.g., L6 is not entirely and consistently the same as  "genus").
 
