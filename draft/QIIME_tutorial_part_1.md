@@ -9,10 +9,6 @@ date: 2015-04-15
 
 ##Getting started
 
-####Our data
-[brief description of Centralia data goes here]
-
-
 ####Subsampling
   We have 54 samples with 200,000 reads each. In order to efficiently process these data, we had to subsample them to 5,000 reads per sample. We already did this for you, but let's practice subsampling on this smaller dataset so that you know how to do it.
   
@@ -26,10 +22,8 @@ sudo cp seqtk /usr/local/bin
  ```
  Now that we've installed Seqtk, we'll run this code to randomly pick 500 reads from each of our samples:
 ``` 
-Seqtk sample –s100 [filename].fastq 500 > [outputfilename].fasta
+Seqtk sample –s100 C01D01F.fastq 500 > C01D01F_sub500.fastq
 ```
-
-  [explanation of subsampling code goes here]
   
 
 ###Assembling Illumina paired-end sequences
@@ -80,7 +74,7 @@ cd pandaseq_merged_reads
 head C01D01_merged.fasta
 ```
 
-![img2](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_02.jpg)  
+![img2](https://github.com/edamame-course/2015-tutorials/img/panda_seq.jpg)  
 
 ```
 grep  C01D01_merged.fasta
