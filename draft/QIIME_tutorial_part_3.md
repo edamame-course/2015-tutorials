@@ -12,7 +12,7 @@ date: 2014-08-14 12:44:36
 ## 4.1 Make resemblance matrices to analyze comparative (beta) diversity
 Make sure that you are in the QIIMETutorial directory.  
 
-If you need the Subsampling_otu_table_even2998.biom file from Parts 1 and 2
+If you need the Subsampling_otu_table_even4708.biom file from Parts 1 and 2
 of the tutorial you can download it here:
 
 [Subsampling_otu_table_even2998.biom] 
@@ -29,17 +29,13 @@ beta_diversity.py -s
 To compare weighted/uweighted and phylogenetic/taxonomic metrics, we will ask QIIME to create four resemblance matrices of all of these different flavors.
 
 ```
-beta_diversity.py -i Subsampling_otu_table_even2998.biom -m 
-
-unweighted_unifrac,weighted_unifrac,binary_sorensen_dice,bray_curtis -o beta_div_even2998/ -t 
-
-usearch61_openref_prefilter0_90/rep_set.tre
+beta_diversity.py -i Subsampling_otu_table_even4708.biom -m unweighted_unifrac,weighted_unifrac,binary_sorensen_dice,bray_curtis -o beta_div_even4708/ -t usearch61_openref_prefilter0_90/rep_set.tre
 ```
 
 There should be four new resemblance matrices in the new directory.  We're going to get all crazy and open these outside of the terminal. Use Excel to inspect them, and to compare their values.  This should be a square matrix, and the upper and lower triangles should be mirror-images.  The diagonal should be zero.
 
 ```
-cd beta_div_even2212
+cd beta_div_even4708
 ```
 
 Pop quiz:  Why is the diagonal zero?
@@ -51,7 +47,7 @@ QIIME scripts can easily make an ordination using principal components analysis 
 
 
 ```
-principal_coordinates.py -i beta_div_even73419/ -o beta_div_even73419_PCoA/
+principal_coordinates.py -i beta_div_even4708/ -o beta_div_even4708_PCoA/
 ```
 
 Notice that the `-i` command only specifies the directory, and not an individual filepath.  PCoA will be performed on all resemblances in that directory.  If we navigate into the new directory, we see there is one results file for each input resemblence matrix.
@@ -61,7 +57,7 @@ Notice that the `-i` command only specifies the directory, and not an individual
 Inspect the one of these files using nano.
 
 ```
-nano pcoa_weighted_unifrac_Schloss_otu_table_even2212.txt
+nano pcoa_weighted_unifrac_Subsampling_otu_table_even4708.txt
 ```
 
 ##[screenshot]
@@ -75,16 +71,12 @@ Navigate back into the QIIMETutorial directory.
 We can make 2d plots of the output of `principal_coordinates.py`, and map the colors to the categories in the mapping file.
 
 ```
-make_2d_plots.py -i 
-
-beta_div_even2998_PCoA/pcoa_weighted_unifrac_Subsampling_otu_table_even2998.txt -m 
-
-Cen_simple_mapping_corrected.txt -o PCoA_2D_plot/
+make_2d_plots.py -i beta_div_even4708_PCoA/pcoa_weighted_unifrac_Subsampling_otu_table_even4708.txt -m Centralia_full_map_corrected.txt -o PCoA_2D_plot/
 ```
 
 Navigate into the new directory and open the html link.
 ```
-cd plotting_PCoA2d_even2212_wu/
+cd plotting_PCoA2d_even4708_wu/
 ```
 
 ```
@@ -103,14 +95,22 @@ Make 2D plots for each PCoA analysis from each of the four difference resemblanc
 [The Ordination Web Page](http://ordination.okstate.edu/) is a great resource about all the different flavors of ordination.
 
 ### 4.3  Other visualizations in QIIME
+We can make a non-metric multidimensional scaling (NMDS) plot:
+
+```
+mkdir MNS_Plot
+nmds.py -i beta_div_even4708/bray_curtis_Subsampling_otu_table_even4708.txt -o NMS_Plot/BC_coords.txt
+```
+##screenshot
+
 We can also make a quick heatmap in QIIME, which shows the number of sequences per sample relative to one another.
 
 ```
-make_otu_heatmap_html.py -i Schloss_otu_table_even2212.biom -o heatmap/
+make_otu_heatmap_html.py -i Subsampling_otu_table_even4708.biom -o heatmap/
 ```
 
 ```
-open Schloss_otu_table_even2212.html
+open Subsampling_otu_table_even4708.html
 ```
 
 Explore this visualization.  You can filter the minimum number of OTUs, filter by sample ID, or by OTU ID.  
@@ -123,10 +123,10 @@ QIIME visualizations are currently being re-vamped by the developers.  In the ne
 This command changes frequently, as the biom format is a work in progress.  Use `biom convert -h` to find the most up-to-date arguments and options; the web page is not updated as frequently as the help file.
 
 ```
-biom convert -b -i Schloss_otu_table_even2212.biom -o Schloss_otu_table_even2212.txt --table-type otu  --header-key taxonomy --output-metadata-id "ConsensusLineage"
-```
+mkdir biom_converted_even4708
+biom convert -i Subsampling_otu_table_even4708.biom -o biom_converted_even4708/table.from_biom.txt --table-type "OTU table" --to-tsv
 
-Here, we use the argument `-b` to specify that we are converting a biom-formatted table to a "classic" otu table.  We specify input and output files with `-i` and `-o`, as always.  We also provide the `--table-type` arugment to "otu."  Finally, we specify that we want our OTU table to have the taxonomy assigned to each OTU as the last column in the table (` --header-key` set to "taxonomy") and that the name of this column, `--output-metadata-id`, will be the "ConsensusLineage"
+```
 
 
 ## Where to find QIIME resources and help
