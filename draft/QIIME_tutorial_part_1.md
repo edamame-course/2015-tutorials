@@ -45,16 +45,20 @@ mkdir pandaseq_merged_reads
 
 ####Join paired-end reads with PANDAseq
 ```
-pandaseq –f [forward filename] –r [reverse filename] –A simple_bayesian -B –F –g [log filename *.log.txt] -l 253 -L 253 -o 47 –O 47 -t 0.9 –w > mock_cmty.fasta -g mock_cmty.log 
+pandaseq –f C01D01F_sub.fastq –r C01D01R_sub.fastq –A simple_bayesian -B -l 253 -L 253 -o 47 –O 47 -t 0.9 –w pandaseq_merged_reads/C01D01_merged.fasta -g C01D01_merged.log 
 ```
 Let's look carefully at the anatomy of this command.
 
   -  `pandaseq` calls the package of pandaseq scripts.
-  -  `-f MiSeq_SOP/F3D0_S188_L001_R1_001.fastq` tells the script where to find the forward read.
+  -  `-f ` C01D01F_sub.fastq tells the script where to find the forward read.
   -  `-r` tells the script where to find its matching reverse read.
-  -  `-w pandaseq_merged_reads/F3D0_S188.fasta` directs the script to make a new fasta file of the assembled reads and to put it in the "pandaseq_merged_reads" directory.
-  -  `-g pandaseq_merged_reads/F3D0_S188.log` Selects an option of creating a log file.
+  -  `-A` is the algorithm used for assembly.
+  -  `-B` means that the input sequences do not have a barcode.
   -  `-L` specifies the maximum length of the assembled reads, which, in truth, should be 251 bp. This is a very important option to specify, otherwise PANDAseq will assemble a lot of crazy-long sequences.
+  -  `-O` specifies the amount of overlap allowed between the forward and reverse sequences.
+  -  `-t` is a quality score between 0 and 1 that each sequence must meet to be kept in the final output.
+  -  `-w pandaseq_merged_reads/C01D01_merged.fasta` directs the script to make a new fasta file of the assembled reads and to put it in the "pandaseq_merged_reads" directory.
+  -  `-g C01D01_merged.log` Selects an option of creating a log file.
 
   All of the above information, and more options, are fully described in the [PANDAseq Manual.](http://neufeldserver.uwaterloo.ca/~apmasell/pandaseq_man1.html).  The log file includes details as to how well the merging went.
   
@@ -64,9 +68,7 @@ There are some questions you may be having: What does pandaseq return?  Are ther
 
   It turns out, that PANDAseq, by default, removes primers and barcodes (There are also options to keep primers, please see the manual link above).  Given that we used the default pandaseq options, how do we check to make sure that what we expect to happen actually did happen?
 
-  We know the V4 forward primer sequence that the Schloss lab used because these sequences are provided in Kozich et al. 2013.
-
-Here is the V4 primer sequence : GTCCAGCMGCCGCGGTAA
+Here is the forward primer sequence that was used in generating these data: 
 
   We can search for that sequence in the assembled sequence file, using the `grep` function.  
 
@@ -75,31 +77,31 @@ cd pandaseq_merged_reads
 ```
 
 ```
-head F3D0_S188.fasta
+head C01D01_merged.fasta
 ```
 
 ![img2](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_02.jpg)  
 
 ```
-grep GTCCAGCMGCCGCGGTAA F3D0_S188.fasta
+grep  C01D01_merged.fasta
 ```
 
 When you execute the above command, the terminal does not return anything.  This means that the primer sequence was not found in the file, suggesting that PANDAseq did, in fact, trim them.
 
-We can double check our sanity by using a positive control.  Let's use `grep` to find a character string that we know is there, for instance the "M00967" string identifying the first sequence.
+We can double check our sanity by using a positive control.  Let's use `grep` to find a character string that we know is there, for instance the "M03127" string identifying the first sequence.
 
 ```
-grep M00967 F3D0_S188.fasta
+grep M03127 C01D01_merged.fasta
 ```
 
 Whoa!  That is hard to read all of those lines. Let's put the results into a list by appending `> list.txt` to the command.  The ">" symbol means to output the results to a new file, which is specified next.  
 
 
 ```
-grep M00967 F3D0_S188.fasta > list.txt
+grep M03127 C01D01_merged.fasta > list.txt
 ```
 
-This creates a new file called "list.txt", in which all instances of the character string "M00967" are provided.  Let's look at the head.
+This creates a new file called "list.txt", in which all instances of the character string "M03127" are provided.  Let's look at the head.
 
 ```
 head list.txt
@@ -117,9 +119,7 @@ rm list.txt
 
 We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a shell script to automate the task.  
 
-Download this [list](https://github.com/edamame-course/docs/raw/gh-pages/misc/QIIMETutorial_Misc/SchlossSampleNames.txt) (*VB/EC2 users*, use `wget`) of all the unique sample names and move it to your QIIMETutorial directory.  
-
-Then, download this shell [script](https://github.com/edamame-course/docs/raw/gh-pages/misc/QIIMETutorial_Misc/pandaseq_merge.sh) (*VB/EC2 users*, use `wget`) and move it to your QIIMETutorial directory.  
+Then, download this shell [script](https://github.com/edamame-course/docs/raw/gh-pages/misc/QIIMETutorial_Misc/pandaseq_merge.sh) (use `wget`) and move it to your QIIMETutorial directory.  
 
 Change permissions on the script
 
@@ -135,34 +135,23 @@ Execute the script from the QIIMETutorial Directory.
 
 ### 1.6  Sanity check #2.
 
-How many files were we expecting from the assembly?  There were 19 pairs to be assembled, and we are generating one assembled fasta and one log for each.  Thus, the pandaseq_merged_reads directory should contain 38 files.  We use the `wc` command to check the number of files in the directory.
+How many files were we expecting from the assembly?  There were 54 pairs to be assembled, and we are generating one assembled fasta and one log for each.  Thus, the pandaseq_merged_reads directory should contain 108 files.  We use the `wc` command to check the number of files in the directory.
 
 ```
 ls -1 pandaseq_merged_reads | wc -l
 ```
 
-The terminal should return the number "38."  Congratulations, you lucky duck! You've assembled paired-end reads!  
+The terminal should return the number "108."  Congratulations, you lucky duck! You've assembled paired-end reads!  
 
 ![img4](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_04.jpg)  
 
-
-  ####Converting FASTQ file to FASTA and QUAL files
-  
-  We have FASTQ files and will split them into FASTA and QUAL files for further analysis.
-  
-  ```
-  convert_fastaqual_fastq.py -c fastq_to_fastaqual -f seqs.fastq -o fastaqual
-  ```
-  
-  Options for this command can be found on the [QIIME website](http://qiime.org/scripts/convert_fastaqual_fastq.html)
-  
   ####Understanding the QIIME mapping file.
 QIIME requires a [mapping file](http://qiime.org/documentation/file_formats.html) for most analyses.  This file is important because it links the sample IDs with their metadata (and, with their primers/barcodes if using QIIME for quality-control). 
 
 Let's spend few moments getting to know the mapping file:
 
 ```
-more Cen_simple_mapping.txt
+more Centralia_full_map_corrected.txt
 ```
 
 [image of updated mapping file screen shot goes here]
@@ -174,7 +163,7 @@ A clear and comprehensive mapping file should contain all of the information tha
 Guidelines for formatting map files:
   - Mapping files should be tab-delimited
   - The first column must be "#SampleIDs" (commented out using the `#`).
-  -  SampleIDs are VERY IMPORTANT. Choose wisely! Ideally, a user who did not design the experiment should be able to distiguishes the samples easily, as is the case with the Schloss data. SampleIDs must be alphanumeric characters or periods.  They cannot have underscores.
+  -  SampleIDs are VERY IMPORTANT. Choose wisely! Ideally, a user who did not design the experiment should be able to distiguishes the samples easily. SampleIDs must be alphanumeric characters or periods.  They cannot have underscores.
   - The last column must be "Description".
   - There can be as many in-between columns of contextual data as needed.
   - If you plan to use QIIME for quality control (which we do not need because the PANDAseq merger included QC), the BarcodeSequence and LinkerPrimer sequence columns are also needed, as the second and third columns, respectively.
@@ -185,7 +174,7 @@ Guidelines for formatting map files:
 QIIME expects all of the data to be in one file, and, currently, we have one separate fastq file for each assembled read.  We will add labels to each sample and merge into one fasta using the `add_qiime_labels.py` script. Documentation is [here](http://qiime.org/scripts/add_qiime_labels.html).
 
 ```
-add_qiime_labels.py -i pandaseq_merged_reads/ -m Schloss_Map.txt -c InputFileName -n 1 -o combined_fasta
+add_qiime_labels.py -i subfastaqual/ -m Cen_simple_mapping_corrected.txt -c InputFastaFileName -n 1 -o combined_seqs.fna
 ```
 
 This script creates a new directory called "combined_fasta."  Use `cd` and `ls` to navigate to that directory and examine the files.  Inspect the new file "combined_seqs.fna."
@@ -244,9 +233,6 @@ usearch61_openref_prefilter0_90/ -f
 In the above script:
   - We tell QIIME to look in the "combined_fasta" directory for the input file `-i`, "combined_seqs.fna".
   - We chose the clustering method CD-HIT `-m`
-  - We defined an output file "cdhit_picked_otus" `-o`.  Names of output files are important, because there are many options for each analysis. Using the algorithm choice in the directory name is key for comparing the output of multiple algothims (for instance, if you wanted to compare how picking OTUs with CD-HIT and with uclust may influence your results.)
-  - We define OTUs at 97% sequence identity `-s 0.97`
-  - We opt for a pre-filtering step, unique to CD-HIT `-n` = 100.
 
 Inspect the log and the resulting combined_seqs_otus.txt file, using `head`.  You should see an OTU ID (yellow box), starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
 
@@ -258,12 +244,9 @@ From the head of the combined_seqs_otus.txt file, we can see that OTU 0 has many
 
 Representative sequences are those that will be aligned and used to build a tree.  They are selected as the one sequence, out of its whole OTU cluster, that will "define" its OTUs. As you can imagine, understanding how these "rep seqs" are chosen is very important.  Here, we will use the default method (the first sequence listed in the OTU cluster) of QIIME's `pick_rep_set.py` script; documentation [here](http://qiime.org/scripts/pick_rep_set.html).
 
-```
-mkdir cdhit_rep_seqs/
-```
 
 ```
-pick_rep_set.py -i cdhit_picked_otus/combined_seqs_otus.txt -f combined_fasta/combined_seqs.fna -o cdhit_rep_seqs/cdhit_rep_seqs.fasta -l cdhit_rep_seqs/cdhit_rep_seqs.log
+pick_open_reference_otus.py -i ./C01.05102014.R1.D01.fasta,C01.05102014.R1.D02.fasta,C01.05102014.R1.D03.fasta,C02.05102014.R1.D01.fasta,C02.05102014.R1.D02.fasta,C02.05102014.R1.D03.fasta,C03.05102014.R1.D01.fasta,C03.05102014.R1.D02.fasta,C03.05102014.R1.D03.fasta,C04.05102014.R1.D01.fasta,C04.05102014.R1.D02.fasta,C04.05102014.R1.D03.fasta,C05.05102014.R1.D01.fasta,C05.05102014.R1.D02.fasta,C05.05102014.R1.D03.fasta,C06.05102014.R1.D01.fasta,C06.05102014.R1.D02.fasta,C06.05102014.R1.D03.fasta,C07.05102014.R1.D01.fasta,C07.05102014.R1.D02.fasta,C07.05102014.R1.D03.fasta,C08.05102014.R1.D01.fasta,C08.05102014.R1.D02.fasta,C08.05102014.R1.D03.fasta,C09.05102014.R2.D04.fasta,C09.05102014.R2.D05.fasta,C09.05102014.R2.D06.fasta,C10.05102014.R1.D01.fasta,C10.05102014.R1.D02.fasta,C10.05102014.R1.D03.fasta,C11.06102014.R1.D01.fasta,C11.06102014.R1.D02.fasta,C11.06102014.R1.D03.fasta,C12.06102014.R2.D01.fasta,C12.06102014.R2.D02.fasta,C12.06102014.R2.D03.fasta,C13.06102014.R2.D10.fasta,C13.06102014.R2.D11.fasta,C13.06102014.R2.D12.fasta,C14.06102014.R1.D01.fasta,C14.06102014.R1.D02.fasta,C14.06102014.R1.D03.fasta,C15.06102014.R2.D01.fasta,C15.06102014.R2.D02.fasta,C15.06102014.R2.D03.fasta,C16.06102014.R1.D01.fasta,C16.06102014.R1.D02.fasta,C16.06102014.R1.D03.fasta,C17.06102014.R1.D01.fasta,C17.06102014.R1.D02.fasta,C17.06102014.R1.D03.fasta,C18.06102014.RE1.D04.fasta,C18.06102014.RE1.D05.fasta,C18.06102014.RE1.D06.fasta -o usearch61_openref_prefilter0_90/ -m usearch61 -f
 ```
 
 As before, we specify the input files (the script needs the OTU clusters and the raw sequence file as input), and then we additionally specified the a new directory for the results.
