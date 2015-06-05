@@ -52,7 +52,7 @@ principal_coordinates.py -i beta_div_even4708/ -o beta_div_even4708_PCoA/
 
 Notice that the `-i` command only specifies the directory, and not an individual filepath.  PCoA will be performed on all resemblances in that directory.  If we navigate into the new directory, we see there is one results file for each input resemblence matrix.
 
-##[screenshot]
+![img17](../img/pcoa_directory.jpg)
 
 Inspect the one of these files using nano.
 
@@ -60,7 +60,7 @@ Inspect the one of these files using nano.
 nano pcoa_weighted_unifrac_Subsampling_otu_table_even4708.txt
 ```
 
-##[screenshot]
+![img18](../img/pcoa_table.jpg)
 
 The first column has SampleIDs, and column names are PCoA axis scores for every dimension.  In PCoA, there are as many dimensions (axes) as there are samples. Remember that, typically, each axis explains less variability in the dataset than the previous axis.
 
@@ -83,7 +83,7 @@ cd plotting_PCoA2d_even4708_wu/
 open _2D_PCoA_plots.html
 ```
 
-![img19](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial3_IMG/IMG_19.jpg)
+![img19](../img/pcoa_2D.jpg)
 
 This is where  a comprehensive mapping file is priceless because any values or categories reported in the mapping file will be automatically color-coded for data exploration.  In the example above, there is an obvious difference in the community structure of the gut microbiota of the F3 mouse over time (using).
 
