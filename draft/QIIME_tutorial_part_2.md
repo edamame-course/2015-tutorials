@@ -39,27 +39,7 @@ The OTU table is the table on which all ecological analyses (e.g. diversity, pat
 Navigate back into the "QIIMETutorial" directory to execute the script.
 
 ```
-biom summarize_table -i usearch61_openref_prefilter0_90/otu_table_mc2_w_tax.biom -o 
-
-summary_otu_table_mc2_w_tax_biom.txt
-```
-
-We used our previously-created list of failed-seq-alignments with the `-e` option to exclude these OTUs.
-Inspect the .biom table.
-
-```
-head summary_otu_table_mc2_w_tax.biom
-
-```
-
-![img12](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial2_IMG/IMG_12.jpg)
-
-Be not alarmed! This file is in .biom table format.  Whereas a traditional taxon (OTU) table in ecology is often a matrix of samples (communities) by taxa (OTUs), there are just too many taxa in microbial communities for the traditional table to be efficiently used in computation.  Thus, the .biom format was developed.  General information about the .biom format is [here](http://biom-format.org/).  Scroll down through the terminal screen, to observe that the taxonomic assignments were incorporated into the OTU table.
-
-We can get a summary of everything in the .biom OTU table using a script that begins with `biom`, which indicates the special format and handling of the biom data table. The syntax and structure of these biom scripts are only slightly bit different from other QIIME scripts. More information about biom format motivation is [here](http://biom-format.org/documentation/biom_format.html). **This is an important script.**  Documentation for `summarize_table` is [here](http://biom-format.org/documentation/summarizing_biom_tables.html).
-
-```
-biom summarize_table -i Schloss_otu_table.biom -o summary_Schloss_otu_table.txt
+biom summarize_table -i usearch61_openref_prefilter0_90/otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax_biom.txt
 ```
 
 The summary file contains information about the number of sequences per sample, which will help us to make decisions about rarefaction (subsampling).  When we inspect the file, we see that sample F3D142.S208 has 2212 reads, the minimum observed.  This is what we will use as a subsampling depth.  Also, a lot of the info in this file is typically reported in methods sections of manuscripts.
@@ -67,7 +47,7 @@ The summary file contains information about the number of sequences per sample, 
 ![img13](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial2_IMG/IMG_13.jpg)
 
 
-### 3.3  Make a phylogenetic tree
+### 3.3 Make a phylogenetic tree
 
 We will make a phylogenetic tree of the short-read sequences so that we can use information about the relatedness among taxa to estimate and compare diversity.  We will use FastTree for this.  
 It is best not to use trees made from short-reads as very robust hypotheses of evolution. I suggest using trees from short-read sequences for ecological analyses, visualization and hypothesis-generation rather than strict phylogenetic inference.
@@ -102,12 +82,10 @@ To subsample the OTU table, we need to decide the appropriate subsampling depth.
 In this example dataset, we want to keep all of our samples, so we will subsample to 2212.  Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
 
 ```
-single_rarefaction.py -i usearch61_openref_prefilter0_90/otu_table_mc2_w_tax.biom -o 
-
-Subsampling_otu_table_even2998.biom -d 2998
+single_rarefaction.py -i usearch61_openref_prefilter0_90/otu_table_mc2_w_tax.biom -o Subsampling_otu_table_even2998.biom -d 2998
 ```
 
-We append _even2212 to the end of the table to distinguish it from the full table.  This is even2212 table is the final biom table on which to perform ecological analyses.  If we run the biom summary command, we will now see that every sample in the new table has exactly the same number of sequences:
+We append _even2998 to the end of the table to distinguish it from the full table.  This is even2998 table is the final biom table on which to perform ecological analyses.  If we run the biom summary command, we will now see that every sample in the new table has exactly the same number of sequences:
 
 ```
 biom summarize_table -i Subsampling_otu_table_even2998.biom -o summary_Subsampling_otu_table_even2998.txt
@@ -123,24 +101,20 @@ There is a [recent paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.13
 Navigate back into the QIIMETutorial directory, and make a new directory for alpha diversity results.
 
 ```
-mkdir alphadiversity_even2998
+mkdir alphadiversity_even4708
 
 ```
 
 We will calculate richness (observed # taxa) and phylogenetic diversity (PD) for each sample.  Documentation is [here](http://qiime.org/scripts/alpha_diversity.html).
 
 ```
-alpha_diversity.py -i Subsampling_otu_table_even2998.biom -m observed_species,PD_whole_tree -o 
-
-alphadiversity_even2998/subsample_usearch61_alphadiversity_even2998.txt -t 
-
-usearch61_openref_prefilter0_90/rep_set.tre
+alpha_diversity.py -i Subsampling_otu_table_even4708.biom -m observed_species,PD_whole_tree -o alphadiversity_even4708/subsample_usearch61_alphadiversity_even4708.txt -t usearch61_openref_prefilter0_90/rep_set.tre
 ```
 
 As always, inspect the results file.  What are the ranges that were observed in richness and PD?
 
 ```
-head alphadiversity_even2998/subsample_usearch61_alphadiversity_even2998.txt
+head alphadiversity_even4708/subsample_usearch61_alphadiversity_even4708.txt
 ```
 
 QIIME offers a variety of additional options for calculating diversity, and the -s option prints them all!
@@ -156,9 +130,7 @@ There is workflow script, [alpha_rarefaction.py](http://qiime.org/scripts/alpha_
 `summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html).
 
 ```
-summarize_taxa_through_plots.py -o alphadiversity_even2998/taxa_summary2998/ -i 
-
-Subsampling_otu_table_even2998.biom
+summarize_taxa_through_plots.py -o alphadiversity_even4708/taxa_summary4708/ -i Subsampling_otu_table_even4708.biom
 ```
 
 When the script is finished, navigate into the results file, and into the "taxa_summary_plots" and find the html area and bar charts.  If you are on a Mac, use the `open` command to open the html file in your browser. Neato!
@@ -172,7 +144,7 @@ open area_charts.html
 To view the HTML files, the EC2 users will need to execute the following command:
 
 ```
-cp -r taxa_summary_even2212/taxa_summary_plots/ ../Dropbox/
+cp -r taxa_summary_even4708/taxa_summary_plots/ ../Dropbox/
 ```
 
 If the file doesn't open correctly, EC2 users may need to download the folder from Dropbox and unzip the folder (7-Zip --> Extract Here), and then when they open the file, it will show the graphs and other hoopla!
