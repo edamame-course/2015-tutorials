@@ -202,8 +202,6 @@ summary.seqs(fasta=combined_seqs.fna)
 
 Note that both summary.seqs and count_seqs.py have returned the same total number of seqs in the .fna file.  Use the following command to quit the mothur environment and return to QIIME.  
 
-![img](img/QIIMETutorial1_IMG/summary_seqs.jpg)
-
 ```
 quit()
 ```
