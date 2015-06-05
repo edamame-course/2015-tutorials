@@ -74,7 +74,7 @@ cd pandaseq_merged_reads
 head C01D01_merged.fasta
 ```
 
-![img2](https://github.com/edamame-course/2015-tutorials/img/panda_seq.jpg)  
+![img2](../img/panda_seq.jpg)  
 
 ```
 grep  C01D01_merged.fasta
