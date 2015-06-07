@@ -39,7 +39,7 @@ mkdir pandaseq_merged_reads
 
 ####Join paired-end reads with PANDAseq
 ```
-pandaseq –f C01D01F_sub.fastq –r C01D01R_sub.fastq –A simple_bayesian -B -l 253 -L 253 -o 47 –O 47 -t 0.9 –w pandaseq_merged_reads/C01D01_merged.fasta -g C01D01_merged.log 
+pandaseq –f C01D01F_sub.fastq –r C01D01R_sub.fastq –A simple_bayesian -B -l 253 -L 253 -o 47 –O 47 -t 0.9 –w pandaseq_merged_reads/C01D01_merged.fasta -g pandaseq_merged_reads/C01D01_merged.log 
 ```
 Let's look carefully at the anatomy of this command.
 
