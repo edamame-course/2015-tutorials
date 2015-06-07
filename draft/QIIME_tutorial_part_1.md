@@ -6,6 +6,8 @@ date: 2015-04-15
 ---
 
 #Intro to QIIME
+Authored by Josh Herr
+Modified by Sang-Hoon Lee and Siobhan Cusack
 
 ##Getting started
 
@@ -168,10 +170,9 @@ Guidelines for formatting map files:
 QIIME expects all of the data to be in one file, and, currently, we have one separate fastq file for each assembled read.  We will add labels to each sample and merge into one fasta using the `add_qiime_labels.py` script. Documentation is [here](http://qiime.org/scripts/add_qiime_labels.html).
 
 ```
-add_qiime_labels.py -i subfastaqual/ -m Cen_simple_mapping_corrected.txt -c InputFastaFileName -n 1 -o combined_seqs.fna
+add_qiime_labels.py -i pandaseq_merged_reads/ -m Centralia_full_mapping_file_corrected.txt -c InputFastaFileName -n 1 -o combined_seqs.fna
 ```
-
-This script creates a new directory called "combined_fasta."  Use `cd` and `ls` to navigate to that directory and examine the files.  Inspect the new file "combined_seqs.fna."
+Inspect the new file "combined_seqs.fna."
 
 ```
 head combined_seqs.fna
@@ -185,7 +186,7 @@ Observe that QIIME has added the SampleIDs from the mapping file to the start of
 While we are inspecting the combined_seqs.fna file, let's confirm how many sequences we have in the dataset.
 
 ```
-count_seqs.py -i AddQiimeLabels/combined_seqs.fna
+count_seqs.py -i combined_seqs.fna
 ```
 
 This is a nice QIIME command to call frequently, because it provides the total number of sequences in a file, as well as some information about the lengths of those sequences.  But, suppose we wanted to know more than the median/mean of these sequences?
@@ -217,20 +218,18 @@ The default QIIME 1.8.0 method for OTU picking is uclust (de novo, but there is 
 Make sure you are in the QIIMETutorial directory to start.  This will take a few (<10ish) minutes.
 
 ```
-pick_open_reference_otus.py -i AddQiimeLabels/combined_seqs.fna -m usearch61 -o 
-
-usearch61_openref_prefilter0_90/ -f
+pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref_prefilter0_90/ -f
 ```
 
 In the above script:
-  - We tell QIIME to look in the "combined_fasta" directory for the input file `-i`, "combined_seqs.fna".
-  - We chose the clustering method CD-HIT `-m`
+  - We tell QIIME to look for the input file `-i`, "combined_seqs.fna".
+  - We chose the clustering method usearch61 `-m`
 
-Inspect the log and the resulting combined_seqs_otus.txt file, using `head`.  You should see an OTU ID (yellow box), starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
+Inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID, starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
 
 ![img7](../img/combined_seqs_otus.jpg)
 
-From the head of the combined_seqs_otus.txt file, we can see that OTU 0 has many sequence associated with it, including sequence 9757 from from sample F3D8.S196. We also see that OTU 3 only has one sequence associated with it. The log file has goodies about the algorithm and options chosen.  Keep this (and all) log file, because when you are writing the paper you may not remember what version of which clustering algorithm you used.
+From the head of the combined_seqs_otus.txt file, we can see that OTU 0 has many sequences associated with it, including sequence 9757 from from sample F3D8.S196. We also see that OTU 3 only has one sequence associated with it. The log file has goodies about the algorithm and options chosen.  Keep this (and all) log file, because when you are writing the paper you may not remember what version of which clustering algorithm you used.
 
 ### 2.5  Pick a representative sequence from each OTU.
 
@@ -238,8 +237,7 @@ Representative sequences are those that will be aligned and used to build a tree
 
 
 ```
-pick_open_reference_otus.py -i ./C01.05102014.R1.D01.fasta,C01.05102014.R1.D02.fasta,C01.05102014.R1.D03.fasta,C02.05102014.R1.D01.fasta,C02.05102014.R1.D02.fasta,C02.05102014.R1.D03.fasta,C03.05102014.R1.D01.fasta,C03.05102014.R1.D02.fasta,C03.05102014.R1.D03.fasta,C04.05102014.R1.D01.fasta,C04.05102014.R1.D02.fasta,C04.05102014.R1.D03.fasta,C05.05102014.R1.D01.fasta,C05.05102014.R1.D02.fasta,C05.05102014.R1.D03.fasta,C06.05102014.R1.D01.fasta,C06.05102014.R1.D02.fasta,C06.05102014.R1.D03.fasta,C07.05102014.R1.D01.fasta,C07.05102014.R1.D02.fasta,C07.05102014.R1.D03.fasta,C08.05102014.R1.D01.fasta,C08.05102014.R1.D02.fasta,C08.05102014.R1.D03.fasta,C09.05102014.R2.D04.fasta,C09.05102014.R2.D05.fasta,C09.05102014.R2.D06.fasta,C10.05102014.R1.D01.fasta,C10.05102014.R1.D02.fasta,C10.05102014.R1.D03.fasta,C11.06102014.R1.D01.fasta,C11.06102014.R1.D02.fasta,C11.06102014.R1.D03.fasta,C12.06102014.R2.D01.fasta,C12.06102014.R2.D02.fasta,C12.06102014.R2.D03.fasta,C13.06102014.R2.D10.fasta,C13.06102014.R2.D11.fasta,C13.06102014.R2.D12.fasta,C14.06102014.R1.D01.fasta,C14.06102014.R1.D02.fasta,C14.06102014.R1.D03.fasta,C15.06102014.R2.D01.fasta,C15.06102014.R2.D02.fasta,C15.06102014.R2.D03.fasta,C16.06102014.R1.D01.fasta,C16.06102014.R1.D02.fasta,C16.06102014.R1.D03.fasta,C17.06102014.R1.D01.fasta,C17.06102014.R1.D02.fasta,C17.06102014.R1.D03.fasta,C18.06102014.RE1.D04.fasta,C18.06102014.RE1.D05.fasta,C18.06102014.RE1.D06.fasta -o usearch61_openref_prefilter0_90/ -m usearch61 -f
-
+pick_rep_set.py -i final_otu_map.txt -f combined_seqs.fna -o rep_seqs
 ```
 
 As before, we specify the input files (the script needs the OTU clusters and the raw sequence file as input), and then we additionally specified the a new directory for the results.
@@ -257,7 +255,7 @@ Take a gander at the log file, as well.
 Navigate back to the QIIMETutorial directory. We will align our representative sequences using PyNAST, which uses a "gold" reference template for the alignment.  QIIME uses a "gold" pre-aligned template made from the greengenes database.  The default alignment to the template is minimum 75% sequence identity and minimum length 150. The default minimum length is not great for short reads like we have, so we will be more generous and change the default. What should we change it to?
 
 ```
-count_seqs.py -i cdhit_rep_seqs/cdhit_rep_seqs.fasta
+count_seqs.py -i 
 ```
 
 Given that our average assembled read length is ~252 bp, let's decide that at least 100 bp must align.  We will have the `-e` option to 100. The alignment will take a few minutes.  Documentation for `align_seqs.py` is [here](http://qiime.org/scripts/align_seqs.html).
