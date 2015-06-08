@@ -65,7 +65,7 @@ There are some questions you may be having: What does pandaseq return?  Are ther
 
   It turns out, that PANDAseq, by default, removes primers and barcodes (There are also options to keep primers, please see the manual link above).  Given that we used the default pandaseq options, how do we check to make sure that what we expect to happen actually did happen?
 
-Here is the forward primer sequence that was used in generating these data: 
+Here is the barcode sequence that was used in generating these data: GTCTAATTCCGA
 
   We can search for that sequence in the assembled sequence file, using the `grep` function.  
 
@@ -80,7 +80,7 @@ head C01D01_merged.fasta
 ![img2](../img/panda_seq.jpg)  
 
 ```
-grep  C01D01_merged.fasta
+grep  GTCTAATTCCGA C01D01_merged.fasta
 ```
 
 When you execute the above command, the terminal does not return anything.  This means that the primer sequence was not found in the file, suggesting that PANDAseq did, in fact, trim them.
