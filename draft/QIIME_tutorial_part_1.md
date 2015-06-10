@@ -77,7 +77,7 @@ cd pandaseq_merged_reads
 head C01D01_merged.fasta
 ```
 
-![img2](../img/panda_seq.jpg)  
+![img2](../img/panda_seq2.jpg)  
 
 ```
 grep  GTCTAATTCCGA C01D01_merged.fasta
