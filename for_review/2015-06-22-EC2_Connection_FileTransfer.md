@@ -25,14 +25,14 @@ You will need to know what your Public DNS is for your EC2 Instance.
 ###2. Change your keyfile permisions to read only:
 
 ```
-chmod 400 **/path/to/your/keyfile/**EDAMAME.pem
+chmod 600 **/path/to/your/keyfile/**eda.pem
 ```
 This command will adjust the permissions on your keyfile so that it cannot be edited. This is important because if the keyfile is edited or changed, it will no longer allow access to the EC2 instance.
 
 ###3. Connecting to your EC2 instance using ssh:
 
 ```
-ssh -i **/path/to/your/keyfile/**EDAMAME.pem ubuntu@"your public DNS"
+ssh -i **/path/to/your/keyfile/**eda.pem ubuntu@"your public DNS"
 ```
 SUCCESS! You have now logged into your computer in the cloud!
 
@@ -66,4 +66,20 @@ Here's an example where I am copying the same file as before but I am copying ba
 ```
 scp -i /Users/JSorensen/Desktop/EDAMAME.pem ubuntu@ec2-52-5-171-50.compute-1.amazonaws.com:/home/ubuntu/Centralia.fastq /Users/JSorensen/Desktop/
 ```
+
+###6. Are you ready for some data???
+Alright, enough practicing, let's do some real work! For this class, we have stored all of the data we will be using on an Amazon S3 bucket(ie the wonderful nebulous cloud). We are going to use the tool `wget` in order to download the data onto your (remote) computer. Input the following line of code and get your data. 
+
+```
+wget https://s3.amazonaws.com/edamame/EDAMAME_Datasets.tar.gz
+```
+
+Let that run for a minute or two and you'll get the data we are going to be using for the majority of this course. Next, we need to unzip or decompress the file so that we can actually make use of it. We will do so by running the following line of code that makes use of a program called `tar`
+
+```
+tar -zxvf EDAMAME_Datasets.tar.gz
+```
+
+Once the above command finishes running take a look through the resulting folder. Inside of EDAMAME_Datasets you should see two folders, 16S and MG. These two folders contain almost all of the data we will be using this week.  
+
 Now you have the tools work with your EC2 instance!
