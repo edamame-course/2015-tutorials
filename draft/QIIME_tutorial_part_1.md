@@ -142,7 +142,7 @@ The terminal should return the number "108."  Congratulations, you lucky duck! Y
 
 ![img4](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_04.jpg)  
 
-  ####Understanding the QIIME mapping file.
+  ###Understanding the QIIME mapping file.
 QIIME requires a [mapping file](http://qiime.org/documentation/file_formats.html) for most analyses.  This file is important because it links the sample IDs with their metadata (and, with their primers/barcodes if using QIIME for quality-control). 
 
 Let's spend few moments getting to know the mapping file:
