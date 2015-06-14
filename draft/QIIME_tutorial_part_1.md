@@ -22,16 +22,16 @@ git clone https://github.com/lh3/seqtk.git
 sudo make
 sudo cp seqtk /usr/local/bin
  ```
- Now that we've installed Seqtk, we'll run this code to randomly pick 500 reads from each of our samples:
+ Now that we've installed Seqtk, we'll run this code to randomly pick 500 reads from each of our samples.
+ Navigate to the Centralia_16STag folder, then run seqtk:
 ``` 
 seqtk sample -s 100 C01D01F_sub.fastq 500 > C01D01F_sub500.fastq
 ```
+We should have a new file with subsampled sequences in it called C01D01_sub500.fastq.
   
 ###Assembling Illumina paired-end sequences
 
-Log on to the EC2 and find the Centralia_16Stag folder. 
-
-This folder contains 54 samples with 5,000 reads each. These are 16S rRNA amplicons sequenced with MiSeq. We will use [PANDAseq](http://www.ncbi.nlm.nih.gov/pubmed/22333067) to assemble the forward and reverse reads.
+Our sequences are 16S rRNA amplicons sequenced with MiSeq. We will use [PANDAseq](http://www.ncbi.nlm.nih.gov/pubmed/22333067) to assemble the forward and reverse reads.
 
 First we will need to install pandaseq as it is not included in the QIIME environment.
 
@@ -129,14 +129,6 @@ rm list.txt
 ### 1.5  Automate paired-end merging with a shell script.
 
 We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a shell script to automate the task.  
-
-Then, download this shell [script](https://github.com/edamame-course/docs/raw/gh-pages/misc/QIIMETutorial_Misc/pandaseq_merge.sh) (use `wget`) and move it to your QIIMETutorial directory.  
-
-Change permissions on the script
-
-```
-chmod +x pandaseq_merge.sh
-```
 
 Execute the script from the QIIMETutorial Directory.
 
