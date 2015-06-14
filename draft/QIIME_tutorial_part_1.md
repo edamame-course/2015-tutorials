@@ -18,13 +18,13 @@ Modified by Sang-Hoon Lee and Siobhan Cusack
   We used Seqtk for subsampling, so first we'll have to install Seqtk.
   
 ```  
- git clone https://github.com/lh3/seqtk.git
+git clone https://github.com/lh3/seqtk.git
 sudo make
 sudo cp seqtk /usr/local/bin
  ```
  Now that we've installed Seqtk, we'll run this code to randomly pick 500 reads from each of our samples:
 ``` 
-seqtk sample -s 100 C01D01F.fastq 500 > C01D01F_sub500.fastq
+seqtk sample -s 100 C01D01F_sub.fastq 500 > C01D01F_sub500.fastq
 ```
   
 ###Assembling Illumina paired-end sequences
