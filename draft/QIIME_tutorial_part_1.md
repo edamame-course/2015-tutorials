@@ -33,14 +33,29 @@ Log on to the EC2 and find the Centralia_16Stag folder.
 
 This folder contains 54 samples with 5,000 reads each. These are 16S rRNA amplicons sequenced with MiSeq. We will use [PANDAseq](http://www.ncbi.nlm.nih.gov/pubmed/22333067) to assemble the forward and reverse reads.
 
-Use `mkdir` to create a new directory called "pandaseq_merged_reads"
+First we will need to install pandaseq as it is not included in the QIIME environment.
+
+```
+which pandaseq
+```
+This should not return anything since we have not yet installed it.
+
+```
+sudo apt-get install pandaseq-dbg
+
+which pandaseq
+```
+
+If pandaseq has installed properly, this will return "/usr/local/bin/pandaseq"
+
+Now use `mkdir` to create a new directory called "pandaseq_merged_reads"
 ```
 mkdir pandaseq_merged_reads
 ```
 
 ####Join paired-end reads with PANDAseq
 ```
-pandaseq -f C01D01F_sub.fastq -r C01D01R_sub.fastq -w refastq/C01D01_merged.fastq -g refastq/C01D01_merged.log -B -F -A simple_bayesian -l 253 -L 253 -o 47 -O 47 -t 0.9 
+pandaseq -f C01D01F_sub.fastq -r C01D01R_sub.fastq -w C01D01_merged.fasta -g C01D01_merged.log -B -F -A simple_bayesian -l 253 -L 253 -o 47 -O 47 -t 0.9 
 ```
 Let's look carefully at the anatomy of this command.
 
