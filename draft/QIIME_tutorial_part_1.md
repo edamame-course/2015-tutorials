@@ -55,20 +55,21 @@ mkdir pandaseq_merged_reads
 
 ####Join paired-end reads with PANDAseq
 ```
-pandaseq -f C01D01F_sub.fastq -r C01D01R_sub.fastq -w C01D01_merged.fasta -g C01D01_merged.log -B -F -A simple_bayesian -l 253 -L 253 -o 47 -O 47 -t 0.9 
+pandaseq -f C01D01F_sub.fastq -r C01D01R_sub.fastq -w C01D01_merged.fasta -g C01D01_merged.log -B -A simple_bayesian -l 253 -L 253 -o 47 -O 47 -t 0.9 
 ```
 Let's look carefully at the anatomy of this command.
 
   -  `pandaseq` calls the package of pandaseq scripts.
   -  `-f ` C01D01F_sub.fastq tells the script where to find the forward read.
   -  `-r` tells the script where to find its matching reverse read.
-  -  `-A` is the algorithm used for assembly.
+  -  `-w pandaseq_merged_reads/C01D01_merged.fasta` directs the script to make a new fasta file of the assembled reads and to put it in the "pandaseq_merged_reads" directory.
+  -  `-g C01D01_merged.log` selects an option of creating a log file.
   -  `-B` means that the input sequences do not have a barcode.
+  -  `-A` is the algorithm used for assembly.
   -  `-L` specifies the maximum length of the assembled reads, which, in truth, should be 251 bp. This is a very important option to specify, otherwise PANDAseq will assemble a lot of crazy-long sequences.
   -  `-O` specifies the amount of overlap allowed between the forward and reverse sequences.
   -  `-t` is a quality score between 0 and 1 that each sequence must meet to be kept in the final output.
-  -  `-w pandaseq_merged_reads/C01D01_merged.fasta` directs the script to make a new fasta file of the assembled reads and to put it in the "pandaseq_merged_reads" directory.
-  -  `-g C01D01_merged.log` Selects an option of creating a log file.
+  
 
   All of the above information, and more options, are fully described in the [PANDAseq Manual.](http://neufeldserver.uwaterloo.ca/~apmasell/pandaseq_man1.html).  The log file includes details as to how well the merging went.
   
