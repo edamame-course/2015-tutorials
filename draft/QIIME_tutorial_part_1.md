@@ -19,16 +19,14 @@ Modified by Sang-Hoon Lee and Siobhan Cusack
   
 ```  
  git clone https://github.com/lh3/seqtk.git
- sudo make
+sudo make
 sudo cp seqtk /usr/local/bin
- ~/mypath/to/seqtk/seqtk 
  ```
  Now that we've installed Seqtk, we'll run this code to randomly pick 500 reads from each of our samples:
 ``` 
-Seqtk sample –s100 C01D01F.fastq 500 > C01D01F_sub500.fastq
+seqtk sample -s 100 C01D01F.fastq 500 > C01D01F_sub500.fastq
 ```
   
-
 ###Assembling Illumina paired-end sequences
 
 Log on to the EC2 and find the Centralia_16Stag folder. 
@@ -233,24 +231,6 @@ Inspect the log and the resulting final_otu_map.txt file, using `head`.  You sho
 
 From the head of the combined_seqs_otus.txt file, we can see that OTU 0 has many sequences associated with it, including sequence 9757 from from sample F3D8.S196. We also see that OTU 3 only has one sequence associated with it. The log file has goodies about the algorithm and options chosen.  Keep this (and all) log file, because when you are writing the paper you may not remember what version of which clustering algorithm you used.
 
-### 2.5  Pick a representative sequence from each OTU.
-
-Representative sequences are those that will be aligned and used to build a tree.  They are selected as the one sequence, out of its whole OTU cluster, that will "define" its OTUs. As you can imagine, understanding how these "rep seqs" are chosen is very important.  Here, we will use the default method (the first sequence listed in the OTU cluster) of QIIME's `pick_rep_set.py` script; documentation [here](http://qiime.org/scripts/pick_rep_set.html).
-
-
-```
-pick_rep_set.py -i final_otu_map.txt -f combined_seqs.fna -o rep_seqs
-```
-
-As before, we specify the input files (the script needs the OTU clusters and the raw sequence file as input), and then we additionally specified the a new directory for the results.
-Inspect the head of the new fasta file, cdhit_rep_seqs.fasta.
-
-
-![img8](../img/rep_seqs2.jpg)
-
-As before, we see the OTU ID given first (consecutively, starting with 0), and then the sequence ID of the representative sequence, and then the full nucleotide information for the sequence. Notice that for OTU 0, which only had one sequence in its "cluster", is defined by that one sequence.  Don't be shy - go ahead and compare it to the combined_seqs_otus.txt file of OTU clusters.
-
-Take a gander at the log file, as well.  
 
 ### 2.6 Align representative sequences.
 
