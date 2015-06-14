@@ -186,7 +186,7 @@ Guidelines for formatting map files:
 QIIME expects all of the data to be in one file, and, currently, we have one separate fastq file for each assembled read.  We will add labels to each sample and merge into one fasta using the `add_qiime_labels.py` script. Documentation is [here](http://qiime.org/scripts/add_qiime_labels.html).
 
 ```
-add_qiime_labels.py -i pandaseq_merged_reads/ -m Centralia_full_map_corrected.txt -c InputFastaFileName -n 1 -o combined_seqs
+add_qiime_labels.py -i pandaseq_merged_reads/ -m Centralia_full_map_corrected.txt -c InputFastaFileName -n 1 
 ```
 Inspect the new file "combined_seqs.fna."
 
