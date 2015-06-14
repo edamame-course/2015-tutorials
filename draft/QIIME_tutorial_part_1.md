@@ -223,7 +223,7 @@ Picking OTUs is sometimes called "clustering," as sequences with some threshold 
 We use the `pick_otus.py` script in QIIME for this step.  Documentation is [here](http://qiime.org/scripts/pick_otus.html?highlight=pick_otus).
 The default QIIME 1.8.0 method for OTU picking is uclust (de novo, but there is a reference-based alternative, see below), but we will use the CD-HIT algorithm (de novo).  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.  Honestly, we are using CD-HIT here because because it is fast.
 
-Make sure you are in the QIIMETutorial directory to start.  This will take a few (<10ish) minutes.
+Make sure you are in the QIIMETutorial directory to start.  This will take a few minutes.
 
 ```
 pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref_prefilter0_90/ -f
@@ -233,7 +233,7 @@ In the above script:
   - We tell QIIME to look for the input file `-i`, "combined_seqs.fna".
   - We chose the clustering method usearch61 `-m`
 
-Inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID, starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
+Inspect the log and the resulting final_otu_map.txt file, using `head`.    
 
 ![img7](../img/combined_seqs_otus2.jpg)
 
