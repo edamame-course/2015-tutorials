@@ -135,12 +135,25 @@ rm list.txt
 
 ### 1.5  Automate paired-end merging with a shell script.
 
-We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a shell script to automate the task.  
+We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/Cen_pandaseq_merge.sh) to automate the task. You'll also need this [list](https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/list2.txt) of file names. 
+
+To automatically download the script and list onto the AMI, first navigate to the "subsampled_raw_sequence_set_FR" directory, and then use `curl`
+```
+curl -O https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/list2.txt
+```
+```
+curl -O https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/Cen_pandaseq_merge.sh
+```
+
+Change permissions on the script to make it executable:
+```
+chmod 755 Cen_pandaseq_merge.sh 
+```
 
 Execute the script from the QIIMETutorial Directory.
 
 ```
-./pandaseq_merge.sh
+./Cen_pandaseq_merge.sh
 ```
 
 ### 1.6  Sanity check #2.
