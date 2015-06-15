@@ -15,10 +15,13 @@ Modified by Sang-Hoon Lee and Siobhan Cusack
 ####Subsampling
   We have 54 samples with 200,000 reads each. In order to efficiently process these data, we had to subsample them to 5,000 reads per sample. We already did this for you, but let's practice subsampling on this smaller dataset so that you know how to do it.
   
-  We used Seqtk for subsampling, so first we'll have to install Seqtk.
+  We used [Seqtk](https://github.com/lh3/seqtk) for subsampling, so first we'll have to install Seqtk.
   
 ```  
 git clone https://github.com/lh3/seqtk.git
+```
+Navigate to the new seqtk directory to execute the next commands.
+```
 sudo make
 sudo cp seqtk /usr/local/bin
  ```
@@ -27,6 +30,7 @@ sudo cp seqtk /usr/local/bin
 ``` 
 seqtk sample -s 100 C01D01F_sub.fastq 500 > C01D01F_sub500.fastq
 ```
+This command is saying "pull 500 sequences from the fastq file specified."  The -s 100 flag specifies using a random seed (100). For paired-end reads that are going to be merged, it is important to specify the exact same seed so that the reads can be matched correctly later.   
 We should have a new file with subsampled sequences in it called C01D01_sub500.fastq.
   
 ###Assembling Illumina paired-end sequences
@@ -284,13 +288,23 @@ Congratulations!  You just had the QIIME of Your Life!
 
 ![img10](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_10.jpg)  
 
-
-## Where to find QIIME resources and help
+#Resources and help
+## QIIME
   - [QIIME](qiime.org) offers a suite of developer-designed [tutorials](http://www.qiime.org/tutorials/tutorial.html).
   - [Documentation](http://www.qiime.org/scripts/index.html) for all QIIME scripts.
   - There is a very active [QIIME Forum](https://groups.google.com/forum/#!forum/qiime-forum) on Google Groups.  This is a great place to troubleshoot problems, responses often are returned in a few hours!
   - The [QIIME Blog](http://qiime.wordpress.com/) provides updates like bug fixes, new features, and new releases.
   - QIIME development is on [GitHub](https://github.com/biocore/qiime).
+  - Remember that QIIME is a workflow environment, and the original algorithms/software that are compiled into QIIME must be referenced individually (e.g., PyNAST, RDP classifier, etc...)
+
+  ##SeqTk
+  - [GitHub](https://github.com/lh3/seqtk)
+  - [ANGUS Documentation](http://ged.msu.edu/angus/tutorials-2013/seqtk_tools.html)
+
+  ##PANDAseq
+  - [GitHub](https://github.com/neufeld/pandaseq/wiki/PANDAseq-Assembler)
+  - [AXIOME](http://www.biomedcentral.com/content/pdf/2047-217X-2-3.pdf)
+  - [PANDASeq Paper](http://www.biomedcentral.com/1471-2105/13/31)
 
 -----------------------------------------------
 -----------------------------------------------
