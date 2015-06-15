@@ -18,17 +18,17 @@ Before starting, we need to install FastQC on our AMI. From the home directory:
 ```
 wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.3.zip
 ```
-This will download a .zip file into the home directory. Let's unzip it. 
+This will download a .zip file into the home directory. Let's unzip it.
 
 ```
 unzip fastqc_v0.11.3.zip
 ```
-This will create a new directory called FastQC with all of the program files in it. We need to change the permissions on the executable file in order to run the program. 
+This will create a new directory called FastQC with all of the program files in it. We need to change the permissions on the executable file in order to run the program.
 
 ```
 cd FastQC
 ```
-You should now see a lot of files and new directories. "fastqc" will be in white, meaning we cannot execute the file. 
+You should now see a lot of files and new directories. "fastqc" will be in white, meaning we cannot execute the file.
 ```
 chmod 755 fastqc
 ls
@@ -48,12 +48,12 @@ On the left-hand side of the screen, there will be a summary of the analyses wit
 ###1: Basic Statistics
 ![basic statistics](../img/basic_statistics.jpg)
 
-Basic statistics displays a chart containing information about your file, including the name, how many reads were analyzed, and whether or not any of the reads were flagged for poor quality. In this case, we had 197235 sequences. None of them were flagged as poor quality. The average sequence length was 253 bases, with 55% GC content.
+Basic statistics displays a chart containing information about your file, including the name, how many reads were analyzed, and whether or not any of the reads were flagged for poor quality. In this case, we had 540,000 sequences. None of them were flagged as poor quality. The average sequence length was 150 bases, with 54% GC content.
 
 ###2: Per base sequence quality
 ![per base sequence quality](../img/per_base_sequence_quality.jpg)
 
-Per base sequence quality shows the quality of each sequence at every position from 1 to 253, in this case. It displays this information using box and whisker plots to give a sense of how much variation there was among the reads. Ideally we would want the entire plot to be contained within the green region; this would be considered very good quality. While having part of the plot in the orange or red regions is not preferable, sequences can still pass the quality check with lower quality, as in our example. When the lower quartile for any position is less than 10 or the median is less than 25, the module will give a warning. When the lower quartile for any position is less than 5 or the median is less than 20, the sequence will fail this quality check.
+Per base sequence quality shows the quality of each sequence at every position from 1 to 253, in this case. It displays this information using box and whisker plots to give a sense of how much variation there was among the reads. Ideally we would want the entire plot to be contained within the green region; this would be considered very good quality. While having part of the plot in the orange or red regions is not preferable, sequences can still pass the quality check if this is the case, as in our example. When the lower quartile for any position is less than 10 or the median is less than 25, the module will give a warning. When the lower quartile for any position is less than 5 or the median is less than 20, the sequence will fail this quality check.
 
 ###3: Per tile sequence quality
 ![per tile sequence quality](../img/per_tile_sequence_quality.jpg)
@@ -63,12 +63,13 @@ Per tile sequence quality is a heatmap display of the flow cell quality by indiv
 ###4: Per sequence quality scores
 ![per sequence quality scores](../img/per_sequence_quality_scores.jpg)
 
-Per sequence quality scores represent the quality of each read. The plot is created using Phred scores, which are based on a logarithmic scale. A Phred score of 30 indicates an error rate of 1 base in 1000, or an accuracy of 99.9%, while a Phred score of 40 indicates an error rate of 1 base in 10,000, or an accuracy of 99.99%. Sequences will yield a warning for this module if there is an error rate of 0.2% or higher (Phred score below 27). Sequences will fail this quality check if they have an error rate of 1% or higher (Phred score below 20.)
+Per sequence quality scores represent the quality of each read. The y-axis is number of sequences, and the x-axis uses Phred scores, which are based on a logarithmic scale. A Phred score of 30 indicates an error rate of 1 base in 1000, or an accuracy of 99.9%, while a Phred score of 40 indicates an error rate of 1 base in 10,000, or an accuracy of 99.99%. Sequences will yield a warning for this module if there is an error rate of 0.2% or higher (Phred score below 27). Sequences will fail this quality check if they have an error rate of 1% or higher (Phred score below 20.)
+In our example, the average quality per read is 37, which is very good.
 
 ###5: Per base sequence content
 ![per base sequence content](../img/per_base_sequence_content.jpg)
 
-Per base sequence content shows, for each position of each sequence, the base composition as a percentage of As, Ts, Cs and Gs. In a typical genome we expect the percentages of each base to be roughly equal, so the lines should be parallel and within about 10% of each other. We all know that GC content varies between organisms though, so some variation is expected. This module will yield a warning if the base content varies more than 10% at any position, and a sample will fail if there is more than 20% variation at any position, as in the example above.
+Per base sequence content shows, for each position of each sequence, the base composition as a percentage of As, Ts, Cs and Gs. This module will yield a warning if the base content varies more than 10% at any position, and a sample will fail if there is more than 20% variation at any position, as in the example above. However, FastQC is designed for checking whole genome sequencing data, but we used 16S sequences for our input files. So although we have a failure for this module, it's not because there's something wrong with our sequences. It's simply because we used sequences that are enriched for certain bases, rather than completely random sequences from a whole genome. 
 
 ###6: Per sequence GC content
 ![per sequence GC content](../img/per_sequence_GC_content.jpg)
