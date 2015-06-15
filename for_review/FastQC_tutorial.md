@@ -11,10 +11,9 @@ After connecting to the QIIME AMI and downloading the data from the cloud, navig
 cd EDAMAME_Datasets/16S
 ```
 
-Before starting, we need to make sure we have sequencing files that end in .fastq
-=======
-Before starting, we need to install FastQC on our AMI. From the home directory:
->>>>>>> 3a536aeb4bce3d4b992a960c8a79a6a8f6bf6703
+Before starting, make sure the sequencing files have the .fastq extension.
+
+First, we need to install FastQC on our AMI. From the home directory:
 
 ```
 wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.3.zip
