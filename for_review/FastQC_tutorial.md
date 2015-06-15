@@ -23,6 +23,7 @@ This will create a new directory called FastQC with all of the program files in 
 
 ```
 cd FastQC
+ls
 ```
 You should now see a lot of files and new directories. "fastqc" will be in white, meaning we cannot execute the file.
 ```
