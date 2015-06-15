@@ -6,7 +6,6 @@ Authored by Siobhan Cusack
 
 FastQC is a relatively quick and non labor-intesive way to check the quality of your NGS data.
 
-<<<<<<< HEAD
 After connecting to the QIIME AMI and downloading the data from the cloud, navigate to the 16S directory.
 ```
 cd EDAMAME_Datasets/16S
