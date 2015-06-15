@@ -13,7 +13,7 @@ Modified by Sang-Hoon Lee and Siobhan Cusack
 ##Getting started
 
 ####Subsampling
-  We have 54 samples with 200,000 reads each. In order to efficiently process these data, we had to subsample them to 5,000 reads per sample. We already did this for you, but let's practice subsampling on this smaller dataset so that you know how to do it.
+  We have 54 samples with ~200,000 reads each, which is way to big to handle for a workshop, or for troubleshooting and developing an analysis workflow. In order to efficiently process these data, we had to subsample them to 5,000 reads per sample. We already did this for you, but let's practice subsampling on this smaller dataset so that you know how to do it.
   
   We used [Seqtk](https://github.com/lh3/seqtk) for subsampling, so first we'll have to install Seqtk.
   
@@ -26,18 +26,23 @@ sudo make
 sudo cp seqtk /usr/local/bin
  ```
  Now that we've installed Seqtk, we'll run this code to randomly pick 500 reads from each of our samples.
- Navigate to the Centralia_16STag folder, then run seqtk:
+ Navigate to the Centralia_16S folder, then run seqtk:
 ``` 
 seqtk sample -s 100 C01D01F_sub.fastq 500 > C01D01F_sub500.fastq
 ```
 This command is saying "pull 500 sequences from the fastq file specified."  The -s 100 flag specifies using a random seed (100). For paired-end reads that are going to be merged, it is important to specify the exact same seed so that the reads can be matched correctly later.   
 We should have a new file with subsampled sequences in it called C01D01_sub500.fastq.
+
+Sanity check:  how do we know that this new file actually has 500 sequences in it?  If we insepct the header of the fastq file, we'll see that every sequences begins with a character string "@HWI."  Thus, we can use grep to count the number of @HWI's in the file to count the number of sequences.
+```
+grep -c @HWI C01D01F_sub500.fastq
+```
   
 ###Assembling Illumina paired-end sequences
 
 Our sequences are 16S rRNA amplicons sequenced with MiSeq. We will use [PANDAseq](http://www.ncbi.nlm.nih.gov/pubmed/22333067) to assemble the forward and reverse reads.
 
-First we will need to install pandaseq as it is not included in the QIIME environment.
+First we will need to install pandaseq as it is not included in the QIIME environment.  Move back to your home directory before installing.
 
 ```
 which pandaseq
@@ -45,14 +50,16 @@ which pandaseq
 This should not return anything since we have not yet installed it.
 
 ```
-sudo apt-get install pandaseq-dbg
-
+git clone http://github.com/neufeld/pandaseq.git/
+cd pandaseq
+./autogen.sh && ./configure && make && sudo make install
+sudo ldconfig
 which pandaseq
 ```
 
 If pandaseq has installed properly, this will return "/usr/local/bin/pandaseq"
 
-Now use `mkdir` to create a new directory called "pandaseq_merged_reads"
+Now, navigate back to the EDAMAME 16S subsampled dataset directory, and use `mkdir` to create a new directory called "pandaseq_merged_reads"
 ```
 mkdir pandaseq_merged_reads
 ```
@@ -70,22 +77,18 @@ Let's look carefully at the anatomy of this command.
   -  `-g C01D01_merged.log` selects an option of creating a log file.
   -  `-B` means that the input sequences do not have a barcode.
   -  `-A` is the algorithm used for assembly.
-  -  `-L` specifies the maximum length of the assembled reads, which, in truth, should be 251 bp. This is a very important option to specify, otherwise PANDAseq will assemble a lot of crazy-long sequences.
+  -  `-L` specifies the maximum length of the assembled reads, which, in truth, should be 253 bp. This is a very important option to specify, otherwise PANDAseq will assemble a lot of crazy-long sequences.
   -  `-O` specifies the amount of overlap allowed between the forward and reverse sequences.
-  -  `-t` is a quality score between 0 and 1 that each sequence must meet to be kept in the final output.
+  -  `-t` is a quality score between 0 and 1 that each sequence must meet to be kept in the final output.  In our experience, this is a very important parameter - we did some testing of the threshold and found that 0.9 was optimal.
   
 
   All of the above information, and more options, are fully described in the [PANDAseq Manual.](http://neufeldserver.uwaterloo.ca/~apmasell/pandaseq_man1.html).  The log file includes details as to how well the merging went.
   
-### 1.4  Sanity check #1 and file inspection.
+### 1.4  Sanity check and file inspection.
 
-There are some questions you may be having: What does pandaseq return?  Are there primers/barcodes on the assembled reads?  Are these automatically trimmed?
+There are some questions you may be having: What does pandaseq return?  How do I know that it returned sequences the size I expect?  Are the primers still attached?
 
-  It turns out, that PANDAseq, by default, removes primers and barcodes (There are also options to keep primers, please see the manual link above).  Given that we used the default pandaseq options, how do we check to make sure that what we expect to happen actually did happen?
-
-Here is the barcode sequence that was used in generating these data: GTCTAATTCCGA
-
-  We can search for that sequence in the assembled sequence file, using the `grep` function.  
+It turns out that we had primers/barcodes removed before we started merging, but let's pretend for a minute that we had no idea about that.  How could we check?  Say we know that one of the barcode sequences is: GTCTAATTCCGA 
 
 ```
 cd pandaseq_merged_reads
