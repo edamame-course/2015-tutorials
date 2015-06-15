@@ -30,7 +30,13 @@ You should now see a lot of files and new directories. "fastqc" will be in white
 chmod 755 fastqc
 ls
 ```
-"fastqc" should now be in green. Now we can execute it! We need to copy a .fastq file into this folder in order to run the program. We'll use forward.fastq, which is a file containing all forward reads from our 16S tag sequencing. Once we have copied it into the FastQC folder, we will run the program.
+"fastqc" should now be in green. Now we can execute it! We need to copy a .fastq file into this folder in order to run the program. We'll use forward.fastq, which will be a file containing all forward reads from our 16S tag sequencing. To make this file, navigate to the folder containing all of the subsampled data .fastq files.
+
+```
+cat *F_sub.fastq > forward.fastq
+```
+This concatenates all of the files ending in "F_sub.fastq", for "forward reads", into one big file.
+Once we have copied it into the FastQC folder, we will run the program.
 
 
 ```
