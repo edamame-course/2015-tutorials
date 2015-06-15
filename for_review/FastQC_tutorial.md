@@ -55,7 +55,7 @@ Basic statistics displays a chart containing information about your file, includ
 ###2: Per base sequence quality
 ![per base sequence quality](../img/per_base_sequence_quality.jpg)
 
-Per base sequence quality shows the quality of each sequence at every position from 1 to 253, in this case. It displays this information using box and whisker plots to give a sense of how much variation there was among the reads. Ideally we would want the entire plot to be contained within the green region; this would be considered very good quality. While having part of the plot in the orange or red regions is not preferable, sequences can still pass the quality check if this is the case, as in our example. When the lower quartile for any position is less than 10 or the median is less than 25, the module will give a warning. When the lower quartile for any position is less than 5 or the median is less than 20, the sequence will fail this quality check.
+Per base sequence quality shows the quality of each sequence at every position from 1 to 150, in this case. It displays this information using box and whisker plots to give a sense of how much variation there was among the reads. Ideally we would want the entire plot to be contained within the green region; this would be considered very good quality. While having part of the plot in the orange or red regions is not preferable, sequences can still pass the quality check if this is the case, as in our example. When the lower quartile for any position is less than 10 or the median is less than 25, the module will give a warning. When the lower quartile for any position is less than 5 or the median is less than 20, the sequence will fail this quality check.
 
 ###3: Per tile sequence quality
 ![per tile sequence quality](../img/per_tile_sequence_quality.jpg)
@@ -71,12 +71,14 @@ In our example, the average quality per read is 37, which is very good.
 ###5: Per base sequence content
 ![per base sequence content](../img/per_base_sequence_content.jpg)
 
-Per base sequence content shows, for each position of each sequence, the base composition as a percentage of As, Ts, Cs and Gs. This module will yield a warning if the base content varies more than 10% at any position, and a sample will fail if there is more than 20% variation at any position, as in the example above. However, FastQC is designed for checking whole genome sequencing data, but we used 16S sequences for our input files. So although we have a failure for this module, it's not because there's something wrong with our sequences. It's simply because we used sequences that are enriched for certain bases, rather than completely random sequences from a whole genome. 
+Per base sequence content shows, for each position of each sequence, the base composition as a percentage of As, Ts, Cs and Gs. This module will yield a warning if the base content varies more than 10% at any position, and a sample will fail if there is more than 20% variation at any position, as in the example above. However, FastQC is designed for checking whole genome sequencing data, but we used 16S sequences for our input files. So although we have a failure for this module, it's not because there's something wrong with our sequences. It's simply because we used sequences that are enriched for certain bases, rather than completely random sequences from a whole genome.
 
 ###6: Per sequence GC content
 ![per sequence GC content](../img/per_sequence_GC_content.jpg)
 
-Per sequence GC content displays the GC content for all reads along with the "theoretical distribution" of GCs. The peak of the red line corresponds to the mean GC content for the sequences, while the peak of the blue line corresponds to the theoretical mean GC content. Your GC content should be normally distributed; shifts in the peak are to be expected since GC content varies between organisms, but anything other than a normal curve might be indicative of contamination. A warning is raised if sequences outside of the normal distribution comprise more than 15% of the total. A sample will fail if more than 20% of sequences are outside the normal distribution. Failures are usually due to contamination, frequently by adapter sequences.
+Per sequence GC content displays the GC content for all reads along with the "theoretical distribution" of GCs. The peak of the red line corresponds to the mean GC content for the sequences, while the peak of the blue line corresponds to the theoretical mean GC content. Your GC content should be normally distributed; shifts in the peak are to be expected since GC content varies between organisms, but anything other than a normal curve might be indicative of contamination. The sharp peak seen above is again due to the fact that we have enriched for a specific sequence, so we expect the majority to have about the same GC content.
+
+A warning is raised if sequences outside of the normal distribution comprise more than 15% of the total. A sample will fail if more than 20% of sequences are outside the normal distribution. Failures are usually due to contamination, frequently by adapter sequences.
 
 ###7: Per base N content
 ![per base N content](../img/per_base_N_content.jpg)
@@ -86,18 +88,20 @@ Per base N content shows any positions within the sequences which the which have
 ###8: Sequence length distribution
 ![sequence length distribution](../img/sequence_length_distribution.jpg)
 
-This module simply shows the length of each sequence in the sample. Depending on the sequencing platform used, this will vary. For Illumina sequencing, each read should be the same size, with variation of one or two bases being acceptable. For other platforms, a relatively large amount of variation is normal. The module will show a warning if there is any variation in sequence length, which can be ignored if you know that this is normal for your data. A failure here means that at least one sequence had a length of 0. Our example passes this module as all of the sequences are 253 bp with no variation.
+This module simply shows the length of each sequence in the sample. Depending on the sequencing platform used, this will vary. For Illumina sequencing, each read should be the same size, with variation of one or two bases being acceptable. For other platforms, a relatively large amount of variation is normal. The module will show a warning if there is any variation in sequence length, which can be ignored if you know that this is normal for your data. A failure here means that at least one sequence had a length of 0. Our example passes this module as all of the sequences are 150 bp with no variation.
 
 ###9: Sequence duplication levels
 ![sequence duplication levels](../img/sequence_duplication_levels.jpg)
 
-The sequence duplication levels plot shows the number of times a sequence is duplicated on the x-axis with the percent of sequences showing this duplication level on the y-axis. Normally a genome will have a sequence duplication level of 1 to 3 for the majority of sequences, with only a handful having a duplication level higher than this; the line should have an inverse log shape. A high duplication level for a large percentage of sequences is usually indicative of contamination. This module will issue a warning if more than 20% of the sequences are duplicated, and a failure if more than 50% of the sequences are duplicated. A warning or failure will occur if there PCR artifacts or enriched sequences; this is sometimes to be expected.
+The sequence duplication levels plot shows the number of times a sequence is duplicated on the x-axis with the percent of sequences showing this duplication level on the y-axis. Normally a genome will have a sequence duplication level of 1 to 3 for the majority of sequences, with only a handful having a duplication level higher than this; the line should have an inverse log shape. A high duplication level for a large percentage of sequences is usually indicative of contamination. Once again we see that the use of 16S sequencing data yield confusing results; the above result is normal considering the input sequences. This module will issue a warning if more than 20% of the sequences are duplicated, and a failure if more than 50% of the sequences are duplicated. A warning or failure can also result from PCR artifacts.
 
 ###10: Overrepresented sequences
 ![overrepresented sequences](../img/overrepresented_sequences.jpg)
 
 If a certain sequence is calculated to represent more than 0.1% of the entire genome, it will be flagged as an overrepresented sequence and yield a warning for this module. The presence of sequences that represent more than 1% of the whole genome will result in a failure, as seen above.
-A frequent source of "overrepresented sequences" is Illumina adapters, which is why it's a good idea to trim sequences before running FastQC. Another occasional source of overrepresented sequences is high copy-number plasmids, although they are frequently a result of contamination. FastQC checks for possible matches to overrepresented sequences, although this search frequently returns "no hit". However it is usually quite easy to identify the overrepresented sequences by doing a simple BLAST search.
+These overrepresented sequences are seen because we are looking at 16S data; if we did not see this many overrepresented sequences, there would be a serious problem. Another frequent source of "overrepresented sequences" is Illumina adapters, which is why it's a good idea to trim sequences before running FastQC.
+
+The program searches for possible matches to identified overrepresented sequences, although this search frequently returns "no hit". However it is usually quite easy to identify the overrepresented sequences by doing a simple BLAST search.
 
 
 ###11: Adapter content
@@ -111,7 +115,9 @@ This module searches for specific adapter sequences. A sequence that makes up mo
 ![kmer content 2](../img/kmer_content_part_II.jpg)
 
 
-In a completely random library, any kmers would be expected to be seen about equally in each position (from 1-253 in this case). Any kmers that are specifically enriched at a particular site are reported in this module. If a kmer is enriched at a specific site with a p-value of less than 0.01, a warning will be displayed. A failure for this module occurs if a kmer is enriched at a site with a p-value of less than 10^-5. It is relatively common to see enriched kmers near the beginning of a sequence, once again because of adapter sequences. The warning seen in the example is likely due to adapters based on the position of the kmers.
+In a completely random library, any kmers would be expected to be seen about equally in each position (from 1-150 in this case). Any kmers that are specifically enriched at a particular site are reported in this module. If a kmer is enriched at a specific site with a p-value of less than 0.01, a warning will be displayed. A failure for this module occurs if a kmer is enriched at a site with a p-value of less than 10^-5.
+We have failed this module, again due to the fact that we are using 16S sequences. As with the overrepresented sequences, we are expecting to see well-represented kmers because of high sequence conservation in the 16S region.
+In non-enriched reads, it is relatively common to see highly represented kmers near the beginning of a sequence because of adapters.
 
 
 ###For FastQC questions, check the [documentation](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/). Happy quality checking!
