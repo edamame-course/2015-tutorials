@@ -20,12 +20,16 @@ In the image above the full Public DNS of the highlighted instance is **ec2-52-5
 
 You will need to know the location of your **key pair** you created when you launched your instance.  Usually this will be in your "Downloads" folder, but you may want to move it elsewhere.
 
+```
+cd /Downloads
+```
+
 You will need to know what your Public DNS is for your EC2 Instance.
 
 ###2. Change your keyfile permisions to read only:
 
 ```
-chmod 600 **/path/to/your/keyfile/**eda.pem
+chmod 600 **/path/to/your/keyfile/**.pem
 ```
 This command will adjust the permissions on your keyfile so that it cannot be edited. This is important because if the keyfile is edited or changed, it will no longer allow access to the EC2 instance.
 
@@ -34,6 +38,9 @@ This command will adjust the permissions on your keyfile so that it cannot be ed
 ```
 ssh -i **/path/to/your/keyfile/**eda.pem ubuntu@"your public DNS"
 ```
+
+On your first login, you may get a prompt stating that the host authenticity cannot be established, are you sure you want to continue?  Yes, you really do.
+
 SUCCESS! You have now logged into your computer in the cloud!
 
 ###4. After the first login
@@ -47,7 +54,8 @@ ssh -i **/path/to/your/keyfile/**EDAMAME.pem ubuntu@"your public DNS"
 
 ###5. Transferring files to and from the EC2
 
-Next we will go over how to copy a file from your personal computer to your EC2 instance using `scp`. The usage is very similar to `ssh`.
+Next we will go over how to copy a file from your personal computer to your EC2 instance using `scp`. The usage is very similar to `ssh`.  Start a new terminal window before executing the command below.
+
 ````
 scp -i **/path/to/your/keyfile.pem** **path/to/the/file/you/want/to/copy** ubuntu@"your public DNS":**/path/where/to /copy/the/file**
 ````
@@ -68,11 +76,13 @@ scp -i /Users/JSorensen/Desktop/EDAMAME.pem ubuntu@ec2-52-5-171-50.compute-1.ama
 ```
 
 ###6. Are you ready for some data???
-Alright, enough practicing, let's do some real work! For this class, we have stored all of the data we will be using on an Amazon S3 bucket(ie the wonderful nebulous cloud). We are going to use the tool `wget` in order to download the data onto your (remote) computer. Input the following line of code and get your data. 
+Alright, enough practicing, let's do some real work! For this class, we have stored all of the data we will be using on an Amazon S3 bucket(ie the wonderful nebulous cloud). We are going to use the tool `wget` in order to download the data onto your (remote) computer. After connecting to your instance, input the following line of code and get your data.  
 
 ```
 wget https://s3.amazonaws.com/edamame/EDAMAME_Datasets.tar.gz
 ```
+
+Make sure you are in the terminal window that is connected to your instance, otherwise you will end up downloading the course data onto your personal laptop and not the AMI.
 
 Let that run for a minute or two and you'll get the data we are going to be using for the majority of this course. Next, we need to unzip or decompress the file so that we can actually make use of it. We will do so by running the following line of code that makes use of a program called `tar`
 
