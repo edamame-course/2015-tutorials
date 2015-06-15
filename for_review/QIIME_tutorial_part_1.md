@@ -133,16 +133,21 @@ Our positive control worked, and we should be convinced and joyous that we execu
 rm list.txt
 ```
 
+Let's also remove the merged file; we're going to make a new one using AUTOMATION in a second.
+```
+rm C01D01_merged.fasta 
+```
+
 ### 1.5  Automate paired-end merging with a shell script.
 
 We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/Cen_pandaseq_merge.sh) to automate the task. You'll also need this [list](https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/list2.txt) of file names. 
 
-To automatically download the script and list onto the AMI, first navigate to the "subsampled_raw_sequence_set_FR" directory, and then use `curl`
+To automatically download the script and list onto the AMI, first navigate to the "subsampled_raw_sequence_set_FR" directory, and then use `curl` to get the raw files.
 ```
-curl -O https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/list2.txt
+curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/demos/pandaseq_sh/list2.txt
 ```
 ```
-curl -O https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/Cen_pandaseq_merge.sh
+curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/demos/pandaseq_sh/Cen_pandaseq_merge.sh
 ```
 
 Change permissions on the script to make it executable:
@@ -150,7 +155,7 @@ Change permissions on the script to make it executable:
 chmod 755 Cen_pandaseq_merge.sh 
 ```
 
-Execute the script from the QIIMETutorial Directory.
+Execute the script from the subsampled_raw_sequence_set_FR Directory.
 
 ```
 ./Cen_pandaseq_merge.sh
@@ -158,7 +163,7 @@ Execute the script from the QIIMETutorial Directory.
 
 ### 1.6  Sanity check #2.
 
-How many files were we expecting from the assembly?  There were 54 pairs to be assembled, and we are generating one assembled fasta and one log for each.  Thus, the pandaseq_merged_reads directory should contain 108 files.  We use the `wc` command to check the number of files in the directory.
+How many files were we expecting from the assembly?  There were 54 pairs to be assembled, and we are generating one assembled fasta and one log for each.  Thus, the pandaseq_merged_reads directory should contain 108 files.  Navigate up one directory, and then use the `wc` (word count) command to check the number of files in the directory.
 
 ```
 ls -1 pandaseq_merged_reads | wc -l
