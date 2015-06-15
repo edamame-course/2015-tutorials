@@ -6,7 +6,7 @@ date: 2015-04-15
 ---
 
 #Intro to QIIME
-Authored by Josh Herr
+Authored by Ashley Shade
 
 Modified by Sang-Hoon Lee and Siobhan Cusack
 
