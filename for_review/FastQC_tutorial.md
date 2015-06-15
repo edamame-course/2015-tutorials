@@ -4,11 +4,31 @@
 
 FastQC is a relatively quick and non labor-intesive way to check the quality of your NGS data.
 
-Before starting, we need to make sure we have sequencing files that end in .fastq
+Before starting, we need to install FastQC on our AMI. From the home directory:
 
-FastQC is already loaded and active in our AMI, so all we have to do is use the 'fastqc' command:
 ```
-fastqc C02_05102014_R1_D03_TTACTGTGCGAT.fastq
+wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.3.zip
+```
+This will download a .zip file into the home directory. Let's unzip it. 
+
+```
+unzip fastqc_v0.11.3.zip
+```
+This will create a new directory called FastQC with all of the program files in it. We need to change the permissions on the executable file in order to run the program. 
+
+```
+cd FastQC
+```
+You should now see a lot of files and new directories. "fastqc" will be in white, meaning we cannot execute the file. 
+```
+chmod 755 fastqc
+ls
+```
+"fastqc" should now be in green. Now we can execute it! We need to copy a .fastq file into this folder in order to run the program. We'll use forward.fastq, which is a file containing all forward reads from our 16S tag sequencing. Once we have copied it into the FastQC folder, we will run the program.
+
+```
+./fastqc forward.fastq
+
 ```
 This will create two new files with the same name and the extensions `.fastqc.zip` and `fastqc.html`. As you may be able to guess, these are processed files in zip and html format.
 
