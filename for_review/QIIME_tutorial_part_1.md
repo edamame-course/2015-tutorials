@@ -169,7 +169,12 @@ How many files were we expecting from the assembly?  There were 54 pairs to be a
 ls -1 pandaseq_merged_reads | wc -l
 ```
 
-The terminal should return the number "108."  Congratulations, you lucky duck! You've assembled paired-end reads!  
+The terminal should return the number "108."  Let's move this whole directory up one level so that we can access more easily with QIIME:
+```
+mv pandaseq_merged_reads/ ..
+```
+
+Congratulations, you lucky duck! You've assembled paired-end reads!  
 
 ![img4](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_04.jpg)  
 
@@ -177,7 +182,7 @@ The terminal should return the number "108."  Congratulations, you lucky duck! Y
   
 QIIME requires a [mapping file](http://qiime.org/documentation/file_formats.html) for most analyses.  This file is important because it links the sample IDs with their metadata (and, with their primers/barcodes if using QIIME for quality-control). 
 
-Let's spend few moments getting to know the mapping file:
+Let's spend few moments getting to know the mapping file.  Navigate to the MappingFiles subdirectory in the 16S directory.
 
 ```
 more Centralia_full_map_corrected.txt
@@ -187,12 +192,12 @@ more Centralia_full_map_corrected.txt
 
 A clear and comprehensive mapping file should contain all of the information that will be used in downstream analyses.  The mapping file includes both categorical (qualitative) and numeric (quantitative) contextual information about a sample. This could include, for example, information about the subject (sex, weight), the experimental treatment, time or spatial location, and all other measured variables (e.g., pH, oxygen, glucose levels). Creating a clear mapping file will provide direction as to appropriate analyses needed to test hypotheses.  Basically, all information for all anticipated analyses should be in the mapping file.
 
-*Hint*:  Mapping files are also a great way to organize all of the data for posterity in the research group.  New lab members interested in repeating the analysis should have all of the required information in the mapping file.  PIs should ask their students to curate and deposit both mapping files and raw data files.
+*Hint*:  Mapping files are also a great way to organize all of the data for posterity in the research group, and can provide a clear framework for making a [database](http://swcarpentry.github.io/sql-novice-survey/).  New lab members interested in repeating the analysis should have all of the required information in the mapping file.  PIs should ask their students to curate and deposit both mapping files and raw data files.
 
 Guidelines for formatting map files:
   - Mapping files should be tab-delimited
   - The first column must be "#SampleIDs" (commented out using the `#`).
-  -  SampleIDs are VERY IMPORTANT. Choose wisely! Ideally, a user who did not design the experiment should be able to distiguishes the samples easily. SampleIDs must be alphanumeric characters or periods.  They cannot have underscores.
+  -  SampleIDs are VERY IMPORTANT. Choose wisely! Ideally, a user who did not design the experiment should be able to distiguishes the samples easily. In QIIME, SampleIDs must be alphanumeric characters or periods.  They cannot have underscores.
   - The last column must be "Description".
   - There can be as many in-between columns of contextual data as needed.
   - If you plan to use QIIME for quality control (which we do not need because the PANDAseq merger included QC), the BarcodeSequence and LinkerPrimer sequence columns are also needed, as the second and third columns, respectively.
