@@ -6,15 +6,11 @@ Authored by Siobhan Cusack
 
 FastQC is a relatively quick and non labor-intesive way to check the quality of your NGS data.
 
-After connecting to the QIIME AMI and downloading the data from the cloud, navigate to the 16S directory.
-```
-cd EDAMAME_Datasets/16S
-```
+Connect to the QIIME 1.9.1 AMI, and if you haven't done so already, download the data from the cloud.
 
-Before starting, make sure the sequencing files have the .fastq extension.
+Before starting, make sure the sequencing files (in the 16S "subsampled" directory) have the .fastq extension.
 
-First, we need to install FastQC on our AMI. From the home directory:
-
+Install FastQC from the home directory.
 ```
 wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.3.zip
 ```
@@ -35,6 +31,7 @@ ls
 ```
 "fastqc" should now be in green. Now we can execute it! We need to copy a .fastq file into this folder in order to run the program. We'll use forward.fastq, which is a file containing all forward reads from our 16S tag sequencing. Once we have copied it into the FastQC folder, we will run the program.
 
+
 ```
 ./fastqc forward.fastq
 
@@ -42,6 +39,10 @@ ls
 This will create two new files with the same name and the extensions `.fastqc.zip` and `fastqc.html`. As you may be able to guess, these are processed files in zip and html format.
 
 Using scp, transfer the html file to your desktop. Now double-click on the file and it should open in your browser.
+```
+scp
+```
+
 On the left-hand side of the screen, there will be a summary of the analyses with some combination of green checkmarks, yellow exclamation points, and red Xs, depending on whether or not the sequences pass the quality check for each module.
 
 
