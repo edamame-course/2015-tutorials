@@ -81,7 +81,7 @@ scp -i /Users/JSorensen/Desktop/EDAMAME.pem ubuntu@ec2-52-5-171-50.compute-1.ama
 Alright, enough practicing, let's do some real work! For this class, we have stored all of the data we will be using on an Amazon S3 bucket(ie the wonderful nebulous cloud). We are going to use the tool `wget` in order to download the data onto your (remote) computer. After connecting to your instance, input the following line of code and get your data.  
 
 ```
-wget https://s3.amazonaws.com/edamame/EDAMAME_Datasets.tar.gz
+wget https://s3.amazonaws.com/edamame/EDAMAME_16S.tar.gz
 ```
 
 Make sure you are in the terminal window that is connected to your instance, otherwise you will end up downloading the course data onto your personal laptop and not the AMI.
