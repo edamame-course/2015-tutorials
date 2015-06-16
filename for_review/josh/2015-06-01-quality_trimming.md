@@ -28,8 +28,8 @@ We'll be using a tool which is not aware of paired-end reads. This is fine as th
 
 Download the data:
 ```
-wget https://s3.amazonaws.com/edamame/EDAMAME_Datasets.tar.gz
-tar -zxvf EDAMAME_Datasets.tar.gz
+wget https://s3.amazonaws.com/edamame/EDAMAME_MG.tar.gz
+tar -zxvf EDAMAME_MG.tar.gz
 ```
 
 2.  First, let's get an idea of some quality stats from our data.  We're going to first use the ```fastx_quality_stats``` [script](http://hannonlab.cshl.edu/fastx_toolkit/commandline.html#fastq_statistics_usage) from the Hannon Lab's [fastx-toolkit](http://hannonlab.cshl.edu/fastx_toolkit/index.html) package.
