@@ -251,15 +251,6 @@ Note that both summary.seqs and count_seqs.py have returned the same total numbe
 ```
 quit()
 ```
-####Installing usearch61
-Download the [install file](../QIIME_files/usearch6.1.544_i86linux32) to your desktop.
-Use scp to transfer the file to your EC2 instance.
-```
-sudo cp usearch6.1.544_i86linux32 /usr/local/bin/usearch61
-sudo chmod 755 /usr/local/bin/usearch61
-print_qiime_config.py -tf
-```
-This should show that the install did not have any failures.
 
 
 ### 2.4  Picking Operational Taxonomic Units, OTUs.
@@ -272,7 +263,18 @@ Picking OTUs is sometimes called "clustering," as sequences with some threshold 
 We use the QIIME command: `pick_open_reference_otus.py` for this step.  Documentation is [here](http://qiime.org/scripts/pick_open_reference_otus.html).
 The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch](http://www.drive5.com/usearch/) algorithm because it incorporates a chimera-check.  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
 
-Make sure you are in the "subsampled" directory to start.  This will take a few (<10ish) minutes.
+###Installing usearch61
+Download the [install file](../QIIME_files/usearch6.1.544_i86linux32) to your desktop.
+Use scp to transfer the file to your EC2 instance.
+```
+sudo cp usearch6.1.544_i86linux32 /usr/local/bin/usearch61
+sudo chmod 755 /usr/local/bin/usearch61
+print_qiime_config.py -tf
+```
+This should show that the install did not have any failures.
+
+
+Before continuing, make sure you are in the "subsampled" directory.  This will take a few (<10ish) minutes.
 
 ```
 pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref_prefilter0_90/ -f
