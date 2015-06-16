@@ -47,3 +47,6 @@ Let's rename your files:
 mv {your-file}.fastq.gz.keep.abundfilt.keep {your-file}_single.fastq.gz  
 ```
 These files will be used in the next section where we assemble your metagenomic reads.
+
+##Resources
+[khmer documentation and repo](https://github.com/dib-lab/khmer/blob/master/README.rst)
