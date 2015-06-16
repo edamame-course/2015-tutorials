@@ -38,5 +38,11 @@ echo 'export PYTHONPATH=/usr/local/share/khmer:$PYTHONPATH' >> ~/.bashrc
 source ~/.bashrc
 ```
 
+####Installing screed
+```
+pip install screed
+```
+
+
 
 
