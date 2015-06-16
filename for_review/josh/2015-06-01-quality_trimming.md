@@ -71,13 +71,16 @@ What are the differences between the raw data and the quality trimmed data?
 
 There are other tools for quality trimming your data -- some are for specific types of data and have different features.  It's a good idea to read the manual of each tool and do a sanity check on your data after using the tools (at the very least ```head```, ```tail```, ```more```, ```less```, *etc*.) to see that you are actually removing what you think you are removing.
 
-Some handy quality and/or adapter trimming tools you might want to investigate are:
-    1. [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) - all purpose
-    2. [cutadapt](https://code.google.com/p/cutadapt/) - adapter trimming
-    3. [sickle](https://github.com/najoshi/sickle) - read quality trimming
-    4. [scythe](https://github.com/vsbuffalo/scythe) - adapter contamination trimming
+Some handy quality and/or adapter trimming tools you might want to investigate are:   
+   1. [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) - all purpose
+   2. [cutadapt](https://code.google.com/p/cutadapt/) - adapter trimming
+   3. [sickle](https://github.com/najoshi/sickle) - read quality trimming
+   4. [scythe](https://github.com/vsbuffalo/scythe) - adapter contamination trimming
 
 
 ## Next step
 
 Now we're going to take our quality trimmed reads and run digital normalization on the reads to remove redundant information and also remove some erroneous information.
+
+## Other resources
+   * [ANGUS documentation](http://angus.readthedocs.org/en/2014/short-read-quality-evaluation.html)
