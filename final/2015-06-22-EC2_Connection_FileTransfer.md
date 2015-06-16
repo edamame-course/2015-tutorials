@@ -5,7 +5,7 @@ comments: true
 date: 2015-06-22 18:44:36
 ---
 ##Windows users
-Download MobaXterm [here](http://mobaxterm.mobatek.net/download.html). You can now follow along starting with step 1, "Open a Terminal". In this case that means open MobaXterm.
+Download MobaXterm [here](http://mobaxterm.mobatek.net/download.html) to use as your terminal. 
 
 ##Mac OS & Linux Users, connecting to your Amazon EC2 instance at the command line is pretty easy.
 ###0. Find your EC2's Public DNS:
