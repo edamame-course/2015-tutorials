@@ -1,6 +1,6 @@
 # Metagenome program installation
 
-For this course, we will be using a set of independently developed programs for our metagenome analysis. While some of the programs are already installed on your EC2 instance there are a few remaining that we will download and install together as a class. These include the FastX toolkit and one of its dependencies Libgtextutils, as well as Khmer.  
+For this course, we will be using a set of independently developed programs for our metagenome analysis. While some of the programs are already installed on your EC2 instance there are a few remaining that we will download and install together as a class. These include the FastX toolkit and one of its dependencies Libgtextutils, as well as Khmer. You will need to be running an m3.large EC2 instance from the AMI `EDAMAME-2015` with 100GB of storage.   
 
 ####Downloading, Unpacking, and Installing Libgtextutils and FastX:
 In order to install FastX and libgtextutils we will do three basic steps. First we will download a compressed version of the programs using `wget`. Then we will unzip those folders using `tar` and finally we will install configure and install the programs. The code for install these two programs are listed below. 
