@@ -1,16 +1,31 @@
 #Data quality checking with FastQC
 
-Authored by Siobhan Cusack
+Authored by Siobhan Cusack, with contributions from Ashley Shade and Jackson Sorensen
 
 ####Information in this tutorial is based on the FastQC manual which can be accessed [here](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/).
 
-FastQC is a relatively quick and non labor-intesive way to check the quality of your NGS data.
+FastQC is a relatively quick and non labor-intesive way to check the quality of your NGS data.  Before we go into that, we're going to actually look at the raw data.
 
 Connect to the QIIME 1.9.1 AMI, and if you haven't done so already, download the data from the cloud.
 
 Before starting, make sure the sequencing files (in the 16S "subsampled" directory) have the .fastq extension.
 
-Install FastQC from the home directory.
+Inspect the raw data files.  What do the guts of a fastq file look like?
+```
+more C01D01F_sub.fastq
+```
+
+Each fastq has four lines:
+* 1. name (header - includes sequencer, spot coordinates, flow cell, etc...)   
+* 2. actual sequence data   
+* 3. spacer (starts with +)   
+* 4. Quality: q score - alpha numeric (I is a score of 40, which is a perfect score) see [Wikipedia link](http://en.wikipedia.org/wiki/FASTQ_format) (no kidding!) for interpretation of alphanumeric Q score.
+
+Can you identify each of the above components in the first fastq file?
+
+A good sequencing center should return some information on how the sequencing went and the proprietary software they used to do some initial quality control of the raw data, and, potentially, information about de-multiplexing.  You can look at the info we got from the MSU Genomics Core [here](link).
+
+Moving on to FastQC. Install FastQC from the home directory.
 ```
 wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.3.zip
 ```
@@ -30,7 +45,9 @@ You should now see a lot of files and new directories. "fastqc" will be in white
 chmod 755 fastqc
 ls
 ```
-"fastqc" should now be in green. Now we can execute it! We need to copy a .fastq file into this folder in order to run the program. We'll use forward.fastq, which will be a file containing all forward reads from our 16S tag sequencing. To make this file, navigate to the folder containing all of the subsampled data .fastq files.
+"fastqc" should now be in green. Now we can execute it! 
+
+We need to copy a .fastq file into this folder in order to run the program. Although we can use any fastq file, it will be more of a summary (and less time consuming) if we can consider a group of fastq together.  To do this, w e'll create a new file, which we will call "forward.fastq", which will be a file containing all forward reads from our 16S tag sequencing. To make this file, navigate to the folder containing all of the subsampled data .fastq files.
 
 ```
 cat *F_sub.fastq > forward.fastq
@@ -38,16 +55,16 @@ cat *F_sub.fastq > forward.fastq
 This concatenates all of the files ending in "F_sub.fastq", for "forward reads", into one big file.
 Once we have copied it into the FastQC folder, we will run the program.
 
-
 ```
+mv forward.fastq ~/FastQC/
 ./fastqc forward.fastq
 
 ```
 This will create two new files with the same name and the extensions `.fastqc.zip` and `fastqc.html`. As you may be able to guess, these are processed files in zip and html format.
 
-Using scp, transfer the html file to your desktop. Now double-click on the file and it should open in your browser.
+Open a new terminal window on your computer (not the EC2 instance window). Using scp, transfer the html file to your desktop. Then, double-click on the file and it should open in your browser.
 ```
-scp
+scp -i ~/Directory/YOURKEY.pem ubuntu@YOURINSTANCEID.amazonaws.com:/home/ubuntu/FastQC/forward_fastqc.zip ~/Desktop
 ```
 
 On the left-hand side of the screen, there will be a summary of the analyses with some combination of green checkmarks, yellow exclamation points, and red Xs, depending on whether or not the sequences pass the quality check for each module.

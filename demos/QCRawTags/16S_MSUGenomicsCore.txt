@@ -1,0 +1,17 @@
+Sequencing is complete for samples submitted to the RTSF Genomics Core,
+Project LEE2795 (Centralia_2014_16S-Tag). This project included 96 samples
+of bacterial DNA for 16s rRNA amplicon sequencing. The V4 region of the 16S
+rRNA gene (515f/806r) was amplified with Illumina compatible fusion primers
+following protocols described by Caporaso, G. et al. and Schloss, P. et al.
+After amplification products were normalized using an Invitrogen SequalPrep
+DNA normalization plate. Two pools containing 48 libraries each were
+prepared from the normalized PCR products. Each pool was loaded on one
+Illumina MiSeq v2 flow cell. Sequencing done using a v2 300 cycle reagent
+kit, 2x150bp paired end format. I recall that we discussed changing your
+original request for PE150 reads to PE250. Unfortunately I did not get this
+change passed along to the lab personnel so the runs were done using PE150
+as originally requested. You will still have complete coverage of the V4
+region (253bp long), there is just less overlap of the paired reads. Base
+calling was done by Illumina Real Time Analysis (RTA) v1.18.54 and output of
+RTA was demultiplexed and converted to FastQ format with Illumina Bcl2fastq
+v1.8.4. Summaries of each run are attached below.
