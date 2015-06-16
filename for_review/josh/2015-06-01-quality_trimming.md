@@ -6,6 +6,8 @@ category : tutorial
 tags : []
 ---
 
+By Joshua Herr
+
 ## Background On Quality Trimming
 
 When DNA sequencing takes place, errors are inevitable.  No sequencing method is perfect and some are drastically different than others in regard to sequence length and quality.  We're going to trim the poor quality tail end sections of our Illumina reads.  Although in general Illumina reads are very high quality, this degradation at the end of the sequencing run is typical of the Illumina sequencing platforms.
