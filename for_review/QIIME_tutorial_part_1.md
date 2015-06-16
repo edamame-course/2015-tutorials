@@ -273,8 +273,9 @@ print_qiime_config.py -tf
 ```
 This should show that the install did not have any failures.
 
+This next step will take about 40 minutes.
 
-Before continuing, make sure you are in the "EDAMAME_16S" directory.  This will take a few (<10ish) minutes.
+Before continuing, make sure you are in the "EDAMAME_16S" directory.
 
 ```
 pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref_prefilter0_90/ -f
