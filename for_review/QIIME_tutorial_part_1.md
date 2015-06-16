@@ -2,7 +2,7 @@
 layout: page
 title: "Intro to QIIME"
 comments: true
-date: 2015-06-22 
+date: 2015-06-22
 ---
 
 #Intro to QIIME
@@ -19,9 +19,9 @@ You should see 54 files, all ending in .fastq.
 
 ####Subsampling
   We initially had 54 samples with ~200,000 reads each, which is way too big to handle for a workshop, or for troubleshooting and developing an analysis workflow. In order to efficiently process these data, we had to subsample them to 5,000 reads per sample. We already did this for you, but let's practice subsampling on this smaller dataset so that you know how to do it.
-  
+
   We used [Seqtk](https://github.com/lh3/seqtk) for subsampling, so first we'll have to install Seqtk.
-  
+
 ```  
 git clone https://github.com/lh3/seqtk.git
 ```
@@ -32,17 +32,17 @@ sudo cp seqtk /usr/local/bin
  ```
  Now that we've installed Seqtk, we'll run this code to randomly pick 500 reads from each of our samples.
  Navigate to the EDAMAME_16S/Fastq folder, then run seqtk:
-``` 
+```
 seqtk sample -s 100 C01D01F_sub.fastq 500 > C01D01F_sub500.fastq
 ```
-This command is saying "pull 500 sequences from the fastq file specified."  The -s 100 flag specifies using a random seed (100). For paired-end reads that are going to be merged, it is important to specify the exact same seed so that the reads can be matched correctly later.   
+This command is saying "pull 500 sequences from the fastq file specified."  The -s 100 flag specifies using a random seed (100). For paired-end reads that are going to be merged, it is important to specify the exact same seed so that the reads can be matched correctly later.
 We should have a new file with subsampled sequences in it called C01D01_sub500.fastq.
 
 Sanity check:  how do we know that this new file actually has 500 sequences in it?  If we insepct the header of the fastq file, we'll see that every sequences begins with a character string "@HWI."  Thus, we can use grep to count the number of @HWI's in the file to count the number of sequences.
 ```
 grep -c @HWI C01D01F_sub500.fastq
 ```
-  
+
 ###Assembling Illumina paired-end sequences
 
 Our sequences are 16S rRNA amplicons sequenced with MiSeq. We will use [PANDAseq](http://www.ncbi.nlm.nih.gov/pubmed/22333067) to assemble the forward and reverse reads.
@@ -71,7 +71,7 @@ mkdir pandaseq_merged_reads
 
 ####Join paired-end reads with PANDAseq
 ```
-pandaseq -f C01D01F_sub.fastq -r C01D01R_sub.fastq -w pandaseq_merged_reads/C01D01_merged.fasta -g pandaseq_merged_reads/C01D01_merged.log -B -A simple_bayesian -l 253 -L 253 -o 47 -O 47 -t 0.9 
+pandaseq -f C01D01F_sub.fastq -r C01D01R_sub.fastq -w pandaseq_merged_reads/C01D01_merged.fasta -g pandaseq_merged_reads/C01D01_merged.log -B -A simple_bayesian -l 253 -L 253 -o 47 -O 47 -t 0.9
 ```
 Let's look carefully at the anatomy of this command.
 
@@ -85,15 +85,15 @@ Let's look carefully at the anatomy of this command.
   -  `-L` specifies the maximum length of the assembled reads, which, in truth, should be 253 bp. This is a very important option to specify, otherwise PANDAseq will assemble a lot of crazy-long sequences.
   -  `-O` specifies the amount of overlap allowed between the forward and reverse sequences.
   -  `-t` is a quality score between 0 and 1 that each sequence must meet to be kept in the final output.  In our experience, this is a very important parameter - we did some testing of the threshold and found that 0.9 was optimal.
-  
+
 
   All of the above information, and more options, are fully described in the [PANDAseq Manual.](http://neufeldserver.uwaterloo.ca/~apmasell/pandaseq_man1.html).  The log file includes details as to how well the merging went.
-  
+
 ### 1.4  Sanity check and file inspection.
 
 There are some questions you may be having: What does pandaseq return?  How do I know that it returned sequences the size I expect?  Are the primers still attached?
 
-It turns out that we had primers/barcodes removed before we started merging, but let's pretend for a minute that we had no idea about that.  How could we check?  Say we know that one of the barcode sequences is: GTCTAATTCCGA 
+It turns out that we had primers/barcodes removed before we started merging, but let's pretend for a minute that we had no idea about that.  How could we check?  Say we know that one of the barcode sequences is: GTCTAATTCCGA
 
 ```
 cd pandaseq_merged_reads
@@ -140,12 +140,12 @@ rm list.txt
 
 Let's also remove the merged file; we're going to make a new one using AUTOMATION in a second.
 ```
-rm C01D01_merged.fasta 
+rm C01D01_merged.fasta
 ```
 
 ### 1.5  Automate paired-end merging with a shell script.
 
-We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/2015-tutorials/blob/master/QIIME_files/Cen_pandaseq_merge.sh) to automate the task. You'll also need this [list](https://github.com/edamame-course/2015-tutorials/blob/master/QIIME_files/list2.txt) of file names. 
+We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/2015-tutorials/blob/master/QIIME_files/Cen_pandaseq_merge.sh) to automate the task. You'll also need this [list](https://github.com/edamame-course/2015-tutorials/blob/master/QIIME_files/list2.txt) of file names.
 
 To automatically download the script and list onto the AMI, first navigate to the "Fastq" directory, and then use `curl` to get the raw files.
 ```
@@ -157,7 +157,7 @@ curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/Q
 
 Change permissions on the script to make it executable:
 ```
-chmod 755 Cen_pandaseq_merge.sh 
+chmod 755 Cen_pandaseq_merge.sh
 ```
 
 Execute the script from the Fastq Directory.
@@ -184,13 +184,13 @@ Congratulations, you lucky duck! You've assembled paired-end reads!
 ![img4](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_04.jpg)  
 
 ###Understanding the QIIME mapping file
-  
-QIIME requires a [mapping file](http://qiime.org/documentation/file_formats.html) for most analyses.  This file is important because it links the sample IDs with their metadata (and, with their primers/barcodes if using QIIME for quality-control). 
 
-Let's spend few moments getting to know the mapping file.  Navigate to the MappingFiles subdirectory in the 16S directory.
+QIIME requires a [mapping file](http://qiime.org/documentation/file_formats.html) for most analyses.  This file is important because it links the sample IDs with their metadata (and, with their primers/barcodes if using QIIME for quality-control).
+
+Let's spend few moments getting to know the mapping file.  Navigate to the MappingFiles subdirectory in the EDAMAME_16S directory.
 
 ```
-more Centralia_full_map_corrected.txt
+more Centralia_Full_Map.txt
 ```
 
 ![img5](../img/mapping_file2.jpg)
@@ -202,7 +202,7 @@ A clear and comprehensive mapping file should contain all of the information tha
 Guidelines for formatting map files:
   - Mapping files should be tab-delimited
   - The first column must be "#SampleIDs" (commented out using the `#`).
-  -  SampleIDs are VERY IMPORTANT. Choose wisely! Ideally, a user who did not design the experiment should be able to distiguishes the samples easily. In QIIME, SampleIDs must be alphanumeric characters or periods.  They cannot have underscores.
+  -  SampleIDs are VERY IMPORTANT. Choose wisely! Ideally, a user who did not design the experiment should be able to distinguish the samples easily. In QIIME, SampleIDs must be alphanumeric characters or periods.  They cannot have underscores.
   - The last column must be "Description".
   - There can be as many in-between columns of contextual data as needed.
   - If you plan to use QIIME for quality control (which we do not need because the PANDAseq merger included QC), the BarcodeSequence and LinkerPrimer sequence columns are also needed, as the second and third columns, respectively.
@@ -210,10 +210,12 @@ Guidelines for formatting map files:
 
 ### 2.3  Merging assembled reads into the one big ol' data file.
 
-QIIME expects all of the data to be in one file, and, currently, we have one separate fastq file for each assembled read.  We will add labels to each sample and merge into one fasta using the `add_qiime_labels.py` script. Documentation is [here](http://qiime.org/scripts/add_qiime_labels.html).
+QIIME expects all of the data to be in one file, and, currently, we have one separate fastq file for each assembled read.  We will add labels to each sample and merge into one fasta file using the `add_qiime_labels.py` script. Documentation is [here](http://qiime.org/scripts/add_qiime_labels.html).
+
+Navigate back to the EDAMAME_16S directory, then execute the following command:
 
 ```
-add_qiime_labels.py -i pandaseq_merged_reads/ -m Centralia_full_map_corrected.txt -c InputFastaFileName -n 1 
+add_qiime_labels.py -i pandaseq_merged_reads/ -m MappingFiles/Centralia_Full_Map.txt -c InputFastaFileName -n 1
 ```
 Inspect the new file "combined_seqs.fna."
 
@@ -251,13 +253,13 @@ quit()
 ```
 ####Installing usearch61
 Download the [install file](../QIIME_files/usearch6.1.544_i86linux32) to your desktop.
-Use scp to transfer the file to your EC2 instance. 
+Use scp to transfer the file to your EC2 instance.
 ```
 sudo cp usearch6.1.544_i86linux32 /usr/local/bin/usearch61
 sudo chmod 755 /usr/local/bin/usearch61
 print_qiime_config.py -tf
 ```
-This should show that the install did not have any failures. 
+This should show that the install did not have any failures.
 
 
 ### 2.4  Picking Operational Taxonomic Units, OTUs.
@@ -265,7 +267,7 @@ Picking OTUs is sometimes called "clustering," as sequences with some threshold 
 
   *Important decision*: Should I use a de-novo method of picking OTUs or a reference-based method, or some combination? ([Or not at all?](http://www.mendeley.com/catalog/interpreting-16s-metagenomic-data-without-clustering-achieve-subotu-resolution/)). The answer to this will depend, in part, on what is known about the community a priori.  For instance, a human or mouse gut bacterial community will have lots of representatives in well-curated 16S databases, simply because these communities are relatively well-studied.  Therefore, a reference-based method may be preferred.  The limitation is that any taxa that are unknown or previously unidentified will be omitted from the community.  As another example, a community from a lesser-known environment, like Mars or a cave, or a community from a relatively less-explored environment would have fewer representative taxa in even the best databases.  Therefore, one would miss a lot of taxa if using a reference-based method.  The third option is to use a reference database but to set aside any sequences that do not have good matches to that database, and then to cluster these de novo.
 
-  For this tutorial, we are going to use an OTU-picking approach that uses a reference to identify as many OTUs as possible, but also includes any "new" sequences that do not hit the database.  It is called "open reference" OTU picking, and you can read more about it in this [paper](https://peerj.com/articles/545/) by Rideout et al. 
+  For this tutorial, we are going to use an OTU-picking approach that uses a reference to identify as many OTUs as possible, but also includes any "new" sequences that do not hit the database.  It is called "open reference" OTU picking, and you can read more about it in this [paper](https://peerj.com/articles/545/) by Rideout et al.
 
 We use the QIIME command: `pick_open_reference_otus.py` for this step.  Documentation is [here](http://qiime.org/scripts/pick_open_reference_otus.html).
 The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch](http://www.drive5.com/usearch/) algorithm because it incorporates a chimera-check.  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
@@ -292,7 +294,7 @@ From the head of the combined_seqs_otus.txt file, we can see that OTU 0 has many
 Navigate back to the QIIMETutorial directory. We will align our representative sequences using PyNAST, which uses a "gold" reference template for the alignment.  QIIME uses a "gold" pre-aligned template made from the greengenes database.  The default alignment to the template is minimum 75% sequence identity and minimum length 150. The default minimum length is not great for short reads like we have, so we will be more generous and change the default. What should we change it to?
 
 ```
-count_seqs.py -i 
+count_seqs.py -i
 ```
 
 Given that our average assembled read length is ~252 bp, let's decide that at least 100 bp must align.  We will have the `-e` option to 100. The alignment will take a few minutes.  Documentation for `align_seqs.py` is [here](http://qiime.org/scripts/align_seqs.html).
