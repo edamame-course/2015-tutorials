@@ -284,8 +284,9 @@ pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openr
 In the above script:
   - We tell QIIME to look for the input file `-i`, "combined_seqs.fna".
   - We chose the clustering method usearch61 `-m`
+  - We specify that output files should go in a new folder, usearch61_openref_prefilter0_90/-f
 
-Inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID, starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
+Navigate into the usearch61_openref_prefilter0_90/-f folder and inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID, starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
 
 ![img7](../img/combined_seqs_otus2.jpg)
 
