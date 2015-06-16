@@ -31,7 +31,7 @@ sudo make
 sudo cp seqtk /usr/local/bin
  ```
  Now that we've installed Seqtk, we'll run this code to randomly pick 500 reads from each of our samples.
- Navigate to the Centralia_16S folder, then run seqtk:
+ Navigate to the EDAMAME_16S/Fastq folder, then run seqtk:
 ``` 
 seqtk sample -s 100 C01D01F_sub.fastq 500 > C01D01F_sub500.fastq
 ```
