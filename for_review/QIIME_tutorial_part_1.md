@@ -13,7 +13,7 @@ Modified by Sang-Hoon Lee and Siobhan Cusack
 ##Getting started
 For this tutorial, we will be using the 16S sequencing data that we previously downloaded and unzipped. Let's connect to our EC2 instance. One we've done that, we'll navigate to the directory containing those files:
 ```
-cd EDAMAME_Datasets/16S/subsampled_raw_sequence_set_FR
+cd EDAMAME_16S/Fastq
 ```
 You should see 54 files, all ending in .fastq.
 
@@ -147,7 +147,7 @@ rm C01D01_merged.fasta
 
 We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/2015-tutorials/blob/master/QIIME_files/Cen_pandaseq_merge.sh) to automate the task. You'll also need this [list](https://github.com/edamame-course/2015-tutorials/blob/master/QIIME_files/list2.txt) of file names. 
 
-To automatically download the script and list onto the AMI, first navigate to the "subsampled_raw_sequence_set_FR" directory, and then use `curl` to get the raw files.
+To automatically download the script and list onto the AMI, first navigate to the "Fastq" directory, and then use `curl` to get the raw files.
 ```
 curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/list2.txt
 ```
@@ -160,7 +160,7 @@ Change permissions on the script to make it executable:
 chmod 755 Cen_pandaseq_merge.sh 
 ```
 
-Execute the script from the subsampled_raw_sequence_set_FR Directory.
+Execute the script from the Fastq Directory.
 
 ```
 ./Cen_pandaseq_merge.sh
