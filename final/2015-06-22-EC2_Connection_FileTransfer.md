@@ -94,4 +94,4 @@ tar -zxvf EDAMAME_Datasets.tar.gz
 
 Once the above command finishes running take a look through the resulting folder. Inside of EDAMAME_Datasets you should see two folders, 16S and MG. These two folders contain almost all of the data we will be using this week.  
 
-Now you have the tools work with your EC2 instance!
+Now you have the tools to work with your EC2 instance!
