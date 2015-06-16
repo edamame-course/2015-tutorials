@@ -35,7 +35,7 @@ tar -zxvf EDAMAME_Datasets.tar.gz
 2.  First, let's get an idea of some quality stats from our data.  We're going to first use the ```fastx_quality_stats``` [script](http://hannonlab.cshl.edu/fastx_toolkit/commandline.html#fastq_statistics_usage) from the Hannon Lab's [fastx-toolkit](http://hannonlab.cshl.edu/fastx_toolkit/index.html) package.
 
 ```
-fastx_quality_stats -i <filename>.fastq.gz -o quality.txt
+fastx_quality_stats -i <filename>.fastq -o quality.txt
 
 cat quality.txt
 ```
@@ -45,7 +45,7 @@ This will give us some idea of what we are dealing with.  We'll want to keep thi
 Then we run this command:
 
 ```
-gunzip -c <filename>.fastq.gz | fastq_quality_filter -Q33 -q 30 -p 50 | gzip -9c > <filename>.qc.fastq.gz
+fastq_quality_filter -i <filename>.fastq -Q33 -q 30 -p 50  -o <filename>.qc.fastq
 ```
 
 This command first takes your data file and unzips it, then uses the ```fastq_quality_filter``` [script](http://hannonlab.cshl.edu/fastx_toolkit/commandline.html#fastq_quality_filter_usage) from Hannon Lab's [fastx-toolkit](http://hannonlab.cshl.edu/fastx_toolkit/index.html) to trim the data using Illumina-33 [Phred quality score](http://en.wikipedia.org/wiki/Phred_quality_score).    The last part of the command then zips up the data again.
@@ -57,7 +57,7 @@ If when you are using your own data, the ```fastq_quality_filter``` complains ab
 For a sanity check, let's use the ```fastx_quality_stats``` script again to see what changed in our trimmed data files:
 
 ```
-fastx_quality_stats -i <filename>.qc.fastq.gz -o qc_quality.txt
+fastx_quality_stats -i <filename>.qc.fastq -o qc_quality.txt
 
 cat quality.txt
 
