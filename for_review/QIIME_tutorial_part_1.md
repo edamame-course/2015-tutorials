@@ -290,7 +290,7 @@ Navigate into the usearch61_openref_prefilter0_90/-f folder and inspect the log 
 
 ![img7](../img/picked_otus.jpg)
 
-From the head of the combined_seqs_otus.txt file, we can see that OTU 0 has many sequences associated with it, including sequence 9757 from from sample F3D8.S196. We also see that OTU 3 only has one sequence associated with it. The log file has goodies about the algorithm and options chosen.  Keep this (and all) log file, because when you are writing the paper you may not remember what version of which clustering algorithm you used.
+In the usearch61_openref_prefilter0_90/-f folder, we can also see several new directories that we're interested in right now: step1_OTUs, step2_OTUs, step3_OTUs, and step4_OTUs. As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains, step 1 picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster. Step 2 performs computationally expensive de novo clustering for a subset of failed sequences, and picks a representative sequence from each cluster to add to the original database. Step 3 picks OTUs from all of the failed sequences, not just the subset used in step 2, based on the new database generated in step 2. Step 4 performs de novo clustering on all remaining OTUs.
 
 
 ### 1.11 Align representative sequences.
