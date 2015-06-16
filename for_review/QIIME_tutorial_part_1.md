@@ -2,7 +2,7 @@
 layout: page
 title: "Intro to QIIME"
 comments: true
-date: 2015-04-15 
+date: 2015-06-22 
 ---
 
 #Intro to QIIME
@@ -133,16 +133,21 @@ Our positive control worked, and we should be convinced and joyous that we execu
 rm list.txt
 ```
 
+Let's also remove the merged file; we're going to make a new one using AUTOMATION in a second.
+```
+rm C01D01_merged.fasta 
+```
+
 ### 1.5  Automate paired-end merging with a shell script.
 
 We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/Cen_pandaseq_merge.sh) to automate the task. You'll also need this [list](https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/list2.txt) of file names. 
 
-To automatically download the script and list onto the AMI, first navigate to the "subsampled_raw_sequence_set_FR" directory, and then use `curl`
+To automatically download the script and list onto the AMI, first navigate to the "subsampled_raw_sequence_set_FR" directory, and then use `curl` to get the raw files.
 ```
-curl -O https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/list2.txt
+curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/demos/pandaseq_sh/list2.txt
 ```
 ```
-curl -O https://github.com/edamame-course/2015-tutorials/blob/master/demos/pandaseq_sh/Cen_pandaseq_merge.sh
+curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/demos/pandaseq_sh/Cen_pandaseq_merge.sh
 ```
 
 Change permissions on the script to make it executable:
@@ -150,7 +155,7 @@ Change permissions on the script to make it executable:
 chmod 755 Cen_pandaseq_merge.sh 
 ```
 
-Execute the script from the QIIMETutorial Directory.
+Execute the script from the subsampled_raw_sequence_set_FR Directory.
 
 ```
 ./Cen_pandaseq_merge.sh
@@ -158,13 +163,18 @@ Execute the script from the QIIMETutorial Directory.
 
 ### 1.6  Sanity check #2.
 
-How many files were we expecting from the assembly?  There were 54 pairs to be assembled, and we are generating one assembled fasta and one log for each.  Thus, the pandaseq_merged_reads directory should contain 108 files.  We use the `wc` command to check the number of files in the directory.
+How many files were we expecting from the assembly?  There were 54 pairs to be assembled, and we are generating one assembled fasta and one log for each.  Thus, the pandaseq_merged_reads directory should contain 108 files.  Navigate up one directory, and then use the `wc` (word count) command to check the number of files in the directory.
 
 ```
 ls -1 pandaseq_merged_reads | wc -l
 ```
 
-The terminal should return the number "108."  Congratulations, you lucky duck! You've assembled paired-end reads!  
+The terminal should return the number "108."  Let's move this whole directory up one level so that we can access more easily with QIIME:
+```
+mv pandaseq_merged_reads/ ..
+```
+
+Congratulations, you lucky duck! You've assembled paired-end reads!  
 
 ![img4](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_04.jpg)  
 
@@ -172,7 +182,7 @@ The terminal should return the number "108."  Congratulations, you lucky duck! Y
   
 QIIME requires a [mapping file](http://qiime.org/documentation/file_formats.html) for most analyses.  This file is important because it links the sample IDs with their metadata (and, with their primers/barcodes if using QIIME for quality-control). 
 
-Let's spend few moments getting to know the mapping file:
+Let's spend few moments getting to know the mapping file.  Navigate to the MappingFiles subdirectory in the 16S directory.
 
 ```
 more Centralia_full_map_corrected.txt
@@ -182,12 +192,12 @@ more Centralia_full_map_corrected.txt
 
 A clear and comprehensive mapping file should contain all of the information that will be used in downstream analyses.  The mapping file includes both categorical (qualitative) and numeric (quantitative) contextual information about a sample. This could include, for example, information about the subject (sex, weight), the experimental treatment, time or spatial location, and all other measured variables (e.g., pH, oxygen, glucose levels). Creating a clear mapping file will provide direction as to appropriate analyses needed to test hypotheses.  Basically, all information for all anticipated analyses should be in the mapping file.
 
-*Hint*:  Mapping files are also a great way to organize all of the data for posterity in the research group.  New lab members interested in repeating the analysis should have all of the required information in the mapping file.  PIs should ask their students to curate and deposit both mapping files and raw data files.
+*Hint*:  Mapping files are also a great way to organize all of the data for posterity in the research group, and can provide a clear framework for making a [database](http://swcarpentry.github.io/sql-novice-survey/).  New lab members interested in repeating the analysis should have all of the required information in the mapping file.  PIs should ask their students to curate and deposit both mapping files and raw data files.
 
 Guidelines for formatting map files:
   - Mapping files should be tab-delimited
   - The first column must be "#SampleIDs" (commented out using the `#`).
-  -  SampleIDs are VERY IMPORTANT. Choose wisely! Ideally, a user who did not design the experiment should be able to distiguishes the samples easily. SampleIDs must be alphanumeric characters or periods.  They cannot have underscores.
+  -  SampleIDs are VERY IMPORTANT. Choose wisely! Ideally, a user who did not design the experiment should be able to distiguishes the samples easily. In QIIME, SampleIDs must be alphanumeric characters or periods.  They cannot have underscores.
   - The last column must be "Description".
   - There can be as many in-between columns of contextual data as needed.
   - If you plan to use QIIME for quality control (which we do not need because the PANDAseq merger included QC), the BarcodeSequence and LinkerPrimer sequence columns are also needed, as the second and third columns, respectively.
@@ -240,10 +250,12 @@ Picking OTUs is sometimes called "clustering," as sequences with some threshold 
 
   *Important decision*: Should I use a de-novo method of picking OTUs or a reference-based method, or some combination? ([Or not at all?](http://www.mendeley.com/catalog/interpreting-16s-metagenomic-data-without-clustering-achieve-subotu-resolution/)). The answer to this will depend, in part, on what is known about the community a priori.  For instance, a human or mouse gut bacterial community will have lots of representatives in well-curated 16S databases, simply because these communities are relatively well-studied.  Therefore, a reference-based method may be preferred.  The limitation is that any taxa that are unknown or previously unidentified will be omitted from the community.  As another example, a community from a lesser-known environment, like Mars or a cave, or a community from a relatively less-explored environment would have fewer representative taxa in even the best databases.  Therefore, one would miss a lot of taxa if using a reference-based method.  The third option is to use a reference database but to set aside any sequences that do not have good matches to that database, and then to cluster these de novo.
 
-We use the `pick_otus.py` script in QIIME for this step.  Documentation is [here](http://qiime.org/scripts/pick_otus.html?highlight=pick_otus).
-The default QIIME 1.8.0 method for OTU picking is uclust (de novo, but there is a reference-based alternative, see below), but we will use the CD-HIT algorithm (de novo).  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.  Honestly, we are using CD-HIT here because because it is fast.
+  For this tutorial, we are going to use an OTU-picking approach that uses a reference to identify as many OTUs as possible, but also includes any "new" sequences that do not hit the database.  It is called "open reference" OTU picking, and you can read more about it in this [paper](https://peerj.com/articles/545/) by Rideout et al. 
 
-Make sure you are in the QIIMETutorial directory to start.  This will take a few (<10ish) minutes.
+We use the QIIME command: `pick_open_reference_otus.py` for this step.  Documentation is [here](http://qiime.org/scripts/pick_open_reference_otus.html).
+The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch](http://www.drive5.com/usearch/) algorithm because it incorporates a chimera-check.  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
+
+Make sure you are in the "subsampled" directory to start.  This will take a few (<10ish) minutes.
 
 ```
 pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref_prefilter0_90/ -f

@@ -4,6 +4,8 @@ title: "Mac OS & Linux Users: Connecting to your EC2 Instance"
 comments: true
 date: 2015-06-22 18:44:36
 ---
+##Windows users
+Download MobaXterm [here](http://mobaxterm.mobatek.net/download.html) to use as your terminal. 
 
 ##Mac OS & Linux Users, connecting to your Amazon EC2 instance at the command line is pretty easy.
 ###0. Find your EC2's Public DNS:
@@ -59,7 +61,7 @@ Next we will go over how to copy a file from your personal computer to your EC2 
 ````
 scp -i **/path/to/your/keyfile.pem** **path/to/the/file/you/want/to/copy** ubuntu@"your public DNS":**/path/where/to /copy/the/file**
 ````
-Just like with `ssh` we have to identify the keyfile using `-i` so that `scp` can connect to our EC2 instance. Then we specify two more arguments. First, we need to give the file path of the file we want to copy to our instance. Then, we specify where we are copying the file. We give the address of the instance with `ubuntu@"yourpuclicDNS"` followed by the destination path using `:"/path/where/to/copy/the/file"`. Below is an example of where I am copying a file from the Desktop on my Mac to my Amazon EC2 Instance. My keyfile is also located on the Desktop of my Mac.
+Just like with `ssh` we have to identify the keyfile using `-i` so that `scp` can connect to our EC2 instance. Then we specify two more arguments. First, we need to give the file path of the file we want to copy to our instance. Then, we specify where we are copying the file. We give the address of the instance with `ubuntu@"yourpublicDNS"` followed by the destination path using `:"/path/where/to/copy/the/file"`. Below is an example of where I am copying a file from the Desktop on my Mac to my Amazon EC2 Instance. My keyfile is also located on the Desktop of my Mac.
 ```
 scp -i /Users/JSorensen/Desktop/EDAMAME.pem /Users/JSorensen/Desktop/Centralia.fastq ubuntu@ec2-52-5-171-50.compute-1.amazonaws.com:/home/ubuntu/
 ```
@@ -92,4 +94,4 @@ tar -zxvf EDAMAME_Datasets.tar.gz
 
 Once the above command finishes running take a look through the resulting folder. Inside of EDAMAME_Datasets you should see two folders, 16S and MG. These two folders contain almost all of the data we will be using this week.  
 
-Now you have the tools work with your EC2 instance!
+Now you have the tools to work with your EC2 instance!

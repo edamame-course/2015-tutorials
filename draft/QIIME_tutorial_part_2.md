@@ -29,7 +29,7 @@ assign_taxonomy.py -i usearch61_openref_prefilter0_90/rep_set.fna -m rdp -c 0.8
 Navigate into the new rdp_assigned_taxonomy directory and inspect the head of the tax_assignments file.
 
 ```
-head cdhit_rep_seqs_tax_assignments.txt
+head rep_set_tax_assignments.txt
 ```
 
 ![img11](../img/taxonomy.jpg)
@@ -39,7 +39,7 @@ This assignment file is used anytime an OTU ID (the number) needs to be linked w
 
 ### 3.2  Make an OTU table, append the assigned taxonomy, and exclude failed alignment OTUs
 
-The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) is performed.  However, building the OTU table is relatively straightforward (you just count how many of each OTU was observed in each sample).  Instead, every step up until building the OTU table is important.  The algorithms that are chosen to assemble reads, quality control reads, define OTUs, etc are all gearing up to this one summarization. Documentation for make_otu_table.py is [here](http://qiime.org/scripts/make_otu_table.html). Note that the "map" file is not the actually mapping file, but the OTU cluster file (the output of cdhit).
+The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  However, building the OTU table is relatively straightforward (you just count how many of each OTU was observed in each sample).  Instead, every step up until building the OTU table is important.  The algorithms that are chosen to assemble reads, quality control reads, define OTUs, etc are all gearing up to this one summarization. Documentation for make_otu_table.py is [here](http://qiime.org/scripts/make_otu_table.html). Note that the "map" file is not actually the mapping file, but the OTU cluster file (the output of pick_open_reference_otus.py).
 Navigate back into the "QIIMETutorial" directory to execute the script.
 
 ```
