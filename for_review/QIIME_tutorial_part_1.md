@@ -11,10 +11,14 @@ Authored by Ashley Shade
 Modified by Sang-Hoon Lee and Siobhan Cusack
 
 ##Getting started
-
+For this tutorial, we will be using the 16S sequencing data that we previously downloaded and unzipped. Let's navigate to the directory containing those files.
+```
+cd EDAMAME_datasets/16S/subsampled_raw_sequence_set_FR
+```
+You should see 54 files, all ending in .fastq.
 
 ####Subsampling
-  We have 54 samples with ~200,000 reads each, which is way too big to handle for a workshop, or for troubleshooting and developing an analysis workflow. In order to efficiently process these data, we had to subsample them to 5,000 reads per sample. We already did this for you, but let's practice subsampling on this smaller dataset so that you know how to do it.
+  We initially had 54 samples with ~200,000 reads each, which is way too big to handle for a workshop, or for troubleshooting and developing an analysis workflow. In order to efficiently process these data, we had to subsample them to 5,000 reads per sample. We already did this for you, but let's practice subsampling on this smaller dataset so that you know how to do it.
   
   We used [Seqtk](https://github.com/lh3/seqtk) for subsampling, so first we'll have to install Seqtk.
   
