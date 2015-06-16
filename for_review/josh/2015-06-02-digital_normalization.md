@@ -15,7 +15,7 @@ Since this process can take a while and is prone to issues with remote computing
 Normalize everything to a coverage of 20, starting with the (more valuable) PE reads; keep pairs using '-p'
 
 ```
-normalize-by-median.py -k 20 -C 20 -N 4 -x 1e9 --savetable normC20k20.kh *.se.qc.fq.gz
+python /usr/local/share/khmer/scripts/normalize-by-median.py -k 20 -C 20 -N 4 -x 1e9 -s normC20k20.kh *.se.qc.fq.gz
 ```
 
 Make sure you read the manual for this script, it's part of the [khmer](https://github.com/ged-lab/khmer) package.  This script produces a set of '.keep' files, as well as a normC20k20.kh database file.  The database file (it's a hash table in this case) can get quite large so keep in ming when you are running this script on a lot of data with not a lot of free space on your computer.
@@ -24,7 +24,7 @@ Make sure you read the manual for this script, it's part of the [khmer](https://
 We'll use the `filter-abund.py` script to trim off any k-mers that are in abundance of 1 in high-coverage reads.
 
 ```
-filter-abund.py -V normC20k20.kh *.keep
+python /usr/local/share/khmer/scripts/filter-abund.py -V normC20k20.kh *.keep
 ```
 
 The output from this step produces files ending in `.abundfilt` that contain the trimmed sequences.
@@ -37,7 +37,7 @@ Now that we've eliminated many more erroneous k-mers from the dataset, let's dit
 We will first normalize the reads:
 
 ```
-normalize-by-median.py -C 5 --savetable normC5k20.kh *.fastq.gz.keep.abundfilt
+python /usr/local/share/khmer/scripts/normalize-by-median.py -C 5 --savetable normC5k20.kh *.fastq.gz.keep.abundfilt
 ```
 
 Now, we'll have a file (or list of files if you're using your own data) which will have the name: `{your-file}.fastq.gz.keep.abundfilt.keep`.  We're going to check the file integrity to make sure it's not faulty and we're going to clean up the names.
