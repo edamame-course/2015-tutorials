@@ -24,6 +24,11 @@ We'll be using a tool which is not aware of paired-end reads. This is fine as th
 
 **Pro-Tip:** You'll also want to keep in mind that these assemblies take a lot of computer power to run which can cost you some money -- for your own benefit, you can try to optimize your scripts on a desktop or laptop before you actually fire up the AWS instance of this size.
 
+Download the data:
+```
+wget https://s3.amazonaws.com/edamame/EDAMAME_Datasets.tar.gz
+tar -zxvf EDAMAME_Datasets.tar.gz
+```
 
 2.  First, let's get an idea of some quality stats from our data.  We're going to first use the ```fastx_quality_stats``` [script](http://hannonlab.cshl.edu/fastx_toolkit/commandline.html#fastq_statistics_usage) from the Hannon Lab's [fastx-toolkit](http://hannonlab.cshl.edu/fastx_toolkit/index.html) package.
 
