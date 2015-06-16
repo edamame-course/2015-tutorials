@@ -11,7 +11,7 @@ Authored by Ashley Shade
 Modified by Sang-Hoon Lee and Siobhan Cusack
 
 ##Getting started
-For this tutorial, we will be using the 16S sequencing data that we previously downloaded and unzipped. Let's navigate to the directory containing those files.
+For this tutorial, we will be using the 16S sequencing data that we previously downloaded and unzipped. Let's connect to our EC2 instance. One we've done that, we'll navigate to the directory containing those files:
 ```
 cd EDAMAME_datasets/16S/subsampled_raw_sequence_set_FR
 ```
