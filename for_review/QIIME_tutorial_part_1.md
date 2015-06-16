@@ -149,10 +149,10 @@ We would have to execute an iteration of the PANDAseq command for every pair of 
 
 To automatically download the script and list onto the AMI, first navigate to the "subsampled_raw_sequence_set_FR" directory, and then use `curl` to get the raw files.
 ```
-curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/demos/pandaseq_sh/list2.txt
+curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/list2.txt
 ```
 ```
-curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/demos/pandaseq_sh/Cen_pandaseq_merge.sh
+curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/Cen_pandaseq_merge.sh
 ```
 
 Change permissions on the script to make it executable:
