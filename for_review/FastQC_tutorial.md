@@ -23,7 +23,7 @@ Each fastq has four lines:
 
 Can you identify each of the above components in the first fastq file?
 
-A good sequencing center should return some information on how the sequencing went and the proprietary software they used to do some initial quality control of the raw data, and, potentially, information about de-multiplexing.  You can look at the info we got from the MSU Genomics Core [here](link).
+A good sequencing center should return some information on how the sequencing went and the proprietary software they used to do some initial quality control of the raw data, and, potentially, information about de-multiplexing.  You can look at the info we got from the MSU Genomics Core [here](https://github.com/edamame-course/2015-tutorials/tree/master/demos/QCRawTags).
 
 Moving on to FastQC. Install FastQC from the home directory.
 ```
