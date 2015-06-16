@@ -4,6 +4,8 @@ title: "Mac OS & Linux Users: Connecting to your EC2 Instance"
 comments: true
 date: 2015-06-22 18:44:36
 ---
+##Windows users
+Download MobaXterm [here](http://mobaxterm.mobatek.net/download.html)
 
 ##Mac OS & Linux Users, connecting to your Amazon EC2 instance at the command line is pretty easy.
 ###0. Find your EC2's Public DNS:
