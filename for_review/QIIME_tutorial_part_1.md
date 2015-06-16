@@ -100,7 +100,7 @@ cd pandaseq_merged_reads
 ```
 
 ```
-head C01D01_merged.fasta
+head C01D01_merged.fastq
 ```
 
 ![img2](../img/panda_seq2.jpg)  
