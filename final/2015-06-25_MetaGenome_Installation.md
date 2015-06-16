@@ -40,7 +40,7 @@ source ~/.bashrc
 
 ####Installing screed:
 ```
-pip install screed
+sudo pip install screed
 ```
 
 
