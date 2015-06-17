@@ -47,7 +47,7 @@ ls
 ```
 "fastqc" should now be in green. Now we can execute it! 
 
-We need to copy a .fastq file into this folder in order to run the program. Although we can use any fastq file, it will be more of a summary (and less time consuming) if we can consider a group of fastq together.  To do this, w e'll create a new file, which we will call "forward.fastq", which will be a file containing all forward reads from our 16S tag sequencing. To make this file, navigate to the folder containing all of the subsampled data .fastq files.
+We need to copy a .fastq file into this folder in order to run the program. Although we can use any fastq file, it will be more of a summary (and less time consuming) if we can consider a group of fastq together.  To do this, we'll create a new file, which we will call "forward.fastq", which will be a file containing all forward reads from our 16S tag sequencing. To make this file, navigate to the folder containing all of the subsampled data .fastq files.
 
 ```
 cat *F_sub.fastq > forward.fastq
@@ -116,7 +116,7 @@ This module simply shows the length of each sequence in the sample. Depending on
 ###9: Sequence duplication levels
 ![sequence duplication levels](../img/sequence_duplication_levels.jpg)
 
-The sequence duplication levels plot shows the number of times a sequence is duplicated on the x-axis with the percent of sequences showing this duplication level on the y-axis. Normally a genome will have a sequence duplication level of 1 to 3 for the majority of sequences, with only a handful having a duplication level higher than this; the line should have an inverse log shape. A high duplication level for a large percentage of sequences is usually indicative of contamination. Once again we see that the use of 16S sequencing data yield confusing results; the above result is normal considering the input sequences. This module will issue a warning if more than 20% of the sequences are duplicated, and a failure if more than 50% of the sequences are duplicated. A warning or failure can also result from PCR artifacts.
+The sequence duplication levels plot shows the number of times a sequence is duplicated on the x-axis with the percent of sequences showing this duplication level on the y-axis. Normally a genome will have a sequence duplication level of 1 to 3 for the majority of sequences, with only a handful having a duplication level higher than this; the line should have an inverse log shape. A high duplication level for a large percentage of sequences is usually indicative of contamination. Once again we see that the use of 16S sequencing data yields confusing results; the above result is normal considering the input sequences. This module will issue a warning if more than 20% of the sequences are duplicated, and a failure if more than 50% of the sequences are duplicated. A warning or failure can also result from PCR artifacts.
 
 ###10: Overrepresented sequences
 ![overrepresented sequences](../img/overrepresented_sequences.jpg)
@@ -124,7 +124,7 @@ The sequence duplication levels plot shows the number of times a sequence is dup
 If a certain sequence is calculated to represent more than 0.1% of the entire genome, it will be flagged as an overrepresented sequence and yield a warning for this module. The presence of sequences that represent more than 1% of the whole genome will result in a failure, as seen above.
 These overrepresented sequences are seen because we are looking at 16S data; if we did not see this many overrepresented sequences, there would be a serious problem. Another frequent source of "overrepresented sequences" is Illumina adapters, which is why it's a good idea to trim sequences before running FastQC.
 
-The program searches for possible matches to identified overrepresented sequences, although this search frequently returns "no hit". However it is usually quite easy to identify the overrepresented sequences by doing a simple BLAST search.
+The program searches for possible matches to identified overrepresented sequences; although this search frequently returns "no hit", it is usually quite easy to identify the overrepresented sequences by doing a BLAST search.
 
 
 ###11: Adapter content
@@ -140,7 +140,7 @@ This module searches for specific adapter sequences. A sequence that makes up mo
 
 In a completely random library, any kmers would be expected to be seen about equally in each position (from 1-150 in this case). Any kmers that are specifically enriched at a particular site are reported in this module. If a kmer is enriched at a specific site with a p-value of less than 0.01, a warning will be displayed. A failure for this module occurs if a kmer is enriched at a site with a p-value of less than 10^-5.
 We have failed this module, again due to the fact that we are using 16S sequences. As with the overrepresented sequences, we are expecting to see well-represented kmers because of high sequence conservation in the 16S region.
-In non-enriched reads, it is relatively common to see highly represented kmers near the beginning of a sequence because of adapters.
+In non-enriched reads, it is relatively common to see highly represented kmers near the beginning of a sequence if adapters are present.
 
 
 ###For FastQC questions, check the [documentation](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/). Happy quality checking!
