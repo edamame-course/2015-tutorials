@@ -24,6 +24,7 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 * Obtain summary information about sequence files (fasta, fna, fastq)
 * Define operational taxaonomic units (OTUs)
 * Execute a QIIME workflow, and understand the separate steps in the workflow
+* Align sequences, assign taxonomy, and build a tree with representative sequences from OTU definitions
 
 ***
 
