@@ -8,7 +8,7 @@ tmux new -s OurNewSession
 
 Once you type in the above command your terminal will look something like this.
 
-![Tmux_Photo][../img/Tmux_Session.png] 
+![Tmux_Photo](../img/Tmux_Session.png) 
 
 The green line on the bottom indicates that you are in a virtual session using tmux. Now for the sake of demonstration on the benefits of tmux we are going to open up one of our fastq files using `less`.
 
