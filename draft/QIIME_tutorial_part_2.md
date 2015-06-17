@@ -60,7 +60,7 @@ mkdir fasttree_usearch61
 ```
 
 ```
-make_phylogeny.py -i pynast_aligned/rep_set_aligned.fasta -t fasttree -o fasttree/fasttree_usearch.tre
+make_phylogeny.py -i pynast_aligned/rep_set_aligned.fasta -t fasttree -o fasttree_usearch61/fasttree_usearch.tre
 ```
 
 A few notables:  The tree algorithm input is the alignment file; the output extension is .tre.
