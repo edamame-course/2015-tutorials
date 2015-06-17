@@ -111,7 +111,7 @@ mkdir alphadiversity_even4711
 We will calculate richness (observed # taxa) and phylogenetic diversity (PD) for each sample.  Documentation is [here](http://qiime.org/scripts/alpha_diversity.html).
 
 ```
-alpha_diversity.py -i usearch61_openref/Subsampling_otu_table_even4711.biom -m observed_species,PD_whole_tree -o alphadiversity_even4711/alphadiversity_evensubsample_usearch61_alphadiversity_even4711.txt -t usearch61_openref/rep_set.tre
+alpha_diversity.py -i Subsampling_otu_table_even4711.biom -m observed_species,PD_whole_tree -o alphadiversity_even4711/alphadiversity_evensubsample_usearch61_alphadiversity_even4711.txt -t usearch61_openref/rep_set.tre
 ```
 
 As always, inspect the results file.  What are the ranges that were observed in richness and PD?
