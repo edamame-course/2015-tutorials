@@ -44,7 +44,7 @@ Navigate back into the "QIIMETutorial" directory to execute the script.
 biom summarize_table -i usearch61_openref/otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax_biom.txt
 ```
 
-The summary file contains information about the number of sequences per sample, which will help us to make decisions about rarefaction (subsampling).  When we inspect the file, we see that sample F3D142.S208 has 2212 reads, the minimum observed.  This is what we will use as a subsampling depth.  Also, a lot of the info in this file is typically reported in methods sections of manuscripts.
+The summary file contains information about the number of sequences per sample, which will help us to make decisions about rarefaction (subsampling).  When we inspect the file, we see that sample C03.05102014.R1.D02.CTAACCTCCGCT has 4711 reads, the minimum observed.  This is what we will use as a subsampling depth.  Also, a lot of the info in this file is typically reported in methods sections of manuscripts.
 
 ![img13](../img/summary_table.jpg)
 
@@ -60,7 +60,7 @@ mkdir fasttree_usearch61
 ```
 
 ```
-make_phylogeny.py -i pynast_aligned/rep_seqs_aligned.fasta -t fasttree -o fasttree_cdhit/fasttree_usearch61.tre
+make_phylogeny.py -i pynast_aligned/rep_set_aligned.fasta -t fasttree -o fasttree/fasttree_usearch.tre
 ```
 
 A few notables:  The tree algorithm input is the alignment file; the output extension is .tre.
