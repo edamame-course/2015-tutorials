@@ -378,7 +378,7 @@ more rep_set_tax_assignments.txt
 In the "taxonomy" directory, you will find a log file and the specific taxonomic assignments given to each representative sequence, linked to the OTU ID of that representative sequence
 
 #####Other Very Important Files in usearch_openref/
-* 1.  OTU map
+* 1.  *OTU map*
 ```
 head otu_map.txt
 ```
@@ -390,25 +390,25 @@ You will notice that some files have "mc2" appended to them. "mc2" designates th
 
 Sanity check:  How can you compare the OTUs in the full dataset versus the singletons-omitted dataset?
 
-* 2.  Biom-formatted OTU tables
+* 2.  *Biom-formatted OTU tables*
 ```
 more otu_table_mc2_w_tax.biom
 ```
 These tables have the extension ".biom"  There are lots of [important resources](http://biom-format.org/) for understanding and working with the "biome" formatted tables, which were developed to deal with very large, sparse datasets, like those for microbial communities.  There are several versions - some omitting singletons (mc2), some containing taxonomic assignment of otus (w_tax), some omitting alignment failures (_no_pynast_failures).  
 
-* 3.  Representative sequences (one from each OTU)
+* 3.  *Representative sequences (one from each OTU)*
 ```   
 more rep_set.fna
 ```
 This is not an alignment, but the list of representative sequences used to assign taxonomy to the OTU, to make the alignment, and to build the tree.
 
-* 4.  Phylogenetic tree made from representative sequences   
+* 4.  *Phylogenetic tree* m 
 ```
 more rep_set.tre
 ```
-You can import this tree into any tree-visualization software that accepts the .tre extension.
+You can import this tree into any tree-visualization software that accepts the .tre extension.  This is made from from an alignment of representative sequences (in the pynast directory)  .
 
-* 5.  Log files
+* 5.  *Log files*
 Open them up!  You will be delighted!  It has all of the information you ever wanted to know about the parameters and tools you've just used for your workflow analysis!  _Hint_:  most of this information is needed when writing the methods sections of manuscripts using sequencing data.
 
 
@@ -425,16 +425,16 @@ Open them up!  You will be delighted!  It has all of the information you ever wa
   - QIIME development is on [GitHub](https://github.com/biocore/qiime).
   - Remember that QIIME is a workflow environment, and the original algorithms/software that are compiled into QIIME must be referenced individually (e.g., PyNAST, RDP classifier, FastTree etc...)
 
-  ##SeqTk
+  ## SeqTk
   - [GitHub](https://github.com/lh3/seqtk)
   - [ANGUS Documentation](http://ged.msu.edu/angus/tutorials-2013/seqtk_tools.html)
 
-  ##PANDAseq
+  ## PANDAseq
   - [GitHub](https://github.com/neufeld/pandaseq/wiki/PANDAseq-Assembler)
   - [AXIOME](http://www.biomedcentral.com/content/pdf/2047-217X-2-3.pdf)
   - [PANDASeq Paper](http://www.biomedcentral.com/1471-2105/13/31)
 
-  ###Biom format
+  ## Biom format
   - [Motivation and documentaiton](http://biom-format.org/)
   - [Coming-out paper McDonald et al. 2012](http://www.gigasciencejournal.com/content/1/1/7)
   - [GitHub](https://github.com/biocore/biom-format)
