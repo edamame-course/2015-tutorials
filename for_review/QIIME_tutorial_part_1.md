@@ -268,7 +268,7 @@ Picking OTUs is sometimes called "clustering," as sequences with some threshold 
   For this tutorial, we are going to use an OTU-picking approach that uses a reference to identify as many OTUs as possible, but also includes any "new" sequences that do not hit the database.  It is called "open reference" OTU picking, and you can read more about it in this [paper](https://peerj.com/articles/545/) by Rideout et al.
 
 We use the QIIME workflow command: `pick_open_reference_otus.py` for this step.  Documentation is [here](http://qiime.org/scripts/pick_open_reference_otus.html).
-The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch61](http://www.drive5.com/usearch/) algorithm because it incorporates a chimera-check.  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
+The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch61](http://www.drive5.com/usearch/) algorithm because it incorporates a [chimera-check and other quality filtering](http://qiime.org/tutorials/usearch_quality_filter.html).  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
 
 ###Installing usearch61
 While in the home directory, get the usearch and usearch61 files:
@@ -288,6 +288,8 @@ sudo chmod +x /usr/local/bin/usearch61
 print_qiime_config.py -tf
 ```
 This should show that the install did not have any failures.
+
+####OTU picking
 
 This next step will take about 45 minutes.
 
@@ -310,9 +312,8 @@ In the above script:
    - Default workflow values can be changed using a [parameter file](http://qiime.org/documentation/qiime_parameters_files.html?highlight=parameter)
    - We do not perform prefiltering, as per the recommendations of [Rideout et al.](https://peerj.com/articles/545/)
 
-Navigate into the usearch61_openref/ folder and inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID (starting with the number of the first OTU that was picked) in the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came, and the second part is the sequence number within that sample.  
-
-![img7](../img/picked_otus.jpg)
+####Exploring results from OTU picking workflow
+#####"Steps" from open reference picking
 
 In usearch61_openref/, we can see several new directories and files.  Let's explore them, starting with the "step1.." directories.  As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains:
   1. step 1 picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster based on the reference database. 
@@ -326,26 +327,18 @@ In usearch61_openref/, we can see several new directories and files.  Let's expl
 
 If you navigate into one of the "step" directories, wou will see a series of output files, including representative sequences of OTU clusters ("rep_set").  Take your time to explore these files using the `head` or `more` commands.  Then, navigate back to the usearch61_openrefs directory.
 
-There are several files o
+What are the other directories?  The open reference OTU picking also automatically takes the next steps towards building the OTU table.  The pynast_aligned_seqs directory and the uclust_assigned_taxonomy each have outputs and logs from alignments and taxonomic assignment, respectively.  Notice that the directories are named so that the algorithm/tool used to perform the task is provided (e.g., pynast was used for alignment, uclust was used for taxonomy).  Very smart!
 
 
-Inspect the combined_seqs_otus.txt file from the step1_otus directory.
+#####Alignment output
+Navigate into the pynast directory.  There are three files waiting there:  one file of sequences that failed to align, one of sequences that did align, one of "pre-alignment" files, and a log file.  Inspect each.  
 
-The open reference OTU picking also automatically takes the next steps towards building the OTU table.  
+If you want to build a tree in with some other out-of-QIIME software, this is where you would find the rep_set alignment.  The log file provides a rep-sequence by rep-sequence report.  If you needed align sequences as an independent step, you would use `align_seqs.py`; documentation [here](http://qiime.org/scripts/align_seqs.html?highlight=align_seqs).
 
-It aligns sequences (without a workflow script, you would call `align_seqs.py` to do this step independently) using PyNAST against "gold" reference template for the alignment.  QIIME uses a "gold" pre-aligned template made from the greengenes database.
 
-Navigate into the pynast_aligned_seqs directory.  There are three files waiting there:  one file of sequences that failed to align, one of sequences that did align, and a log file.  Inspect each.
-
+How many failed alignments were there?   
 ```
 count_seqs.py -i rep_set_failures.fasta
-```
-
-
-
-HERE!
-```
-count_seqs.py -i rep_set_aligned.fasta
 ```
 
 We see that there were 32 rep. sequences that failed to align, and approximately 24831 that did.  (Also, notice what short-read alignments generally look like...not amazing).
@@ -353,16 +346,53 @@ We see that there were 32 rep. sequences that failed to align, and approximately
 *Sanity check?*  If you like, [BLAST](http://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch&BLAST_SPEC=MicrobialGenomes) the top sequence that failed to align to convince yourself that it is, indeed, a pitiful failure.
 
 If, in the future, you ever have a large proportion of rep seqs that fail to align, it could be due to:
-  *  Hooray! These are novel organisms! (But, think about the habitat before jumping to conclusions. As lucky as we would be to discover new species in the mouse gut, this is unlikely.)
+  *  Hooray! These are novel organisms! (But, think about the novelty of the habitat before jumping to conclusions.)
   *  The alignment parameters were too stringent for short reads, causing "real" sequences to fail alignment.
   * The paired-end merger algorithm (e.g., pandaseq) did not do a perfect job, and concatenated ends that do not belong together.
   * Some combination of the above, as well as some other scenarios.
 
-We will filter out these failed-to-align sequences (really, the removing the entire OTU cluster that they represent) from the dataset after we make the OTU table.  In the meantime, let's create a text file of all the names of the rep. sequence OTU IDs that we want to remove.  We only have three failures, so we easily could do it by hand.  What if we had more?  Here's how to automate the generation of the "cdhit_rep_seqs_failures_names.txt" file using the `grep` command. We will not go into details, but general grep help is [here](http://unixhelp.ed.ac.uk/CGI/man-cgi?grep). Navigate back into the QIIMETutorial directory to run the grep command.
+The failed-to-align sequences are filtered automatically with this QIIME otu-picking workflow (really, the removing the entire OTU cluster that they represent); the filtered results are in the no_pynast_failures.biom file. 
 
+#####Taxonomy files
 ```
-grep -o -E "^>\w+" pynast_aligned/rep_set_failures.fasta | tr -d ">" > pynast_aligned/rep_set_failures_names.txt
+more rep_set_tax_assignments.txt
 ```
+In the "taxonomy" directory, you will find a log file and the specific taxonomic assignments given to each representative sequence, linked to the OTU ID of that representative sequence
+
+#####Other Very Important Files in usearch_openref/
+1.  OTU map
+```
+head otu_map.txt
+```
+Explore this file.  It links the exact sequences in each sample to its OTU ID. You should see an OTU ID (starting with the number of the first OTU that was picked) in the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came, and the second part is the sequence number within that sample.  
+
+![img7](../img/picked_otus.jpg)
+
+You will notice that some files have "mc2" appended to them. "mc2" designates that the nminimum count of sequences for any particular OTU was 2.  In other words, that file has singleton OTUs already filtered out.  
+
+Sanity check:  How can you compare the OTUs in the full dataset versus the singletons-omitted dataset?
+
+2.  Biom-formatted OTU tables
+```
+more otu_table_mc2_w_tax.biom
+```
+These tables have the extension ".biom"  There are lots of [important resources](http://biom-format.org/) for understanding and working with the "biome" formatted tables, which were developed to deal with very large, sparse datasets, like those for microbial communities.  There are several versions - some omitting singletons (mc2), some containing taxonomic assignment of otus (w_tax), some omitting alignment failures (_no_pynast_failures).  
+
+3.  Representative sequences
+```   
+more rep_set.fna
+```
+This is not an alignment, but the list of representative sequences used to assign taxonomy to the OTU, to make the alignment, and to build the tree.
+
+4.  Phylogenetic tree made from representative sequences   
+```
+more rep_set.tre
+```
+You can import this tree into any tree-visualization software that accepts the .tre extension.
+
+5.  Log files
+Open them up!  You will be delighted!  It has all of the information you ever wanted to know about the parameters and tools you've just used for your workflow analysis!  _Hint_:  most of this information is needed when writing the methods sections of manuscripts using sequencing data.
+
 
 Congratulations!  You just had the QIIME of Your Life!
 
@@ -375,7 +405,7 @@ Congratulations!  You just had the QIIME of Your Life!
   - There is a very active [QIIME Forum](https://groups.google.com/forum/#!forum/qiime-forum) on Google Groups.  This is a great place to troubleshoot problems, responses often are returned in a few hours!
   - The [QIIME Blog](http://qiime.wordpress.com/) provides updates like bug fixes, new features, and new releases.
   - QIIME development is on [GitHub](https://github.com/biocore/qiime).
-  - Remember that QIIME is a workflow environment, and the original algorithms/software that are compiled into QIIME must be referenced individually (e.g., PyNAST, RDP classifier, etc...)
+  - Remember that QIIME is a workflow environment, and the original algorithms/software that are compiled into QIIME must be referenced individually (e.g., PyNAST, RDP classifier, FastTree etc...)
 
   ##SeqTk
   - [GitHub](https://github.com/lh3/seqtk)
@@ -385,6 +415,10 @@ Congratulations!  You just had the QIIME of Your Life!
   - [GitHub](https://github.com/neufeld/pandaseq/wiki/PANDAseq-Assembler)
   - [AXIOME](http://www.biomedcentral.com/content/pdf/2047-217X-2-3.pdf)
   - [PANDASeq Paper](http://www.biomedcentral.com/1471-2105/13/31)
+
+  ###Biom format
+  - [Motivation and documentaiton](http://biom-format.org/)
+  - [Coming-out paper McDonald et al. 2012](http://www.gigasciencejournal.com/content/1/1/7)
 
 -----------------------------------------------
 -----------------------------------------------
