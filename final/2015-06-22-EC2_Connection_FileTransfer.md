@@ -31,7 +31,7 @@ You will need to know what your Public DNS is for your EC2 Instance.
 ###2. Change your keyfile permisions to read only:
 
 ```
-chmod 600 **/path/to/your/keyfile/**.pem
+chmod 400 **/path/to/your/keyfile/**.pem
 ```
 This command will adjust the permissions on your keyfile so that it cannot be edited. This is important because if the keyfile is edited or changed, it will no longer allow access to the EC2 instance.
 
