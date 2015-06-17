@@ -16,19 +16,19 @@ The green line on the bottom indicates that you are in a virtual session using t
 less EDAMAME_16S/Fastq/C01D01F_sub.fastq 
 ```
 
-This should open up the file C01D01F_sub.fastq and allow us to scroll through the sequences using the arrow keys. Normally, if we wanted to quit `less` we would just hit the `q` key and it will stop the program. For the purposes of this tutorial though let's say we want to keep `less` open and running, like we will want to do for OTU picking or metagenome assembly. We are going to "detach" from our running virtual session of tmux while still having less running. We do this with the follow command. 
+This should open up the file C01D01F_sub.fastq and allow us to scroll through the sequences using the arrow keys. Normally, if we wanted to quit `less` we would just hit the `q` key and it will stop the program. For the purposes of this tutorial though let's say we want to keep `less` open and running, like we will want to do for OTU picking or metagenome assembly. We are going to "detach" from our running virtual session of tmux while still having `less` running. We do this with the follow command. 
 
 ```
 ctrl+b d
 ```
 
-Hold control while hitting b then release and hit d. This will detach you from your tmux session. Go ahead and navigate around your instance for a bit. Maybe change to another directory, `head` a file you are interested in, or maybe try creating a new file with `nano`. You could even decide to logout of your instance using `exit` and then log back in with `ssh`. After you've spent some time doing other things, reattach to your virtual session of tmux using the following command. 
+Hold control while hitting b then release and hit d. This will detach you from your tmux session. Go ahead and navigate around your instance for a bit. Change to another directory, `head` a file you are interested in, or try creating a new file with `nano`. You could decide to logout of your instance using `exit` and then log back in with `ssh`. After you've spent some time doing other things, reattach to your virtual session of tmux using the following command. 
 
 ```
 tmux attach -t OurNewSession
 ```
 
-You should see the green bar at the bottom and that `less` still has C01D01F_sub.fastq open to the place where you left it. The utility of tmux will be very useful down the line in this course during some of our longer steps. I recommend running anything that will take longer than five minutes in virtual session of tmux. 
+You should see the green bar at the bottom and that `less` still has C01D01F_sub.fastq open to the place where you left it. The utility of tmux will be very useful later in this course during some of our longer steps. I recommend running anything that will take longer than five minutes in a virtual session of tmux. 
 
 Tmux has several other capabilities that I do not go into here. You can make several sessions, windows inside of a session, kill a session, etc. If you are interested in learning more about some of these other features of tmux there is a nice cheat sheet of commands [here](https://gist.github.com/MohamedAlaa/2961058) 
 
