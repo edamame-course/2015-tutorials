@@ -92,7 +92,7 @@ We append _even4711 to the end of the table to distinguish it from the full tabl
 
 ```
 biom summarize_table -i Subsampling_otu_table_even4711.biom -o summary_Subsampling_otu_table_even4711.txt
-head summary_Subsampling_otu_table_even4708.txt
+head summary_Subsampling_otu_table_even4711.txt
 ```
 ![img14](../img/rarefaction.jpg)
 Our "clean" dataset has 54 samples and 24263 OTUs defined at 97% sequence identity.
