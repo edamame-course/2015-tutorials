@@ -111,7 +111,7 @@ mkdir alphadiversity_even4708
 We will calculate richness (observed # taxa) and phylogenetic diversity (PD) for each sample.  Documentation is [here](http://qiime.org/scripts/alpha_diversity.html).
 
 ```
-alpha_diversity.py -i usearch61_openref/Subsampling_otu_table_even4708.biom -m observed_species,PD_whole_tree -o alphadiversity_even4708/subsample_usearch61_alphadiversity_even4708.txt -t usearch61_openref/rep_set.tre
+alpha_diversity.py -i usearch61_openref/Subsampling_otu_table_even4708.biom -m observed_species,PD_whole_tree -o alphadiversity_even4708/alphadiversity_evensubsample_usearch61_alphadiversity_even4708.txt -t usearch61_openref/rep_set.tre
 ```
 
 As always, inspect the results file.  What are the ranges that were observed in richness and PD?
@@ -126,24 +126,19 @@ QIIME offers a variety of additional options for calculating diversity, and the 
 alpha_diversity.py -s
 ```
 
-There is workflow script, [alpha_rarefaction.py](http://qiime.org/scripts/alpha_rarefaction.html), which is useful if you want to udnerstand how measures of alpha diversity change with sequencing effort.  The script calculates alpha diversity on iterations of a subsampled OTU table.
+There is workflow script, [alpha_rarefaction.py](http://qiime.org/scripts/alpha_rarefaction.html), which is useful if you want to understand how measures of alpha diversity change with sequencing effort.  The script calculates alpha diversity on iterations of a subsampled OTU table.
 
 ### 3.6 Visualizing alpha diversity
 
-`summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html).
+`summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html). This will take about 10 minutes.
 
 ```
-summarize_taxa_through_plots.py -o alphadiversity_even4708/taxa_summary4708/ -i Subsampling_otu_table_even4708.biom
+summarize_taxa_through_plots.py -o alphadiversity_even4708/taxa_summary4708/ -i usearch61_openref/Subsampling_otu_table_even4708.biom
 ```
 
-When the script is finished, navigate into the results file, and into the "taxa_summary_plots" and find the html area and bar charts.  If you are on a Mac, use the `open` command to open the html file in your browser. Neato!
+When the script is finished, navigate into the results file, and into the "taxa_summary_plots" and find the html area and bar charts.  
 
-```
-open area_charts.html
-```
-
-
-To view the HTML files, the EC2 users will need to execute the following command:
+To view the HTML files, users will need to execute the following command:
 
 ```
 cp -r taxa_summary_even4708/taxa_summary_plots/ ../Dropbox/
