@@ -4,6 +4,21 @@ title: "Mac OS & Linux Users: Connecting to your EC2 Instance"
 comments: true
 date: 2015-06-22 18:44:36
 ---
+#How to Connect and Transfer files to an EC2 instance
+Authored by Jackson Sorenson for EDAMAME2015   
+
+[EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
+
+***
+EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
+***
+
+##Learning Objectives
+* Use `ssh` to connect to a running Amazon EC2 instance 
+* Use `scp` to transfer files between a personal computer and the instance
+* Use `wget` to download data from external storage to an EC2 instance
+
+***
 ##Windows users
 Download MobaXterm [here](http://mobaxterm.mobatek.net/download.html) to use as your terminal. 
 
