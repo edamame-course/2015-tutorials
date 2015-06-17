@@ -113,5 +113,7 @@ Now you have the tools to work with your EC2 instance!
 
 ***
 ## Help and Other Resources
+* [Amazon's instruction for connection](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)
 * [Amazon EC2 discussion forum](https://forums.aws.amazon.com/forum.jspa?forumID=30)
-* 
+* [Amazon's help index for EC2](http://aws.amazon.com/ec2/getting-started/)
+* [Technical documentation](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
