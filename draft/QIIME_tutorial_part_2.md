@@ -117,7 +117,7 @@ alpha_diversity.py -i Subsampling_otu_table_even4711.biom -m observed_species,PD
 As always, inspect the results file.  What are the ranges that were observed in richness and PD?
 
 ```
-head alphadiversity_even4711/subsample_usearch61_alphadiversity_even4711.txt
+head alphadiversity_even4711/alphadiversity_evensubsample_usearch61_alphadiversity_even4711.txt
 ```
 
 QIIME offers a variety of additional options for calculating diversity, and the -s option prints them all!
