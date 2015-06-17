@@ -17,7 +17,7 @@ Authored by Ashley Shade, Modified by Sang-Hoon Lee and Siobhan Cusack
 * Execute a shell script to automate a process
 * Explore input and output files for QIIME workflows and scripts
 * Understand the structure and components of a good mapping file
-* Move sequencing into the QIIME environment from an outside tool using "add_qiime_labels.py"
+* Move sequences into the QIIME environment from an outside tool using "add_qiime_labels.py"
 * Obtain summary information about sequence files (fasta, fna, fastq)
 * Define operational taxaonomic units (OTUs)
 * Execute a QIIME workflow, and understand the separate steps in the workflow
@@ -37,7 +37,7 @@ cd EDAMAME_16S/Fastq
 ```
 You should see 54 files, all ending in .fastq.
 
-####1.2 Subsampling
+##1.2 Subsampling
   We initially had 54 samples with ~200,000 reads each, which is way too big to handle for a workshop, or for troubleshooting and developing an analysis workflow. In order to efficiently process these data, we had to subsample them to 5,000 reads per sample. We already did this for you, but let's practice subsampling on this smaller dataset so that you know how to do it.
 
   We used [Seqtk](https://github.com/lh3/seqtk) for subsampling, so first we'll have to install Seqtk.
@@ -63,10 +63,11 @@ Sanity check:  how do we know that this new file actually has 500 sequences in i
 grep -c @HWI C01D01F_sub500.fastq
 ```
 
-###1.3 Assembling Illumina paired-end sequences
+##1.3 Assembling Illumina paired-end sequences
 
 Our sequences are 16S rRNA amplicons sequenced with MiSeq. We will use [PANDAseq](http://www.ncbi.nlm.nih.gov/pubmed/22333067) to assemble the forward and reverse reads.
 
+###1.3.1.  Install pandaseq onto the QIIME AMI instance
 First we will need to install pandaseq as it is not included in the QIIME environment.  Move back to your home directory before installing.
 
 ```
@@ -84,12 +85,13 @@ which pandaseq
 
 If pandaseq has installed properly, this will return "/usr/local/bin/pandaseq"
 
+###1.3.2.  Join paired-ends with PANDAseq
 Now, navigate back to the EDAMAME 16S subsampled dataset directory, and use `mkdir` to create a new directory called "pandaseq_merged_reads"
 ```
 mkdir pandaseq_merged_reads
 ```
 
-####1.4 Join paired-end reads with PANDAseq
+Then, execute the command to join paired-end reads with PANDAseq:
 ```
 pandaseq -f C01D01F_sub.fastq -r C01D01R_sub.fastq -w pandaseq_merged_reads/C01D01_merged.fasta -g pandaseq_merged_reads/C01D01_merged.log -B -A simple_bayesian -l 253 -L 253 -o 47 -O 47 -t 0.9
 ```
@@ -109,7 +111,7 @@ Let's look carefully at the anatomy of this command.
 
   All of the above information, and more options, are fully described in the [PANDAseq Manual.](http://neufeldserver.uwaterloo.ca/~apmasell/pandaseq_man1.html).  The log file includes details as to how well the merging went.
 
-### 1.5  Sanity check and file inspection.
+###1.3.3.  Sanity check and file inspection.
 
 There are some questions you may be having: What does pandaseq return?  How do I know that it returned sequences the size I expect?  Are the primers still attached?
 
@@ -164,7 +166,8 @@ rm C01D01_merged.fasta
 rm C01D01_merged.log
 ```
 
-### 1.6  Automate paired-end merging with a shell script.
+###1.3.4.  Automate paired-end merging with a shell script.
+_This shell script was written by Joshua Herr for EDAMAME2014_
 
 We would have to execute an iteration of the PANDAseq command for every pair of reads that need to be assembled. This could take a long time.  So, we'll use a [shell script](https://github.com/edamame-course/2015-tutorials/blob/master/QIIME_files/Cen_pandaseq_merge.sh) to automate the task. You'll also need this [list](https://github.com/edamame-course/2015-tutorials/blob/master/QIIME_files/list2.txt) of file names.
 
@@ -187,7 +190,7 @@ Execute the script from the Fastq Directory.
 ./Cen_pandaseq_merge.sh
 ```
 
-### 1.7  Sanity check #2.
+###1.3.5  Sanity check #2.
 
 How many files were we expecting from the assembly?  There were 54 pairs to be assembled, and we are generating one assembled fasta and one log for each.  Thus, the pandaseq_merged_reads directory should contain 108 files.  Navigate up one directory, and then use the `wc` (word count) command to check the number of files in the directory.
 
@@ -204,7 +207,7 @@ Congratulations, you lucky duck! You've assembled paired-end reads!
 
 ![img4](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_04.jpg)  
 
-###1.8 Understanding the QIIME mapping file
+##1.4 Understanding the QIIME mapping file
 
 QIIME requires a [mapping file](http://qiime.org/documentation/file_formats.html) for most analyses.  This file is important because it links the sample IDs with their metadata (and, with their primers/barcodes if using QIIME for quality-control).
 
@@ -229,7 +232,7 @@ Guidelines for formatting map files:
   - If you plan to use QIIME for quality control (which we do not need because the PANDAseq merger included QC), the BarcodeSequence and LinkerPrimer sequence columns are also needed, as the second and third columns, respectively.
   - Excel can cause formatting heartache.  See more details [here](misc/QIIMETutorial_Misc/MapFormatExcelHeartAche.md).
 
-### 1.9  Merging assembled reads into the one big ol' data file.
+##1.5  Merging assembled reads into the one big ol' data file, and extracting summary information
 
 QIIME expects all of the data to be in one file, and, currently, we have one separate fastq file for each assembled read.  We will add labels to each sample and merge into one fasta file using the `add_qiime_labels.py` script. Documentation is [here](http://qiime.org/scripts/add_qiime_labels.html).
 
@@ -274,7 +277,8 @@ quit()
 ```
 
 
-### 1.10  Picking Operational Taxonomic Units, OTUs.
+##1.6  Picking Operational Taxonomic Units, OTUs.
+###1.6.1.  Preamble
 Picking OTUs is sometimes called "clustering," as sequences with some threshold of identity are "clustered" together to into an OTU.
 
   _Important decision_: Should I use a de-novo method of picking OTUs or a reference-based method, or some combination? ([Or not at all?](http://www.mendeley.com/catalog/interpreting-16s-metagenomic-data-without-clustering-achieve-subotu-resolution/)). The answer to this will depend, in part, on what is known about the community a priori.  For instance, a human or mouse gut bacterial community will have lots of representatives in well-curated 16S databases, simply because these communities are relatively well-studied.  Therefore, a reference-based method may be preferred.  The limitation is that any taxa that are unknown or previously unidentified will be omitted from the community.  As another example, a community from a lesser-known environment, like Mars or a cave, or a community from a relatively less-explored environment would have fewer representative taxa in even the best databases.  Therefore, one would miss a lot of taxa if using a reference-based method.  The third option is to use a reference database but to set aside any sequences that do not have good matches to that database, and then to cluster these de novo.
@@ -284,7 +288,7 @@ Picking OTUs is sometimes called "clustering," as sequences with some threshold 
 We use the QIIME workflow command: `pick_open_reference_otus.py` for this step.  Documentation is [here](http://qiime.org/scripts/pick_open_reference_otus.html).
 The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch61](http://www.drive5.com/usearch/) algorithm because it incorporates a [chimera-check and other quality filtering](http://qiime.org/tutorials/usearch_quality_filter.html).  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
 
-###Installing usearch61
+###1.6.2 Installing usearch61
 While in the home directory, get the usearch and usearch61 files:
 ```
 cd ..
@@ -303,7 +307,7 @@ print_qiime_config.py -tf
 ```
 This should show that the install did not have any failures.
 
-####OTU picking
+###1.6.3. OTU picking
 
 This next step will take about 45 minutes.
 
@@ -326,14 +330,14 @@ In the above script:
    - Default workflow values can be changed using a [parameter file](http://qiime.org/documentation/qiime_parameters_files.html?highlight=parameter)
    - We do not perform prefiltering, as per the recommendations of [Rideout et al.](https://peerj.com/articles/545/)
 
-####Exploring results from OTU picking workflow
+###1.6.4.  Exploring results from OTU picking workflow
 #####"Steps" from open reference picking
 
 In usearch61_openref/, we can see several new directories and files.  Let's explore them, starting with the "step1.." directories.  As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains:
-  1. step 1 picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster based on the reference database. 
-  2. Step 2 performs computationally expensive de novo clustering for a subset of the failed sequences from step 1, and picks a representative sequence from each new cluster to add to the original database. 
-  3. Step 3 picks OTUs from all of the failed sequences, not just the subset used in step 2, based on the new database generated (of ref+ de novos) in step 2. 
-  4. Step 4 performs de novo clustering on all remaining OTUs.
+  1. *Step 1* picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster based on the reference database. 
+  2. *Step 2* performs computationally expensive de novo clustering for a subset of the failed sequences from step 1, and picks a representative sequence from each new cluster to add to the original database. 
+  3. *Step 3* picks OTUs from all of the failed sequences, not just the subset used in step 2, based on the new database generated (of ref+ de novos) in step 2. 
+  4. *Step 4* performs de novo clustering on all remaining OTUs.
 
   An great overview of the steps of the open-reference process is provided by Figure 1 of Rideout et al. 2014.
 
@@ -374,7 +378,7 @@ more rep_set_tax_assignments.txt
 In the "taxonomy" directory, you will find a log file and the specific taxonomic assignments given to each representative sequence, linked to the OTU ID of that representative sequence
 
 #####Other Very Important Files in usearch_openref/
-1.  OTU map
+* 1.  OTU map
 ```
 head otu_map.txt
 ```
@@ -386,29 +390,29 @@ You will notice that some files have "mc2" appended to them. "mc2" designates th
 
 Sanity check:  How can you compare the OTUs in the full dataset versus the singletons-omitted dataset?
 
-2.  Biom-formatted OTU tables
+* 2.  Biom-formatted OTU tables
 ```
 more otu_table_mc2_w_tax.biom
 ```
 These tables have the extension ".biom"  There are lots of [important resources](http://biom-format.org/) for understanding and working with the "biome" formatted tables, which were developed to deal with very large, sparse datasets, like those for microbial communities.  There are several versions - some omitting singletons (mc2), some containing taxonomic assignment of otus (w_tax), some omitting alignment failures (_no_pynast_failures).  
 
-3.  Representative sequences
+* 3.  Representative sequences (one from each OTU)
 ```   
 more rep_set.fna
 ```
 This is not an alignment, but the list of representative sequences used to assign taxonomy to the OTU, to make the alignment, and to build the tree.
 
-4.  Phylogenetic tree made from representative sequences   
+* 4.  Phylogenetic tree made from representative sequences   
 ```
 more rep_set.tre
 ```
 You can import this tree into any tree-visualization software that accepts the .tre extension.
 
-5.  Log files
+* 5.  Log files
 Open them up!  You will be delighted!  It has all of the information you ever wanted to know about the parameters and tools you've just used for your workflow analysis!  _Hint_:  most of this information is needed when writing the methods sections of manuscripts using sequencing data.
 
 
-Congratulations!  You just had the QIIME of Your Life!
+##*Congratulations!  You just had the QIIME of Your Life!*
 
 ![img10](https://github.com/edamame-course/docs/raw/gh-pages/img/QIIMETutorial1_IMG/IMG_10.jpg)  
 
