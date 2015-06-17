@@ -282,7 +282,7 @@ print_qiime_config.py -tf
 ```
 This should show that the install did not have any failures.
 
-This next step will take about 40 minutes.
+This next step will take about 45 minutes.
 
 Before continuing, make sure you are in the "EDAMAME_16S" directory.
 
@@ -294,12 +294,13 @@ In the above script:
   - We tell QIIME to look for the input file `-i`, "combined_seqs.fna".
   - We chose the clustering method usearch61 `-m`
   - We specify that output files should go in a new folder, usearch61_openref/
+  - We tell the program to overwrite already-existing files in the folder if we are running this program more than once (-f)
 
-Navigate into the usearch61_openref/ folder and inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID, starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
+Navigate into the usearch61_openref/ folder and inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID, starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came, and the second part is the sequence number within that sample.  
 
 ![img7](../img/picked_otus.jpg)
 
-In the usearch61_openref/ folder, we can also see several new directories that we're interested in right now: step1_OTUs, step2_OTUs, step3_OTUs, and step4_OTUs. As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains, step 1 picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster based on the reference database. Step 2 performs computationally expensive de novo clustering for a subset of failed sequences, and picks a representative sequence from each cluster to add to the original database. Step 3 picks OTUs from all of the failed sequences, not just the subset used in step 2, based on the new database generated in step 2. Step 4 performs de novo clustering on all remaining OTUs.
+In the usearch61_openref/ folder, we can also see several new directories that we're interested in right now: step1_OTUs, step2_OTUs, step3_OTUs, and step4_OTUs. As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains, step 1 picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster based on the reference database. Step 2 performs computationally expensive de novo clustering for a subset of the failed sequences from step 1, and picks a representative sequence from each new cluster to add to the original database. Step 3 picks OTUs from all of the failed sequences, not just the subset used in step 2, based on the new database generated in step 2. Step 4 performs de novo clustering on all remaining OTUs.
 Inspect the combined_seqs_otus.txt file from the step1_otus directory.
 
 
