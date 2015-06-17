@@ -7,10 +7,10 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 ***
 
 ##Learning Objectives
-*Use awk to change fasta headers
-*Use prokka to annotate metagenome
-*Investigate the outputs prokka annotation
-*Use grep to find annotated sequences of interested
+* Use awk to change fasta headers
+* Use prokka to annotate metagenome
+* Investigate the outputs prokka annotation
+* Use grep to find annotated sequences of interested
 
 
 Now that our assembly finished, we are going to work on annotation. Annotation is the process of identifying coding sequences, RNA's and other important features from raw (meta)genomic fasta files. There are several annotation programs available but we will only be using Prokka for this course. We are using Prokka in part because it is fast, but also because running the actual command is quite simple. Prokka makes us of a set of software in order to provide a quick and robust annotation of contigs from genomes/metagenomes. Prokka can identify coding regions, rRNA, tRNA, signal peptides, and noncoding RNA.  
