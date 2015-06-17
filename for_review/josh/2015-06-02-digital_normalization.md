@@ -48,5 +48,9 @@ mv {your-file}.fastq.gz.keep.abundfilt.keep {your-file}_single.fastq.gz
 ```
 These files will be used in the next section where we assemble your metagenomic reads.
 
-##Resources
-[khmer documentation and repo](https://github.com/dib-lab/khmer/blob/master/README.rst)
+##Help and other Resources
+* [khmer documentation and repo](https://github.com/dib-lab/khmer/blob/master/README.rst)
+* [khmer protocols - see "Kalamazoo Protocol"](http://khmer-protocols.readthedocs.org/en/v0.8.4/)
+* [khmer recipes - bite-sized tasks using khmer scripts](http://khmer-recipes.readthedocs.org/en/latest/)
+* [khmer discussion group](http://lists.idyll.org/listinfo/khmer)
+
