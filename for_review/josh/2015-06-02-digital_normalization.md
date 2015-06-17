@@ -15,7 +15,7 @@ Since this process can take a while and is prone to issues with remote computing
 Normalize everything to a coverage of 20, starting with the (more valuable) PE reads; keep pairs using '-p'
 
 ```
-python /usr/local/share/khmer/scripts/normalize-by-median.py -k 20 -C 20 -N 4 -x 1e9 -s normC20k20.kh *.se.qc.fq.gz
+python /usr/local/share/khmer/scripts/normalize-by-median.py -k 20 -C 20 -N 4 -x 1e9 -s normC20k20.kh CentraliaMG_7GB.qc.fastq
 ```
 
 Make sure you read the manual for this script, it's part of the [khmer](https://github.com/ged-lab/khmer) package.  This script produces a set of '.keep' files, as well as a normC20k20.kh database file.  The database file (it's a hash table in this case) can get quite large so keep in ming when you are running this script on a lot of data with not a lot of free space on your computer.
