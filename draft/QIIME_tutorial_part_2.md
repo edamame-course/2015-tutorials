@@ -81,17 +81,17 @@ To subsample the OTU table, we need to decide the appropriate subsampling depth.
 *  How important is it to keep all samples in the analysis?  Consider the costs and benefits of, for example, dropping one not-very-well-sequenced replicate in favor of increasing overall sequence information.  If you've got $$ to spare, built-in sequencing redundancy/replication is helpful for this.
 *  Don't fret!  Soon sequencing will be so inexpensive that we will be sequencing every community exhaustively and not have to worry about it anymore.
 
-In this example dataset, we want to keep all of our samples, so we will subsample to 4708.  Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
+In this example dataset, we want to keep all of our samples, so we will subsample to 4711.  Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
 Navigate back to the EDAMAME16S directory.
 
 ```
-single_rarefaction.py -i usearch61_openref/otu_table_mc2_w_tax.biom -o Subsampling_otu_table_even2998.biom -d 4708
+single_rarefaction.py -i usearch61_openref/otu_table_mc2_w_tax.biom -o Subsampling_otu_table_even4711.biom -d 4711
 ```
 
-We append _even4708 to the end of the table to distinguish it from the full table.  This is even4708 table is the final biom table on which to perform ecological analyses.  If we run the [biom summary](http://biom-format.org/documentation/summarizing_biom_tables.html) command, we will now see that every sample in the new table has exactly the same number of sequences:
+We append _even4711 to the end of the table to distinguish it from the full table.  This is even4711 table is the final biom table on which to perform ecological analyses.  If we run the [biom summary](http://biom-format.org/documentation/summarizing_biom_tables.html) command, we will now see that every sample in the new table has exactly the same number of sequences:
 
 ```
-biom summarize_table -i Subsampling_otu_table_even4708.biom -o summary_Subsampling_otu_table_even4708.txt
+biom summarize_table -i Subsampling_otu_table_even4711.biom -o summary_Subsampling_otu_table_even4711.txt
 head summary_Subsampling_otu_table_even4708.txt
 ```
 ![img14](../img/rarefaction.jpg)
@@ -104,20 +104,20 @@ There is a [recent paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.13
 Navigate back into the EDAMAME_16S directory, and make a new directory for alpha diversity results.
 
 ```
-mkdir alphadiversity_even4708
+mkdir alphadiversity_even4711
 
 ```
 
 We will calculate richness (observed # taxa) and phylogenetic diversity (PD) for each sample.  Documentation is [here](http://qiime.org/scripts/alpha_diversity.html).
 
 ```
-alpha_diversity.py -i usearch61_openref/Subsampling_otu_table_even4708.biom -m observed_species,PD_whole_tree -o alphadiversity_even4708/alphadiversity_evensubsample_usearch61_alphadiversity_even4708.txt -t usearch61_openref/rep_set.tre
+alpha_diversity.py -i usearch61_openref/Subsampling_otu_table_even4711.biom -m observed_species,PD_whole_tree -o alphadiversity_even4711/alphadiversity_evensubsample_usearch61_alphadiversity_even4711.txt -t usearch61_openref/rep_set.tre
 ```
 
 As always, inspect the results file.  What are the ranges that were observed in richness and PD?
 
 ```
-head alphadiversity_even4708/subsample_usearch61_alphadiversity_even4708.txt
+head alphadiversity_even4711/subsample_usearch61_alphadiversity_even4711.txt
 ```
 
 QIIME offers a variety of additional options for calculating diversity, and the -s option prints them all!
@@ -133,7 +133,7 @@ There is workflow script, [alpha_rarefaction.py](http://qiime.org/scripts/alpha_
 `summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html). This will take about 10 minutes.
 
 ```
-summarize_taxa_through_plots.py -o alphadiversity_even4708/taxa_summary4708/ -i usearch61_openref/Subsampling_otu_table_even4708.biom
+summarize_taxa_through_plots.py -o alphadiversity_even4711/taxa_summary4708/ -i usearch61_openref/Subsampling_otu_table_even4711.biom
 ```
 
 When the script is finished, navigate into the results file, and into the "taxa_summary_plots" and find the html area and bar charts.  
@@ -141,7 +141,7 @@ When the script is finished, navigate into the results file, and into the "taxa_
 To view the HTML files, users will need to execute the following command:
 
 ```
-cp -r taxa_summary_even4708/taxa_summary_plots/ ../Dropbox/
+cp -r taxa_summary_even4711/taxa_summary_plots/ ../Dropbox/
 ```
 
 If the file doesn't open correctly, EC2 users may need to download the folder from Dropbox and unzip the folder (7-Zip --> Extract Here), and then when they open the file, it will show the graphs and other hoopla!
