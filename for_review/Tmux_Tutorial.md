@@ -1,6 +1,6 @@
 #Using Tmux
 
-Whenever you are connected to an Amazon EC2 you are at the mercy of your internet connection. Let's say you are running a really long process like OTU picking or metagenome assembly. If your internet connection cuts out during this process, the program won't finish and you won't be able to start back up where it stopped. In order to get around this we can use a program called Tmux. Tmux allows you to keep running programs even if your internet connection cuts out during the process. It does this by making virtual session inside of your remote instance. While in theory this sounds confusing, in practice it is not to bad. Let's start of by making a new virtual session using tmux. 
+Whenever you are connected to an Amazon EC2 you are at the mercy of your internet connection. Let's say you are running a really long process like OTU picking or metagenome assembly. If your internet connection cuts out during this process, the program won't finish and you won't be able to start back up where it stopped. In order to get around this we can use a program called Tmux. Tmux allows you to keep running programs even if your internet connection cuts out during the process. It does this by making a virtual session inside of your remote instance. While in theory this sounds confusing, in practice it is not very difficult. Let's start of by making a new virtual session using tmux. 
 
 ```
 tmux new -s OurNewSession
