@@ -141,7 +141,7 @@ When the script is finished, navigate into the results file, and into the "taxa_
 To view the HTML files, users will need to execute the following command:
 
 ```
-cp -r taxa_summary_even4711/taxa_summary_plots/ ../Dropbox/
+cp -r alphadiversity_even4711/taxa_summary4711/taxa_summary_plots/ ../Dropbox/
 ```
 
 If the file doesn't open correctly, EC2 users may need to download the folder from Dropbox and unzip the folder (7-Zip --> Extract Here), and then when they open the file, it will show the graphs and other hoopla!
