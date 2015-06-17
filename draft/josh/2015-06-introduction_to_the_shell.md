@@ -59,8 +59,8 @@ Go ahead and drag the Terminal application to your Dock for easy access.
 
 Windows
 -------
-For Windows, we're going to be using gitbash.
-Download and install [gitbash](http://msysgit.github.io)
+For Windows, we're going to be using MobaXterm.
+Download and install MobaXterm [here](http://mobaxterm.mobatek.net/download.html) to use as your terminal. 
 Open up the program.
 
 Linux
