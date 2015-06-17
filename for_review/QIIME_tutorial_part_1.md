@@ -278,25 +278,25 @@ This next step will take about 40 minutes.
 Before continuing, make sure you are in the "EDAMAME_16S" directory.
 
 ```
-pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref_prefilter0_90/ -f
+pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref/ -f
 ```
 
 In the above script:
   - We tell QIIME to look for the input file `-i`, "combined_seqs.fna".
   - We chose the clustering method usearch61 `-m`
-  - We specify that output files should go in a new folder, usearch61_openref_prefilter0_90/
+  - We specify that output files should go in a new folder, usearch61_openref/
 
-Navigate into the usearch61_openref_prefilter0_90/ folder and inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID, starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
+Navigate into the usearch61_openref/ folder and inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID, starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came (green box), and the second part is the sequence number within that sample (purple box).  
 
 ![img7](../img/picked_otus.jpg)
 
-In the usearch61_openref_prefilter0_90/ folder, we can also see several new directories that we're interested in right now: step1_OTUs, step2_OTUs, step3_OTUs, and step4_OTUs. As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains, step 1 picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster based on the reference database. Step 2 performs computationally expensive de novo clustering for a subset of failed sequences, and picks a representative sequence from each cluster to add to the original database. Step 3 picks OTUs from all of the failed sequences, not just the subset used in step 2, based on the new database generated in step 2. Step 4 performs de novo clustering on all remaining OTUs.
+In the usearch61_openref/ folder, we can also see several new directories that we're interested in right now: step1_OTUs, step2_OTUs, step3_OTUs, and step4_OTUs. As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains, step 1 picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster based on the reference database. Step 2 performs computationally expensive de novo clustering for a subset of failed sequences, and picks a representative sequence from each cluster to add to the original database. Step 3 picks OTUs from all of the failed sequences, not just the subset used in step 2, based on the new database generated in step 2. Step 4 performs de novo clustering on all remaining OTUs.
 Inspect the combined_seqs_otus.txt file from the step1_otus directory.
 
 
 ### 1.11 Align representative sequences.
 
-Navigate back to the EDAMAME_16S directory. We will align our representative sequences using PyNAST, which uses a "gold" reference template for the alignment.  QIIME uses a "gold" pre-aligned template made from the greengenes database.  The default alignment to the template is minimum 75% sequence identity and minimum length 150. The default minimum length is not great for short reads like we have, so we will be more generous and change the default. What should we change it to?
+Navigate back to the usearch61 directory. We will align our representative sequences using PyNAST, which uses a "gold" reference template for the alignment.  QIIME uses a "gold" pre-aligned template made from the greengenes database.  The default alignment to the template is minimum 75% sequence identity and minimum length 150. The default minimum length is not great for short reads like we have, so we will be more generous and change the default. What should we change it to?
 
 ```
 count_seqs.py -i
@@ -318,7 +318,7 @@ count_seqs.py -i rep_set_failures.fasta
 count_seqs.py -i rep_set_aligned.fasta
 ```
 
-We see that there were 33 rep. sequences that failed to align, and approximately 25435 that did.  (Also, notice what short-read alignments generally look like...not amazing).
+We see that there were 32 rep. sequences that failed to align, and approximately 24831 that did.  (Also, notice what short-read alignments generally look like...not amazing).
 
 *Sanity check?*  If you like, [BLAST](http://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch&BLAST_SPEC=MicrobialGenomes) the top sequence that failed to align to convince yourself that it is, indeed, a pitiful failure.
 
