@@ -264,11 +264,14 @@ We use the QIIME command: `pick_open_reference_otus.py` for this step.  Document
 The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch](http://www.drive5.com/usearch/) algorithm because it incorporates a chimera-check.  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
 
 ###Installing usearch61
-Download the [install file](../QIIME_files/usearch6.1.544_i86linux32) to your desktop.
-Use scp to transfer the file to your EC2 instance, then execute these commands:
+Download the [usearch](../QIIME_files/usearch5.2.236_i86linux32) and [usearch61](../QIIME_files/usearch6.1.544_i86linux32) files to your desktop.
+Use scp to transfer the files to your EC2 instance, then execute these commands:
 ```
+sudo cp usearch5.2.236_i86linux32 /usr/local/bin/usearch
+sudo chmod +x /usr/local/bin/usearch
+
 sudo cp usearch6.1.544_i86linux32 /usr/local/bin/usearch61
-sudo chmod 755 /usr/local/bin/usearch61
+sudo chmod +x /usr/local/bin/usearch61
 print_qiime_config.py -tf
 ```
 This should show that the install did not have any failures.
