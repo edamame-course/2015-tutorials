@@ -30,16 +30,16 @@ Make sure that you do not have a directory called "CentraliaMG_Prokka" before ru
 
 #Resources and help
 ## Pierre Lindebaum
--[Blog](http://plindenbaum.blogspot.com/)
--[awk script](https://www.biostars.org/p/53212/)
+- [Blog](http://plindenbaum.blogspot.com/)
+- [awk script](https://www.biostars.org/p/53212/)
 
 ##Prokka
--[Prokka Paper](http://bioinformatics.oxfordjournals.org/content/30/14/2068.long)
--[Prokka Developers' Site](http://www.vicbioinformatics.com/software.prokka.shtml)
+- [Prokka Paper](http://bioinformatics.oxfordjournals.org/content/30/14/2068.long)
+- [Prokka Developers' Site](http://www.vicbioinformatics.com/software.prokka.shtml)
 
 ##Softwares Prokka uses
--Prodigal [Website](http://prodigal.ornl.gov/) & [Paper](http://www.biomedcentral.com/1471-2105/11/119)
--RNAmmer [Website](http://www.cbs.dtu.dk/services/RNAmmer/) & [Paper](http://nar.oxfordjournals.org/content/35/9/3100)
--Aragorn [Website](http://mbioserv2.mbioekol.lu.se/ARAGORN/) & [Paper](http://nar.oxfordjournals.org/content/32/1/11.long)
--SignalP [Website](http://www.cbs.dtu.dk/services/SignalP/) & [Paper](http://www.nature.com/nmeth/journal/v8/n10/full/nmeth.1701.html)
--Infernal [Website](http://infernal.janelia.org/) & [Paper](http://bioinformatics.oxfordjournals.org/content/29/22/2933)
+- Prodigal [Website](http://prodigal.ornl.gov/) & [Paper](http://www.biomedcentral.com/1471-2105/11/119)
+- RNAmmer [Website](http://www.cbs.dtu.dk/services/RNAmmer/) & [Paper](http://nar.oxfordjournals.org/content/35/9/3100)
+- Aragorn [Website](http://mbioserv2.mbioekol.lu.se/ARAGORN/) & [Paper](http://nar.oxfordjournals.org/content/32/1/11.long)
+- SignalP [Website](http://www.cbs.dtu.dk/services/SignalP/) & [Paper](http://www.nature.com/nmeth/journal/v8/n10/full/nmeth.1701.html)
+- Infernal [Website](http://infernal.janelia.org/) & [Paper](http://bioinformatics.oxfordjournals.org/content/29/22/2933)
