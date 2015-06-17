@@ -133,7 +133,7 @@ There is workflow script, [alpha_rarefaction.py](http://qiime.org/scripts/alpha_
 `summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html). This will take about 10 minutes.
 
 ```
-summarize_taxa_through_plots.py -o alphadiversity_even4711/taxa_summary4708/ -i usearch61_openref/Subsampling_otu_table_even4711.biom
+summarize_taxa_through_plots.py -o alphadiversity_even4711/taxa_summary4711/ -i Subsampling_otu_table_even4711.biom
 ```
 
 When the script is finished, navigate into the results file, and into the "taxa_summary_plots" and find the html area and bar charts.  
