@@ -56,11 +56,11 @@ It is best not to use trees made from short-reads as very robust hypotheses of e
 Documentation is [here](http://qiime.org/scripts/make_phylogeny.html).
 
 ```
-mkdir fasttree_cdhit
+mkdir fasttree_usearch61
 ```
 
 ```
-make_phylogeny.py -i pynast_aligned/cdhit_rep_seqs_aligned.fasta -t fasttree -o fasttree_cdhit/fasttree_cdhit.tre
+make_phylogeny.py -i pynast_aligned/rep_seqs_aligned.fasta -t fasttree -o fasttree_cdhit/fasttree_usearch61.tre
 ```
 
 A few notables:  The tree algorithm input is the alignment file; the output extension is .tre.
