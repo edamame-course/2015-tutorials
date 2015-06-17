@@ -5,10 +5,24 @@ comments: true
 date: 2015-06-22
 ---
 
-#Intro to QIIME
-Authored by Ashley Shade
+#Intro to QIIME for amplicon analysis
+Authored by Ashley Shade, Modified by Sang-Hoon Lee and Siobhan Cusack
 
-Modified by Sang-Hoon Lee and Siobhan Cusack
+***
+
+##Learning Objectives
+* Install auxillary software on the QIIME EC2 image
+* Subsample a large amplicon dataset for workflow development and tutorial testing
+* Assemble paired-end reads
+* Execute a shell script to automate a process
+* Explore input and output files for QIIME workflows and scripts
+* Understand the structure and components of a good mapping file
+* Move sequencing into the QIIME environment from an outside tool using "add_qiime_labels.py"
+* Obtain summary information about sequence files (fasta, fna, fastq)
+* Define operational taxaonomic units (OTUs)
+* Execute a QIIME workflow, and understand the separate steps in the workflow
+
+***
 
 ##1.1 Getting started
 For this tutorial, we will be using the 16S sequencing data that we previously downloaded and unzipped. Let's connect to our EC2 instance, and then wget our data.
@@ -263,9 +277,9 @@ quit()
 ### 1.10  Picking Operational Taxonomic Units, OTUs.
 Picking OTUs is sometimes called "clustering," as sequences with some threshold of identity are "clustered" together to into an OTU.
 
-  *Important decision*: Should I use a de-novo method of picking OTUs or a reference-based method, or some combination? ([Or not at all?](http://www.mendeley.com/catalog/interpreting-16s-metagenomic-data-without-clustering-achieve-subotu-resolution/)). The answer to this will depend, in part, on what is known about the community a priori.  For instance, a human or mouse gut bacterial community will have lots of representatives in well-curated 16S databases, simply because these communities are relatively well-studied.  Therefore, a reference-based method may be preferred.  The limitation is that any taxa that are unknown or previously unidentified will be omitted from the community.  As another example, a community from a lesser-known environment, like Mars or a cave, or a community from a relatively less-explored environment would have fewer representative taxa in even the best databases.  Therefore, one would miss a lot of taxa if using a reference-based method.  The third option is to use a reference database but to set aside any sequences that do not have good matches to that database, and then to cluster these de novo.
+  _Important decision_: Should I use a de-novo method of picking OTUs or a reference-based method, or some combination? ([Or not at all?](http://www.mendeley.com/catalog/interpreting-16s-metagenomic-data-without-clustering-achieve-subotu-resolution/)). The answer to this will depend, in part, on what is known about the community a priori.  For instance, a human or mouse gut bacterial community will have lots of representatives in well-curated 16S databases, simply because these communities are relatively well-studied.  Therefore, a reference-based method may be preferred.  The limitation is that any taxa that are unknown or previously unidentified will be omitted from the community.  As another example, a community from a lesser-known environment, like Mars or a cave, or a community from a relatively less-explored environment would have fewer representative taxa in even the best databases.  Therefore, one would miss a lot of taxa if using a reference-based method.  The third option is to use a reference database but to set aside any sequences that do not have good matches to that database, and then to cluster these de novo.
 
-  For this tutorial, we are going to use an OTU-picking approach that uses a reference to identify as many OTUs as possible, but also includes any "new" sequences that do not hit the database.  It is called "open reference" OTU picking, and you can read more about it in this [paper](https://peerj.com/articles/545/) by Rideout et al.
+  For this tutorial, we are going to use an OTU-picking approach that uses a reference to identify as many OTUs as possible, but also includes any "new" sequences that do not hit the database.  It is called "open reference" OTU picking, and you can read more about it in this [paper](https://peerj.com/articles/545/) by Rideout et al.  Discussion of the workflow by the QIIME developers is [here](http://qiime.org/tutorials/open_reference_illumina_processing.html.)
 
 We use the QIIME workflow command: `pick_open_reference_otus.py` for this step.  Documentation is [here](http://qiime.org/scripts/pick_open_reference_otus.html).
 The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch61](http://www.drive5.com/usearch/) algorithm because it incorporates a [chimera-check and other quality filtering](http://qiime.org/tutorials/usearch_quality_filter.html).  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
@@ -419,6 +433,7 @@ Congratulations!  You just had the QIIME of Your Life!
   ###Biom format
   - [Motivation and documentaiton](http://biom-format.org/)
   - [Coming-out paper McDonald et al. 2012](http://www.gigasciencejournal.com/content/1/1/7)
+  - [GitHub](https://github.com/biocore/biom-format)
 
 -----------------------------------------------
 -----------------------------------------------
