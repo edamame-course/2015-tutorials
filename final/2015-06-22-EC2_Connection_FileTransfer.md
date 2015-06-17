@@ -89,7 +89,7 @@ Make sure you are in the terminal window that is connected to your instance, oth
 Let that run for a minute or two and you'll get the data we are going to be using for the majority of this course. Next, we need to unzip or decompress the file so that we can actually make use of it. We will do so by running the following line of code that makes use of a program called `tar`
 
 ```
-tar -zxvf EDAMAME_Datasets.tar.gz
+tar -zxvf EDAMAME_16S.tar.gz
 ```
 
 Once the above command finishes running take a look through the resulting folder. Inside of EDAMAME_Datasets you should see two folders, 16S and MG. These two folders contain almost all of the data we will be using this week.  
