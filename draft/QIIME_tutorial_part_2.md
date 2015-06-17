@@ -29,7 +29,7 @@ assign_taxonomy.py -i usearch61_openref_prefilter0_90/rep_set.fna -m rdp -c 0.8
 Navigate into the new rdp_assigned_taxonomy directory and inspect the head of the tax_assignments file.
 
 ```
-head rep_set_tax_assignments.txt
+head usearch61_openref_prefilter0_90/uclust_assigned_taxonomy/rep_set_tax_assignments.txt
 ```
 
 ![img11](../img/taxonomy.jpg)
