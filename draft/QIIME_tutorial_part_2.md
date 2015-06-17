@@ -21,13 +21,13 @@ Previously, we left off with quality-controlled merged Illumina paired-end seque
 Navigate into the QIIMETutorial directory using `cd`, and, enter the QIIME environment. We will use the RDP classifier with a greengenes 16S rRNA reference database (both default options in QIIME).  This script will take a few minutes to run on a lap-top. Documentation is [here](http://qiime.org/scripts/assign_taxonomy.html).
 
 ```
-assign_taxonomy.py -i usearch61_openref_prefilter0_90/rep_set.fna -m rdp -c 0.8
+assign_taxonomy.py -i usearch61_openref/rep_set.fna -m rdp -c 0.8
 ```
 
 Navigate into the new rdp_assigned_taxonomy directory and inspect the head of the tax_assignments file.
 
 ```
-head usearch61_openref_prefilter0_90/uclust_assigned_taxonomy/rep_set_tax_assignments.txt
+head usearch61_openref/uclust_assigned_taxonomy/rep_set_tax_assignments.txt
 ```
 
 ![img11](../img/taxonomy.jpg)
@@ -41,7 +41,7 @@ The OTU table is the table on which all ecological analyses (e.g. diversity, pat
 Navigate back into the "QIIMETutorial" directory to execute the script.
 
 ```
-biom summarize_table -i usearch61_openref_prefilter0_90/otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax_biom.txt
+biom summarize_table -i usearch61_openref/otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax_biom.txt
 ```
 
 The summary file contains information about the number of sequences per sample, which will help us to make decisions about rarefaction (subsampling).  When we inspect the file, we see that sample F3D142.S208 has 2212 reads, the minimum observed.  This is what we will use as a subsampling depth.  Also, a lot of the info in this file is typically reported in methods sections of manuscripts.
