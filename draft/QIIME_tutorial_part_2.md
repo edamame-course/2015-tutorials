@@ -2,11 +2,9 @@
 layout: page
 title: "QIIME Tutorial 2"
 comments: true
-date: 2014-08-14 08:44:36
+date: 2015-06-23
 ---
-Authored by Ashley Shade
-
-Modified by Sang-Hoon Lee and Siobhan Cusack
+Authored by Ashley Shade, with contributions by Sang-Hoon Lee and Siobhan Cusack
 
 ###Handouts of workflow charts are available for the QIIME workflow discussed in these tutorials:
 -  [Paired-End Illumina](https://github.com/edamame-course/docs/tree/gh-pages/extra/Handouts/QIIMEFlowChart_IlluminaPairedEnds_13aug2014.pdf?raw=true)
@@ -18,7 +16,7 @@ Modified by Sang-Hoon Lee and Siobhan Cusack
 
 Previously, we left off with quality-controlled merged Illumina paired-end sequences, picked OTUs and an alignment of the representative sequences from those OTUs.
 
-### 3.1  Assign taxonomy to representative sequences
+### 3.1  Assign taxonomy to representative sequences (now done with pick_open_reference_otus)
 
 Navigate into the QIIMETutorial directory using `cd`, and, enter the QIIME environment. We will use the RDP classifier with a greengenes 16S rRNA reference database (both default options in QIIME).  This script will take a few minutes to run on a lap-top. Documentation is [here](http://qiime.org/scripts/assign_taxonomy.html).
 
@@ -37,7 +35,7 @@ head usearch61_openref_prefilter0_90/uclust_assigned_taxonomy/rep_set_tax_assign
 This assignment file is used anytime an OTU ID (the number) needs to be linked with its taxonomic assignment.
 *Note* that this list of OTUs and taxonomic assignments includes our "failed-to-align" representative sequences.  We will remove these at the next step.
 
-### 3.2  Make an OTU table, append the assigned taxonomy, and exclude failed alignment OTUs
+### 3.2  Make an OTU table, append the assigned taxonomy, and exclude failed alignment OTUs (now done with pick_open_reference_otus)
 
 The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  However, building the OTU table is relatively straightforward (you just count how many of each OTU was observed in each sample).  Instead, every step up until building the OTU table is important.  The algorithms that are chosen to assemble reads, quality control reads, define OTUs, etc are all gearing up to this one summarization. Documentation for make_otu_table.py is [here](http://qiime.org/scripts/make_otu_table.html). Note that the "map" file is not actually the mapping file, but the OTU cluster file (the output of pick_open_reference_otus.py).
 Navigate back into the "QIIMETutorial" directory to execute the script.
@@ -51,7 +49,7 @@ The summary file contains information about the number of sequences per sample, 
 ![img13](../img/summary_table.jpg)
 
 
-### 3.3 Make a phylogenetic tree
+### 3.3 Make a phylogenetic tree (now done by pick_open_reference_otus)
 
 We will make a phylogenetic tree of the short-read sequences so that we can use information about the relatedness among taxa to estimate and compare diversity.  We will use FastTree for this.  
 It is best not to use trees made from short-reads as very robust hypotheses of evolution. I suggest using trees from short-read sequences for ecological analyses, visualization and hypothesis-generation rather than strict phylogenetic inference.
@@ -83,25 +81,27 @@ To subsample the OTU table, we need to decide the appropriate subsampling depth.
 *  How important is it to keep all samples in the analysis?  Consider the costs and benefits of, for example, dropping one not-very-well-sequenced replicate in favor of increasing overall sequence information.  If you've got $$ to spare, built-in sequencing redundancy/replication is helpful for this.
 *  Don't fret!  Soon sequencing will be so inexpensive that we will be sequencing every community exhaustively and not have to worry about it anymore.
 
-In this example dataset, we want to keep all of our samples, so we will subsample to 2212.  Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
+In this example dataset, we want to keep all of our samples, so we will subsample to 4708.  Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
+Navigate back to the EDAMAME16S directory.
 
 ```
-single_rarefaction.py -i usearch61_openref_prefilter0_90/otu_table_mc2_w_tax.biom -o Subsampling_otu_table_even2998.biom -d 2998
+single_rarefaction.py -i usearch61_openref/otu_table_mc2_w_tax.biom -o Subsampling_otu_table_even2998.biom -d 4708
 ```
 
-We append _even2998 to the end of the table to distinguish it from the full table.  This is even2998 table is the final biom table on which to perform ecological analyses.  If we run the biom summary command, we will now see that every sample in the new table has exactly the same number of sequences:
+We append _even4708 to the end of the table to distinguish it from the full table.  This is even4708 table is the final biom table on which to perform ecological analyses.  If we run the [biom summary](http://biom-format.org/documentation/summarizing_biom_tables.html) command, we will now see that every sample in the new table has exactly the same number of sequences:
 
 ```
-biom summarize_table -i Subsampling_otu_table_even2998.biom -o summary_Subsampling_otu_table_even2998.txt
+biom summarize_table -i Subsampling_otu_table_even4708.biom -o summary_Subsampling_otu_table_even4708.txt
+head summary_Subsampling_otu_table_even4708.txt
 ```
-![img14](../img/summary_rarefaction.jpg)
-Our "clean" dataset has 19 samples and 858 OTUs defined at 97% sequence identity.
+![img14](../img/rarefaction.jpg)
+Our "clean" dataset has 54 samples and 24263 OTUs defined at 97% sequence identity.
 
 There is a [recent paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531) that suggests that even subsampling is not necessary, but this is very actively debated.
 
 ### 3.5 Calculating alpha (within-sample) diversity
 
-Navigate back into the QIIMETutorial directory, and make a new directory for alpha diversity results.
+Navigate back into the EDAMAME_16S directory, and make a new directory for alpha diversity results.
 
 ```
 mkdir alphadiversity_even4708
@@ -111,7 +111,7 @@ mkdir alphadiversity_even4708
 We will calculate richness (observed # taxa) and phylogenetic diversity (PD) for each sample.  Documentation is [here](http://qiime.org/scripts/alpha_diversity.html).
 
 ```
-alpha_diversity.py -i Subsampling_otu_table_even4708.biom -m observed_species,PD_whole_tree -o alphadiversity_even4708/subsample_usearch61_alphadiversity_even4708.txt -t usearch61_openref_prefilter0_90/rep_set.tre
+alpha_diversity.py -i usearch61_openref/Subsampling_otu_table_even4708.biom -m observed_species,PD_whole_tree -o alphadiversity_even4708/subsample_usearch61_alphadiversity_even4708.txt -t usearch61_openref/rep_set.tre
 ```
 
 As always, inspect the results file.  What are the ranges that were observed in richness and PD?
@@ -179,4 +179,3 @@ In your browser, carefully inspect and interact with this quick charts.  Though 
 
 -----------------------------------------------
 -----------------------------------------------
-
