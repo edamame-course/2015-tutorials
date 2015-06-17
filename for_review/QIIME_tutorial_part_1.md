@@ -11,7 +11,13 @@ Authored by Ashley Shade
 Modified by Sang-Hoon Lee and Siobhan Cusack
 
 ##1.1 Getting started
-For this tutorial, we will be using the 16S sequencing data that we previously downloaded and unzipped. Let's connect to our EC2 instance. One we've done that, we'll navigate to the directory containing those files:
+For this tutorial, we will be using the 16S sequencing data that we previously downloaded and unzipped. Let's connect to our EC2 instance, and then wget our data.
+```
+wget https://s3.amazonaws.com/edamame/EDAMAME_16S.tar.gz
+tar -zxvf EDAMAME_16S.tar.gz
+```
+
+One we've done that, we'll navigate to the directory containing those files:
 ```
 cd EDAMAME_16S/Fastq
 ```
@@ -109,7 +115,7 @@ head C01D01_merged.fastq
 grep  GTCTAATTCCGA C01D01_merged.fasta
 ```
 
-When you execute the above command, the terminal does not return anything.  This means that the primer sequence was not found in the file, suggesting that PANDAseq did, in fact, trim them.
+When you execute the above command, the terminal does not return anything.  This means that the primer sequence was not found in the file.
 
 We can double check our sanity by using a positive control.  Let's use `grep` to find a character string that we know is there, for instance the "M03127" string identifying the first sequence.
 
@@ -138,9 +144,10 @@ Our positive control worked, and we should be convinced and joyous that we execu
 rm list.txt
 ```
 
-Let's also remove the merged file; we're going to make a new one using AUTOMATION in a second.
+Let's also remove the merged file and its log; we're going to make a new one using AUTOMATION in a second.
 ```
 rm C01D01_merged.fasta
+rm C01D01_merged.log
 ```
 
 ### 1.6  Automate paired-end merging with a shell script.
@@ -187,7 +194,7 @@ Congratulations, you lucky duck! You've assembled paired-end reads!
 
 QIIME requires a [mapping file](http://qiime.org/documentation/file_formats.html) for most analyses.  This file is important because it links the sample IDs with their metadata (and, with their primers/barcodes if using QIIME for quality-control).
 
-Let's spend few moments getting to know the mapping file.  Navigate to the MappingFiles subdirectory in the EDAMAME_16S directory.
+Let's spend few moments getting to know the mapping file.  Navigate to the MappingFiles subdirectory in the EDAMAME_16S/MappingFiles directory.
 
 ```
 more Centralia_Full_Map.txt
@@ -212,10 +219,10 @@ Guidelines for formatting map files:
 
 QIIME expects all of the data to be in one file, and, currently, we have one separate fastq file for each assembled read.  We will add labels to each sample and merge into one fasta file using the `add_qiime_labels.py` script. Documentation is [here](http://qiime.org/scripts/add_qiime_labels.html).
 
-Navigate back to the EDAMAME_16S directory, then execute the following command:
+Navigate back to the EDAMAME_16S/ directory, then execute the following command:
 
 ```
-add_qiime_labels.py -i Fastq/pandaseq_merged_reads/ -m MappingFiles/Centralia_Full_Map.txt -c InputFastaFileName -n 1
+add_qiime_labels.py -i pandaseq_merged_reads/ -m MappingFiles/Centralia_Full_Map.txt -c InputFastaFileName -n 1
 ```
 Inspect the new file "combined_seqs.fna."
 
@@ -260,13 +267,13 @@ Picking OTUs is sometimes called "clustering," as sequences with some threshold 
 
   For this tutorial, we are going to use an OTU-picking approach that uses a reference to identify as many OTUs as possible, but also includes any "new" sequences that do not hit the database.  It is called "open reference" OTU picking, and you can read more about it in this [paper](https://peerj.com/articles/545/) by Rideout et al.
 
-We use the QIIME command: `pick_open_reference_otus.py` for this step.  Documentation is [here](http://qiime.org/scripts/pick_open_reference_otus.html).
-The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch](http://www.drive5.com/usearch/) algorithm because it incorporates a chimera-check.  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
+We use the QIIME workflow command: `pick_open_reference_otus.py` for this step.  Documentation is [here](http://qiime.org/scripts/pick_open_reference_otus.html).
+The default QIIME 1.9.1 method for OTU picking is uclust, but we will use the [usearch61](http://www.drive5.com/usearch/) algorithm because it incorporates a chimera-check.  However, we encourage you to explore different OTU clustering algorithms to understand how they perform.  They are not created equal.
 
 ###Installing usearch61
 While in the home directory, get the usearch and usearch61 files:
 ```
-cd 
+cd ..
 curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/usearch5.2.236_i86linux32
 curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/usearch6.1.544_i86linux32
 ```
@@ -296,34 +303,47 @@ In the above script:
   - We specify that output files should go in a new folder, usearch61_openref/
   - We tell the program to overwrite already-existing files in the folder if we are running this program more than once (-f)
 
-Navigate into the usearch61_openref/ folder and inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID, starting at "0" the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came, and the second part is the sequence number within that sample.  
+  Other default parameters of interest:
+   - Singletons are removed from the OTU table (default flag --min_otu_size)
+   - Alignment is performed with [PyNAST](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2804299/)
+   - Taxonomy is assigned with [uclust](http://qiime.org/scripts/assign_taxonomy.html?highlight=assign_taxonomy)
+   - Default workflow values can be changed using a [parameter file](http://qiime.org/documentation/qiime_parameters_files.html?highlight=parameter)
+   - We do not perform prefiltering, as per the recommendations of [Rideout et al.](https://peerj.com/articles/545/)
+
+Navigate into the usearch61_openref/ folder and inspect the log and the resulting final_otu_map.txt file, using `head`.  You should see an OTU ID (starting with the number of the first OTU that was picked) in the the left most column.  After that number, there is a list of Sequence IDs that have been clustered into that OTU ID.  The first part of the sequence ID is the SampleID from which it came, and the second part is the sequence number within that sample.  
 
 ![img7](../img/picked_otus.jpg)
 
-In the usearch61_openref/ folder, we can also see several new directories that we're interested in right now: step1_OTUs, step2_OTUs, step3_OTUs, and step4_OTUs. As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains, step 1 picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster based on the reference database. Step 2 performs computationally expensive de novo clustering for a subset of the failed sequences from step 1, and picks a representative sequence from each new cluster to add to the original database. Step 3 picks OTUs from all of the failed sequences, not just the subset used in step 2, based on the new database generated in step 2. Step 4 performs de novo clustering on all remaining OTUs.
+In usearch61_openref/, we can see several new directories and files.  Let's explore them, starting with the "step1.." directories.  As the [documentation for pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) explains:
+  1. step 1 picks OTUs based on a [reference database](http://greengenes.lbl.gov/cgi-bin/nph-index.cgi), producing a file of successfully clustered OTUs and a file of sequences that failed to cluster based on the reference database. 
+  2. Step 2 performs computationally expensive de novo clustering for a subset of the failed sequences from step 1, and picks a representative sequence from each new cluster to add to the original database. 
+  3. Step 3 picks OTUs from all of the failed sequences, not just the subset used in step 2, based on the new database generated (of ref+ de novos) in step 2. 
+  4. Step 4 performs de novo clustering on all remaining OTUs.
+
+  An great overview of the steps of the open-reference process is provided by Figure 1 of Rideout et al. 2014.
+
+![img8](../img/fig-1-2x.jpg)
+
+If you navigate into one of the "step" directories, wou will see a series of output files, including representative sequences of OTU clusters ("rep_set").  Take your time to explore these files using the `head` or `more` commands.  Then, navigate back to the usearch61_openrefs directory.
+
+There are several files o
+
+
 Inspect the combined_seqs_otus.txt file from the step1_otus directory.
 
+The open reference OTU picking also automatically takes the next steps towards building the OTU table.  
 
-### 1.11 Align representative sequences.
+It aligns sequences (without a workflow script, you would call `align_seqs.py` to do this step independently) using PyNAST against "gold" reference template for the alignment.  QIIME uses a "gold" pre-aligned template made from the greengenes database.
 
-Navigate back to the usearch61 directory. We will align our representative sequences using PyNAST, which uses a "gold" reference template for the alignment.  QIIME uses a "gold" pre-aligned template made from the greengenes database.  The default alignment to the template is minimum 75% sequence identity and minimum length 150. The default minimum length is not great for short reads like we have, so we will be more generous and change the default. What should we change it to?
-
-```
-count_seqs.py -i
-```
-
-Given that our average assembled read length is ~252 bp, let's decide that at least 100 bp must align.  We will have the `-e` option to 100. The alignment will take a few minutes.  Documentation for `align_seqs.py` is [here](http://qiime.org/scripts/align_seqs.html).
-
-```
-align_seqs.py -i usearch61_openref_prefilter0_90/rep_set.fna -o pynast_aligned/ -e 100
-```
-
-Navigate into the pynast_aligned directory.  There are three files waiting there:  one file of sequences that failed to align, one of sequences that did align, and a log file.  Inspect each.
+Navigate into the pynast_aligned_seqs directory.  There are three files waiting there:  one file of sequences that failed to align, one of sequences that did align, and a log file.  Inspect each.
 
 ```
 count_seqs.py -i rep_set_failures.fasta
 ```
 
+
+
+HERE!
 ```
 count_seqs.py -i rep_set_aligned.fasta
 ```
