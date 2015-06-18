@@ -458,7 +458,6 @@ less F3D0_S188_L001_R1_001.fastq
 
 
 | Some commands using `less` |
-| -------------------- |
 | key     | action |
 | ------- | ---------- |
 | "space" | to go forward |
