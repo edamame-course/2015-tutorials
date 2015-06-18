@@ -34,8 +34,8 @@ To install the BLAST software, you need to download it from NCBI, unpack it, and
 ```
 curl -O ftp://ftp.ncbi.nih.gov/blast/executables/release/2.2.24/blast-2.2.24-ia32-linux.tar.gz
 tar xzf blast-2.2.24-ia32-linux.tar.gz
-cp blast-2.2.24/bin/* /usr/local/bin
-cp -r blast-2.2.24/data /usr/local/blast-data
+sudo cp blast-2.2.24/bin/* /usr/local/bin
+sudo cp -r blast-2.2.24/data /usr/local/blast-data
 ```
 
 ## Download the databases
@@ -76,7 +76,7 @@ ls -l *.gz
 These are large files and they are going to be even larger when you uncompress them.
 
 ```
-gunzip *.faa.gz
+tar xzf *.tar.gz
 ```
 
 So, now we've got the database files, but BLAST requires that each subject database be preformatted for use; this is a way of speeding up certain types of searches. To do this, we have to format the database.  You should do:

@@ -4,7 +4,11 @@ title: "QIIME Tutorial 3"
 comments: true
 date: 2015-06-23 
 ---
+<<<<<<< HEAD
 #QIIME Tutorial 3:  Comparative diversity
+=======
+#QIIME Tutorial 3
+>>>>>>> b4aba8747500d1e118154b0eda2efcdec40b61e7
 Authored by Ashley Shade, with modifications by Sang-Hoon Lee and Siobhan Cusack  
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
