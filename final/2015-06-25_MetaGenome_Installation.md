@@ -1,6 +1,6 @@
 
 # Metagenome program installation
-Authored by Jackson Sorensen
+Authored by Jackson Sorensen   
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
 ***
