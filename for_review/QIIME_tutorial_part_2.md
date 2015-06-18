@@ -133,7 +133,7 @@ There is workflow script, [alpha_rarefaction.py](http://qiime.org/scripts/alpha_
 `summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html). This will take about 10 minutes.
 
 ```
-summarize_taxa_through_plots.py -o alphadiversity_even4711/taxa_summary4708/ -i usearch61_openref/Subsampling_otu_table_even4711.biom
+summarize_taxa_through_plots.py -o alphadiversity_even4711/taxa_summary4711/ -i usearch61_openref/Subsampling_otu_table_even4711.biom
 ```
 
 When the script is finished, navigate into the results file, and into the "taxa_summary_plots" and find the html area and bar charts.
@@ -146,11 +146,11 @@ The "L" stands for "lineage", and each "level" is designated by a number.  L1 is
 To view the HTML files, you will need to transfer the HTML files themselves and their companion files in the ```charts``` directory to your desktop using scp. Open a terminal with the working directory on your computer, not the EC2.
 
 ```
-scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/alphadiversity/alphadiversity_even4708/taxa_summary4708/taxa_summary_plots/bar_charts.html /home/your_username/Desktop
+scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/alphadiversity/alphadiversity_even4711/taxa_summary4711/taxa_summary_plots/bar_charts.html /home/your_username/Desktop
 
-scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/alphadiversity/alphadiversity_even4708/taxa_summary4708/taxa_summary_plots/area_charts.html /home/your_username/Desktop
+scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/alphadiversity/alphadiversity_even4711/taxa_summary4711/taxa_summary_plots/area_charts.html /home/your_username/Desktop
 
-scp -r -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/alphadiversity/alphadiversity_even4708/taxa_summary4708/taxa_summary_plots/charts /home/your_username/Desktop
+scp -r -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/alphadiversity/alphadiversity_even4711/taxa_summary4711/taxa_summary_plots/charts /home/your_username/Desktop
 
 ```
 The last command above contains the ```-r``` flag after ```scp```. The r means "recursive", and specifies that because we have a whole directory full of files, we want scp to go back and grab all of the files there, not just one. You will get an error if you try to scp a directory without the -r flag.  
