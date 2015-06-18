@@ -457,8 +457,8 @@ less F3D0_S188_L001_R1_001.fastq
 `less` opens the file, and lets you navigate through it. The commands are identical to the `man` program.
 
 
-| Some commands using `less` | ---------- |
-| ------- | ---------- |
+| Some commands using `less` |
+| -------------------- |
 | key     | action |
 | ------- | ---------- |
 | "space" | to go forward |
