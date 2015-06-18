@@ -1,3 +1,19 @@
+#How to Connect and Transfer files to an EC2 instance
+Authored by Siobhan Cusack with contribution from Ashley Shade for EDAMAME2015     
+
+[EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
+
+***
+EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
+***
+
+##Learning Objectives
+* Understand the information provided in Illumina "raw" fastq files
+* Install axillary software on a QIIME EC2 instance
+* Use FastQC to assess the overall quality of raw sequencing data, and determine the parameters that are important specifically to metagenomes
+
+***
+
 #Data quality checking with FastQC
 
 Authored by Siobhan Cusack, with contributions from Ashley Shade and Jackson Sorensen
@@ -144,3 +160,7 @@ In non-enriched reads, it is relatively common to see highly represented kmers n
 
 
 ###For FastQC questions, check the [documentation](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/). Happy quality checking!
+
+***
+##Help and other Resources
+* [FastQC web documentation](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
