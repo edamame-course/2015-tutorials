@@ -82,7 +82,6 @@ To subsample the OTU table, we need to decide the appropriate subsampling depth.
 *  Don't fret!  Soon sequencing will be so inexpensive that we will be sequencing every community exhaustively and not have to worry about it anymore.
 
 In this example dataset, we want to keep all of our samples, so we will subsample to 4711.  Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
-Navigate back to the EDAMAME16S directory.
 
 ```
 single_rarefaction.py -i usearch61_openref/otu_table_mc2_w_tax.biom -o Subsampling_otu_table_even4711.biom -d 4711
