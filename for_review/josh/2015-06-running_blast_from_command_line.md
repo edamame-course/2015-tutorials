@@ -34,8 +34,8 @@ To install the BLAST software, you need to download it from NCBI, unpack it, and
 ```
 curl -O ftp://ftp.ncbi.nih.gov/blast/executables/release/2.2.24/blast-2.2.24-ia32-linux.tar.gz
 tar xzf blast-2.2.24-ia32-linux.tar.gz
-cp blast-2.2.24/bin/* /usr/local/bin
-cp -r blast-2.2.24/data /usr/local/blast-data
+sudo cp blast-2.2.24/bin/* /usr/local/bin
+sudo cp -r blast-2.2.24/data /usr/local/blast-data
 ```
 
 ## Download the databases
