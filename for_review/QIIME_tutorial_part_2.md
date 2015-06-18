@@ -94,6 +94,7 @@ biom summarize_table -i Subsampling_otu_table_even4711.biom -o summary_Subsampli
 head summary_Subsampling_otu_table_even4711.txt
 ```
 ![img14](../img/rarefaction.jpg)
+
 Our "clean" dataset has 54 samples and 24263 OTUs defined at 97% sequence identity.
 
 There is a [recent paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531) that suggests that even subsampling is not necessary, but this is very actively debated.
