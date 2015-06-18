@@ -37,10 +37,10 @@ Previously, we left off with quality-controlled merged Illumina paired-end seque
 
 ### 2.1  Summarize an OTU table
 
-The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  Let's use biom commands to summarize the table.  Let's proceed with the table that has singletons removed and taxonomy assigned ("mc2_w_tax.biom").
+Navigate to the usearch61_openref/ directory. The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  Let's use biom commands to summarize the table.  Let's proceed with the table that has singletons removed and taxonomy assigned ("mc2_w_tax.biom").
 
 ```
-biom summarize_table -i usearch61_openref/otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax_biom.txt
+biom summarize_table -i otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax_biom.txt
 ```
 
 The summary file contains information about the number of sequences per sample, which will help us to make decisions about rarefaction (subsampling).  When we inspect the file, we see that sample C03.05102014.R1.D02.CTAACCTCCGCT has 4711 reads, the minimum observed.  This is what we will use as a subsampling depth.  Also, a lot of the info in this file is typically reported in methods sections of manuscripts.
@@ -55,8 +55,6 @@ The summary file contains information about the number of sequences per sample, 
 ***
 
 
-Navigate back into the EDAMAME_16S directory.
-
 Before we start any ecological analyses, we want to evenly subsample ("rarefy", but see this [discussion](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531)) all the samples to an equal ("even") number of sequences so that they can be directly compared to one another. Many heartily agree (as exampled by [Gihring et al. 2011](http://onlinelibrary.wiley.com/doi/10.1111/j.1462-2920.2011.02550.x/full)) that sample-to-sample comparisons cannot be made unless subsampling to an equal sequencing depth is performed. 
 
 To subsample the OTU table, we need to decide the appropriate subsampling depth. What is the best number of sequences?  As a rule, we must subsample to the minimum number of sequences per sample for all samples *included* in analyses.  Sometimes this is not straightforward, but here are some things to consider:
@@ -70,14 +68,15 @@ To subsample the OTU table, we need to decide the appropriate subsampling depth.
 In this example dataset, we want to keep all of our samples, so we will subsample to 4711, which is the minimum number of sequences in any sample.  Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
 
 ```
-single_rarefaction.py -i usearch61_openref/otu_table_mc2_w_tax.biom -o Subsampling_otu_table_even4711.biom -d 4711
+single_rarefaction.py -i otu_table_mc2_w_tax.biom -o otu_table_mc2_w_tax_even4711.biom -d 4711
 ```
 
 We append _even4711 to the end of the table to distinguish the subsampled table from the full table.  This is even4711 table is the final biom table on which to perform ecological analyses.  If we run the [biom summary](http://biom-format.org/documentation/summarizing_biom_tables.html) command, we will now see that every sample in the new table has exactly the same number of sequences:
 
 ```
-biom summarize_table -i Subsampling_otu_table_even4711.biom -o summary_Subsampling_otu_table_even4711.txt
-head summary_Subsampling_otu_table_even4711.txt
+biom summarize_table -i otu_table_mc2_w_tax_even4711.biom -o summary_otu_table_mc2_w_tax_even4711.txt
+
+head summary_otu_table_mc2_w_tax_even4711.txt
 ```
 ![img14](../img/rarefaction.jpg)
 
@@ -87,23 +86,23 @@ There is a [paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjo
 
 ### 2.3 Calculating within-sample (alpha) diversity
 
-Navigate back into the EDAMAME_16S directory, and make a new directory for alpha diversity results.
+Navigate back into the usearch61_openref/ directory, and make a new directory for alpha diversity results.
 
 ```
-mkdir alphadiversity_even4711
+mkdir WS_Diversity_even4711/
 
 ```
 
 We will calculate richness (observed # taxa) and phylogenetic diversity (PD) for each sample.  Documentation is [here](http://qiime.org/scripts/alpha_diversity.html).
 
 ```
-alpha_diversity.py -i Subsampling_otu_table_even4711.biom -m observed_species,PD_whole_tree -o alphadiversity_even4711/alphadiversity_evensubsample_usearch61_alphadiversity_even4711.txt -t usearch61_openref/rep_set.tre
+alpha_diversity.py -i otu_table_mc2_w_tax_even4711.biom -m observed_species,PD_whole_tree -o WS_Diversity_even4711/WS_Diversity_even4711.txt -t rep_set.tre
 ```
 
-As always, inspect the results file.  What are the ranges that were observed in richness and PD?
+The `-t` flag designates the tree file for calculating phylogenetic diversity. As always, inspect the results file.  What are the ranges that were observed in richness and PD?
 
 ```
-head alphadiversity_even4711/subsample_usearch61_alphadiversity_even4711.txt
+head WS_Diversity_even4711/WS_Diversity_even4711.txt
 ```
 
 QIIME offers a variety of additional options for calculating diversity, and the -s option prints them all!
@@ -119,7 +118,7 @@ There is workflow script, [alpha_rarefaction.py](http://qiime.org/scripts/alpha_
 `summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html). This will take about 10 minutes.
 
 ```
-summarize_taxa_through_plots.py -o alphadiversity_even4711/taxa_summary4711/ -i usearch61_openref/Subsampling_otu_table_even4711.biom
+summarize_taxa_through_plots.py -o WS_Diversity_even4711/taxa_summary4711/ -i otu_table_mc2_w_tax_even4711.biom 
 ```
 
 When the script is finished, navigate into the results file, and into the "taxa_summary_plots" and find the html area and bar charts.
@@ -132,11 +131,11 @@ The "L" stands for "lineage", and each "level" is designated by a number.  L1 is
 To view the HTML files, you will need to transfer the HTML files themselves and their companion files in the ```charts``` directory to your desktop using scp. Open a terminal with the working directory on your computer, not the EC2.
 
 ```
-scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/alphadiversity/alphadiversity_even4711/taxa_summary4711/taxa_summary_plots/bar_charts.html /home/your_username/Desktop
+scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/usearch61_openref/WS_Diversity/taxa_summary4711/taxa_summary_plots/bar_charts.html /home/your_username/Desktop
 
-scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/alphadiversity/alphadiversity_even4711/taxa_summary4711/taxa_summary_plots/area_charts.html /home/your_username/Desktop
+scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/WS_Diversity/taxa_summary4711/taxa_summary_plots/area_charts.html /home/your_username/Desktop
 
-scp -r -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/alphadiversity/alphadiversity_even4711/taxa_summary4711/taxa_summary_plots/charts /home/your_username/Desktop
+scp -r -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/WS_Diversity/taxa_summary4711/taxa_summary_plots/charts /home/your_username/Desktop
 
 ```
 The last command above contains the ```-r``` flag after ```scp```. The r means "recursive", and specifies that because we have a whole directory full of files, we want scp to go back and grab all of the files there, not just one. You will get an error if you try to scp a directory without the -r flag.  
