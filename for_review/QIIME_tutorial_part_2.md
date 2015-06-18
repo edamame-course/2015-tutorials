@@ -12,7 +12,8 @@ Authored by Ashley Shade, with modifications by Sang-Hoon Lee and Siobhan Cusack
 EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
 ***
 
-##Overarching Goal:  Microbial amplicon analysis
+##Overarching Goal  
+* This tutorial will contribute to an understanding of *microbial amplicon analysis*
 
 ##Learning Objectives
 * Extract summary information from a biom OTU table
