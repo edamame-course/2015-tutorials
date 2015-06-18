@@ -4,7 +4,7 @@ title: "QIIME Tutorial 3"
 comments: true
 date: 2015-06-23 
 ---
-#QIIME Tutorial 2
+#QIIME Tutorial 3
 Authored by Ashley Shade, with modifications by Sang-Hoon Lee and Siobhan Cusack  
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
