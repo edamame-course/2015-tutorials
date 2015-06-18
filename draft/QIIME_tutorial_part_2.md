@@ -155,8 +155,11 @@ scp -r -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/
 ```
 The last command above contains the ```-r``` flag after ```scp```. The r means "recursive", and specifies that because we have a whole directory full of files, we want scp to go back and grab all of the files there, not just one. You will get an error if you try to scp a directory without the -r flag.  
 
-Now go to the desktop and double-click on area_charts.html and bar_charts.html. They will both look like this:
-![img15](../img/area_plot.jpg)
+Now go to the desktop and double-click on area_charts.html:
+![img15](../img/area_plot1.jpg)
+
+ and bar_charts.html:
+![img15](../img/area_plot2.jpg)
 
 
 The links above and below the charts point to the raw data or other summaries.  Spend some time exploring all of the different links.
