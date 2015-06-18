@@ -48,14 +48,16 @@ To compare weighted/uweighted and phylogenetic/taxonomic metrics, we will ask QI
 ```
 beta_diversity.py -i otu_table_mc2_w_tax_even4711.biom -m unweighted_unifrac,weighted_unifrac,binary_sorensen_dice,bray_curtis -o compar_div_even4711/ -t rep_set.tre
 ```
-Due to a bug in this version of QIIME (v 1.9.1), this may return a warning that says "VisibleDeprecationWarning". Do not be alarmed! The script has still worked as it was supposed to. Navigate to the new directory called "compar_div_even4711". 
+Due to a bug in this version of QIIME (v 1.9.1), this may return a warning that says "VisibleDeprecationWarning". Do not be alarmed. The script has still worked as it was supposed to. Navigate to the new directory called "compar_div_even4711". 
 
 There should be four new resemblance matrices in the directory.  Use nano to opem them and compare their values.  
 ```
 nano binary_sorensen_dice_otu_table_mc2_w_tax_even4711.txt 
 ```
 
-This should be a square matrix, and the upper and lower triangles should be mirror-images. Pop quiz:  Why is the diagonal zero?
+This should be a square matrix, and the upper and lower triangles should be mirror-images. 
+
+_Pop quiz:  Why is the diagonal zero?_
 
 
 We're going to get all crazy and move these outside of the terminal. Use scp to transfer them to your desktop.  We will come back to these files for the R tutorial, so remember where you stash them!  
@@ -111,7 +113,7 @@ scp -r -i **your key** ubuntu@e**your DNS**:EDAMAME_16S/usearch61_openref/PCoA_2
 
 ![img19](../img/pcoa_2D.jpg)
 
-This is where  a comprehensive mapping file is priceless because any values or categories reported in the mapping file will be automatically color-coded for data exploration.  It is like MAGIC!
+This is where  a comprehensive mapping file is priceless because any values or categories reported in the mapping file will be automatically color-coded by QIIME for data exploration.  It is like MAGIC!
 
 
 Take some time to explore these plots: toggle samples, note color categories, hover over points to examine sample IDs.   
@@ -171,7 +173,7 @@ Now, open it and make sure it is as you expect.  It should be a classic Species 
 
 ***
 # YOU DID IT!   HOLIDAY!   CELEBRATE!
-**
+***
 
 
 ## Help and other Resources
