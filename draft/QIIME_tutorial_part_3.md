@@ -45,20 +45,23 @@ Mac users: control click each file then go to "open with -> Excel"
 Pop quiz:  Why is the diagonal zero?
 
 
-## 4.2 Using QIIME for visualization:  Ordination
+## 3.2 Using QIIME for visualization:  Ordination
 
-QIIME scripts can easily make an ordination using principal components analysis (PCoA). We'll perform PCoA on all resemblance matrices, and compare them.  Documentation is [here](http://qiime.org/scripts/principal_coordinates.html).  As always, make sure you are in the QIIMETutorial directory to execute these analyses.
+QIIME scripts can easily make an ordination using principal components analysis (PCoA). We'll perform PCoA on all resemblance matrices, and compare them.  Documentation is [here](http://qiime.org/scripts/principal_coordinates.html).  As always, make sure you are in the EDAMAME_16S directory to execute these analyses.
 
 
 ```
 principal_coordinates.py -i beta_div_even4711/ -o beta_div_even4711_PCoA/
 ```
 
-Notice that the `-i` command only specifies the directory, and not an individual filepath.  PCoA will be performed on all resemblances in that directory.  If we navigate into the new directory, we see there is one results file for each input resemblence matrix.
+Notice that the `-i` command only specifies the directory, and not an individual filepath.  PCoA will be performed on all resemblances in that directory. 
+This will likely give a runtime warning: "The result contains negative eigenvalues." As the warning explains, this can usually be safely ignored if the magnitude of the negative value is smaller than the magnitude of the largest eigenvalues. In our case, the negative value is several orders of magnitude smaller than the largest eigenvalue, so we can ignore this warning. However, this is something to keep in mind when performing your own analyses. 
+
+If we navigate into the new directory, we see there is one results file for each input resemblence matrix.
 
 ![img17](../img/beta_diversity.jpg)
 
-Inspect the one of these files using nano.
+Inspect one of these files using nano.
 
 ```
 nano pcoa_weighted_unifrac_Subsampling_otu_table_even4711.txt
