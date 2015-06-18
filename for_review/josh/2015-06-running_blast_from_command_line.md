@@ -76,7 +76,7 @@ ls -l *.gz
 These are large files and they are going to be even larger when you uncompress them.
 
 ```
-gunzip *.faa.gz
+gunzip *.tar.gz
 ```
 
 So, now we've got the database files, but BLAST requires that each subject database be preformatted for use; this is a way of speeding up certain types of searches. To do this, we have to format the database.  You should do:
