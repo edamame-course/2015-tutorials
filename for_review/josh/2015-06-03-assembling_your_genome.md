@@ -35,7 +35,7 @@ You'll want to read the (minimal) manual first, but we're going to use a couple 
 Taking that into consideration, we're going to run this code:
 
 ```
-megahit -m 0.9 -l 500 --cpu-only -r pooled_trim.fastq.keep.abundfilt.keep -o megahit_assembly
+megahit -m 0.9 -l 500 --cpu-only -r *.qc.fastq.keep.abundfilt -o megahit_assembly
 ```
 
 You should slowly see something similar to the following output:
@@ -100,7 +100,7 @@ I'm sure you're wondering just how much of our input sequencing actually assembl
 Let's get some more stats on our assembly:
 
 ```
-fastx_quality_stats -i pooled_trim.fastq.keep.abundfilt.keep > trimmed_data.txt
+fastx_quality_stats -i *.qc.fastq.keep.abundfilt > trimmed_data.txt
 
 fastx_quality_stats -i ./megahit_assembly/final.contigs.fa > assembly.txt
 ```
