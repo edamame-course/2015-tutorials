@@ -56,7 +56,7 @@ principal_coordinates.py -i beta_div_even4711/ -o beta_div_even4711_PCoA/
 
 Notice that the `-i` command only specifies the directory, and not an individual filepath.  PCoA will be performed on all resemblances in that directory.  If we navigate into the new directory, we see there is one results file for each input resemblence matrix.
 
-![img17](../img/pcoa_directory.jpg)
+![img17](../img/beta_diversity.jpg)
 
 Inspect the one of these files using nano.
 
