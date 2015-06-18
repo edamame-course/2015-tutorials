@@ -12,7 +12,7 @@ We'll start using the files we generated in the previous step (quality trimming 
 Since this process can take a while and is prone to issues with remote computing (internet cutting out, etc.) make sure you're running in `screen` or `tmux` when connecting to your EC2 instance!
 
 # Run a First Round of Digital Normalization
-Normalize everything to a coverage of 20, starting with the (more valuable) PE reads; keep pairs using '-p'
+Normalize everything to a coverage of 20. The normalize-by-media.py script keeps track of the number of times a particular kmer is present. The flag `-C` sets a median kmer coverage cutoff for sequence. In otherwords, if the median coverage of the kmers in a particular sequence is above this cutoff then the sequence is discarded, if it is below this cutoff then it is kept. We specify the length of kmer we want to analyze using the `-k` flag. The flags `-N` and `-x` work together to specify the amount of memory to be used by the program. As a rule of thumb, the two multiplied should be equal to the available memory(RAM) on your machine. You can check the available memory on your machine with `free -m`. For our m3.large instances we should typically have about 4GB of RAM free.    
 
 ```
 python /usr/local/share/khmer/scripts/normalize-by-median.py -k 20 -C 20 -N 4 -x 1e9 -s normC20k20.kh *qc.fastq
@@ -32,12 +32,10 @@ The output from this step produces files ending in `.abundfilt` that contain the
 If you read the manual, you see that the `-V` option is used to make this work better for variable coverage data sets, such as those you would find in metagenomic sequencing.  If you're using this tool for a genome sequencing project, you wouldn't use the `-V` flag.
 
 # Normalize down to a coverage of five
-Now that we've eliminated many more erroneous k-mers from the dataset, let's ditch some more high-coverage data.
-
-We will first normalize the reads:
+Now that we've eliminated many more erroneous k-mers from the dataset, let's ditch some more high-coverage data. Normalize down to a coverage of five using the following command. Note that here we are loading the count table from the first round of digital normalization and normalizing our error filtered data from the filter-abund.py step. 
 
 ```
-python /usr/local/share/khmer/scripts/normalize-by-median.py -x 5e06 -C 5 -s normC5k20.kh -l normC20k20.kh *qc.fastq.keep.abundfilt
+python /usr/local/share/khmer/scripts/normalize-by-median.py -x 1e09 -C 5 -s normC5k20.kh -l normC20k20.kh *qc.fastq.keep.abundfilt
 ```
 
 Now, we'll have a file (or list of files if you're using your own data) which will have the name: `{your-file}.qc.fastq.keep.abundfilt.keep`.  We're going to check the file integrity to make sure it's not faulty and we're going to clean up the names.
