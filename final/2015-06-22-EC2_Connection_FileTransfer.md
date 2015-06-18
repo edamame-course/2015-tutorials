@@ -5,7 +5,7 @@ comments: true
 date: 2015-06-22 18:44:36
 ---
 #How to Connect and Transfer files to an EC2 instance
-Authored by Jackson Sorenson for EDAMAME2015   
+Authored by Jackson Sorensen for EDAMAME2015   
 
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
