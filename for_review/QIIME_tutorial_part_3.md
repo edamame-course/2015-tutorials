@@ -167,10 +167,10 @@ What are we going to do with this file?  Move it to our desktop for our future R
 scp -i **yourkey** ubuntu@**yourDNS**:EDAMAME_16S/usearch61_openref/biom_converted_mc2_tax_even4711/otu_table_mc2_w_tax_even4711.txt ~/Desktop
 ```
 
-Now, open it and make sure it is as you expect.  It should be a "clasic" Species X Sample OTU table.
+Now, open it and make sure it is as you expect.  It should be a classic Species X Sample OTU table.
 
 ***
-# YOU DID IT!  HOLIDAY!  CELEBRATE!
+# YOU DID IT!   HOLIDAY!   CELEBRATE!
 **
 
 
