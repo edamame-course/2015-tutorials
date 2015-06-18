@@ -75,7 +75,7 @@ Navigate back into the QIIMETutorial directory.
 We can make 2d plots of the output of `principal_coordinates.py`, and map the colors to the categories in the mapping file.
 
 ```
-make_2d_plots.py -i beta_div_even4708_PCoA/pcoa_weighted_unifrac_Subsampling_otu_table_even4708.txt -m Centralia_full_map_corrected.txt -o PCoA_2D_plot/
+make_2d_plots.py -i beta_div_even4711_PCoA/pcoa_weighted_unifrac_Subsampling_otu_table_even4711.txt -m Centralia_full_map_corrected.txt -o PCoA_2D_plot/
 ```
 
 Navigate into the new directory and open the html link.
