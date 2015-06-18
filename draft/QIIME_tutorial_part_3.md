@@ -61,7 +61,7 @@ Notice that the `-i` command only specifies the directory, and not an individual
 Inspect the one of these files using nano.
 
 ```
-nano pcoa_weighted_unifrac_Subsampling_otu_table_even4708.txt
+nano pcoa_weighted_unifrac_Subsampling_otu_table_even4711.txt
 ```
 
 ![img18](../img/pcoa_table.jpg)
