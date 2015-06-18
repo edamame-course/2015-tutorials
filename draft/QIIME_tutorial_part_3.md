@@ -80,14 +80,13 @@ We can make 2d plots of the output of `principal_coordinates.py`, and map the co
 ```
 make_2d_plots.py -i beta_div_even4711_PCoA/pcoa_weighted_unifrac_Subsampling_otu_table_even4711.txt -m MappingFiles/Centralia_Full_Map.txt -o PCoA_2D_plot/
 ```
+This will also give a runtime warning: "More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory." However, the script will execute as intended. 
 
-Navigate into the new directory and open the html link.
+Use scp to transfer the new html file and its companion files to your desktop, then open the html file.
 ```
-cd PCoA_2D_plot/
-```
+ scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/PCoA_2D_plot/pcoa_weighted_unifrac_Subsampling_otu_table_even4711_2D_PCoA_plots.html /home/your_username/Desktop 
+ scp -r -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/PCoA_2D_plot/tmpJmpqSh /home/your_username/Desktop
 
-```
-open pcoa_weighted_unifrac_Subsampling_otu_table_even4711_2D_PCoA_plots.html
 ```
 
 ![img19](../img/pcoa_2D.png)
