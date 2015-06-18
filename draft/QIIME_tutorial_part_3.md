@@ -12,11 +12,10 @@ date: 2014-08-14 12:44:36
 ## 4.1 Make resemblance matrices to analyze comparative (beta) diversity
 Make sure that you are in the QIIMETutorial directory.  
 
-If you need the Subsampling_otu_table_even4708.biom file from Parts 1 and 2
-of the tutorial you can download it here:
+If you need the Subsampling_otu_table_even4711.biom file from Parts 1 and 2
+of the tutorial you can download it [here](../QIIME_files/Subsampling_otu_table_even4711.biom)
 
-[Subsampling_otu_table_even2998.biom] 
-##[add link]
+
 
 We will make three kinds of resemblance matrices (sample by sample comparisons) for assessing comparative diversity.
 
