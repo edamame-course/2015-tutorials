@@ -5,8 +5,23 @@ date: 2015-06
 category: metagenomics
 tags: []
 ---
+#Metagenome Assembly
+***
+Authored by Joshua Herr with contribution from Jackson Sorensen for EDAMAME2015     
+[EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
-# Assembling your metagenome
+***
+EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
+***
+
+##Overarching Goal  
+* This tutorial will contribute towards an understanding of **metagenome analysis**
+
+##Learning Objectives
+* Understand the limitations and strengths of metagenome assembly
+* Assemble a metagenome with MEGAHIt, cite alternative assemblers available
+* Summarize and assess the assembly
+***
 
 ## A little background on assembly
 
