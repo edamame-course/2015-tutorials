@@ -13,7 +13,7 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 ***
 
 ##Overarching Goal  
-* This tutorial will contribute to an understanding of * microbial amplicon analysis *
+* This tutorial will contribute towards an understanding of **microbial amplicon analysis**
 
 ##Learning Objectives
 * Extract summary information from a biom OTU table
