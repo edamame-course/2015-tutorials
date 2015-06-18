@@ -91,7 +91,7 @@ Use scp to transfer the new html file and its companion files to your desktop, t
 
 ![img19](../img/pcoa_2D.jpg)
 
-This is where  a comprehensive mapping file is priceless because any values or categories reported in the mapping file will be automatically color-coded for data exploration.  In the example above, there is an obvious difference in the community structure of one of the samples (pink diamonds).
+This is where  a comprehensive mapping file is priceless because any values or categories reported in the mapping file will be automatically color-coded for data exploration.  In the example above, there is an obvious difference in the community structure of one of the samples.
 
 Take some time to explore these plots: toggle samples, note color categories, hover over points to examine sample IDs.  What hypotheses can be generated based on exploring these ordinations?
 
@@ -128,7 +128,7 @@ Explore this visualization.  You can filter the minimum number of OTUs, filter b
 QIIME visualizations are currently being re-vamped by the developers.  In the next version, there will visualization scripts that are no longer supported, in favor of new tools.  Some of these tools include co-occurence networks enabled by Cytoscape (a MacQIIME add-on), and other visualizations by [emperor](http://biocore.github.io/emperor/).  There is always something new!
 
 
-### 4.4  Exporting the QIIME-created biom table for use in other software (R, Primer, Phinch, etc)
+### 3.4  Exporting the QIIME-created biom table for use in other software (R, Primer, Phinch, etc)
 This command changes frequently, as the biom format is a work in progress.  Use `biom convert -h` to find the most up-to-date arguments and options; the web page is not updated as frequently as the help file.
 
 ```
@@ -136,7 +136,7 @@ mkdir biom_converted_even4711
 biom convert -i Subsampling_otu_table_even4711.biom -o biom_converted_even4711/table.from_biom.txt --table-type "OTU table" --to-tsv
 
 ```
-
+![img21](../img/converted_biom.jpg)
 
 ## Where to find QIIME resources and help
 *  [QIIME](qiime.org) offers a suite of developer-designed [tutorials](http://www.qiime.org/tutorials/tutorial.html).
