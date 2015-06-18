@@ -35,9 +35,9 @@ _Welcome back, Microbe Enthusiasts!_
 Previously, we left off with quality-controlled merged Illumina paired-end sequences, and then used a QIIME workflow script to pick OTUs with one representative sequence from each OTU, align the representative sequences, build a tree build the alignment, and assign taxonomy to the OTU based on the representative sequence.  Wow.  That is a LOT.  Take a moment to relish in your own computational prowess.
 
 
-### 2.1  Summarize and OTU table
+### 2.1  Summarize an OTU table
 
-The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  Let's use biom commands to summarize the table.  Remember that our workflow produced many different OTU tables. Let's proceed with the table that has singletons removed and taxonomy assigned ("mc2_w_tax.biom").
+The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  Let's use biom commands to summarize the table.  Let's proceed with the table that has singletons removed and taxonomy assigned ("mc2_w_tax.biom").
 
 ```
 biom summarize_table -i usearch61_openref/otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax_biom.txt
