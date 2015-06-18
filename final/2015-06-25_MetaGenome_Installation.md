@@ -1,4 +1,20 @@
+
 # Metagenome program installation
+Authored by Jackson Sorensen
+[EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
+
+***
+EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
+***
+
+##Overarching Goal
+* This tutorial will contribute towards an understanding of **microbial metagenome analysis** and developing **computing literacy**.
+
+##Learning Objectives
+* Install axillary software on an Amazon EC2 instance
+* Recognize that there is not one tool for an entire metagenome analysis
+
+***
 
 For this course, we will be using a set of independently developed programs for our metagenome analysis. While some of the programs are already installed on your EC2 instance there are a few remaining that we will download and install together as a class. These include the FastX toolkit and one of its dependencies Libgtextutils, as well as Khmer. You will need to be running an m3.large EC2 instance from the AMI `EDAMAME-2015` with 100GB of storage.   
 
