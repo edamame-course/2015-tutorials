@@ -4,7 +4,21 @@ title: "QIIME Tutorial 2"
 comments: true
 date: 2015-06-23
 ---
-Authored by Ashley Shade, with contributions by Sang-Hoon Lee and Siobhan Cusack
+#QIIME Tutorial 2
+Authored by Ashley Shade, with modifications by Sang-Hoon Lee and Siobhan Cusack  
+[EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
+
+***
+EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
+***
+
+##Learning Objectives
+* Extract summary information from a biom OTU table
+* Subsample a dataset to an even sequencing coverage across all ccommunity observations
+* Calculate and visualize within-sample (alpha) diversity
+
+***
+
 
 ###Handout of workflow charts are available for the QIIME workflow discussed in these tutorials:
 -  [Paired-End Illumina](https://github.com/edamame-course/docs/tree/gh-pages/extra/Handouts/QIIMEFlowChart_IlluminaPairedEnds_13aug2014.pdf?raw=true)
@@ -12,7 +26,7 @@ Authored by Ashley Shade, with contributions by Sang-Hoon Lee and Siobhan Cusack
 
 ## Welcome back, Microbe Enthusiasts!
 
-## Creating an OTU table in QIIME
+## Working with the OTU table in QIIME
 
 Previously, we left off with quality-controlled merged Illumina paired-end sequences, and then used a QIIME workflow script to pick OTUs with one representative sequence from each OTU, align the representative sequences, build a tree build the alignment, and assign taxonomy to the OTU based on the representative sequence.  Wow.  That is a LOT.  Take a moment to relish in your own computational prowess.
 
