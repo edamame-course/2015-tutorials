@@ -6,39 +6,20 @@ date: 2015-06-23
 ---
 Authored by Ashley Shade, with contributions by Sang-Hoon Lee and Siobhan Cusack
 
-###Handouts of workflow charts are available for the QIIME workflow discussed in these tutorials:
+###Handout of workflow charts are available for the QIIME workflow discussed in these tutorials:
 -  [Paired-End Illumina](https://github.com/edamame-course/docs/tree/gh-pages/extra/Handouts/QIIMEFlowChart_IlluminaPairedEnds_13aug2014.pdf?raw=true)
--  [454](https://github.com/edamame-course/docs/tree/gh-pages/extra/Handouts/QIIMEFlowChart_454_13aug2014.pdf?raw=true)
+
 
 ## Welcome back, Microbe Enthusiasts!
 
 ## Creating an OTU table in QIIME
 
-Previously, we left off with quality-controlled merged Illumina paired-end sequences, picked OTUs and an alignment of the representative sequences from those OTUs.
+Previously, we left off with quality-controlled merged Illumina paired-end sequences, and then used a QIIME workflow script to pick OTUs with one representative sequence from each OTU, align the representative sequences, build a tree build the alignment, and assign taxonomy to the OTU based on the representative sequence.  Wow.  That is a LOT.  Take a moment to relish in your own computational prowess.
 
-### 3.1  Assign taxonomy to representative sequences (now done with pick_open_reference_otus)
 
-Navigate into the QIIMETutorial directory using `cd`, and, enter the QIIME environment. We will use the RDP classifier with a greengenes 16S rRNA reference database (both default options in QIIME).  This script will take a few minutes to run on a lap-top. Documentation is [here](http://qiime.org/scripts/assign_taxonomy.html).
+### 3.2  Summarize and OTU table
 
-```
-assign_taxonomy.py -i usearch61_openref/rep_set.fna -m rdp -c 0.8
-```
-
-Navigate into the new rdp_assigned_taxonomy directory and inspect the head of the tax_assignments file.
-
-```
-head usearch61_openref/uclust_assigned_taxonomy/rep_set_tax_assignments.txt
-```
-
-![img11](../img/taxonomy.jpg)
-
-This assignment file is used anytime an OTU ID (the number) needs to be linked with its taxonomic assignment.
-*Note* that this list of OTUs and taxonomic assignments includes our "failed-to-align" representative sequences.  We will remove these at the next step.
-
-### 3.2  Make an OTU table, append the assigned taxonomy, and exclude failed alignment OTUs (now done with pick_open_reference_otus)
-
-The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  However, building the OTU table is relatively straightforward (you just count how many of each OTU was observed in each sample).  Instead, every step up until building the OTU table is important.  The algorithms that are chosen to assemble reads, quality control reads, define OTUs, etc are all gearing up to this one summarization. Documentation for make_otu_table.py is [here](http://qiime.org/scripts/make_otu_table.html). Note that the "map" file is not actually the mapping file, but the OTU cluster file (the output of pick_open_reference_otus.py).
-Navigate back into the "QIIMETutorial" directory to execute the script.
+The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  Let's use biom commands to summarize the table.  Remember that our workflow produced many different OTU tables. Let's proceed with the table that has singletons removed and taxonomy assigned ("mc2_w_tax.biom").
 
 ```
 biom summarize_table -i usearch61_openref/otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax_biom.txt
