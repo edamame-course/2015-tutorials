@@ -5,7 +5,7 @@ date: null
 category: tutorial
 tags: []
 ---
-Authored by Joshua Herr with contribution from Ashley Shade and Jackson Sorensen for EDAMAME2015     
+Authored by Joshua Herr with contribution from Jackson Sorensen for EDAMAME2015     
 
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
