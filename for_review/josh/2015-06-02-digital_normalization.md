@@ -37,7 +37,7 @@ Now that we've eliminated many more erroneous k-mers from the dataset, let's dit
 We will first normalize the reads:
 
 ```
-python /usr/local/share/khmer/scripts/normalize-by-median.py -C 5 -s normC5k20.kh -l normC20k20.kh *qc.fastq.keep.abundfilt
+python /usr/local/share/khmer/scripts/normalize-by-median.py -x 5e06 -C 5 -s normC5k20.kh -l normC20k20.kh *qc.fastq.keep.abundfilt
 ```
 
 Now, we'll have a file (or list of files if you're using your own data) which will have the name: `{your-file}.qc.fastq.keep.abundfilt.keep`.  We're going to check the file integrity to make sure it's not faulty and we're going to clean up the names.
