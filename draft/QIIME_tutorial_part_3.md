@@ -9,7 +9,7 @@ date: 2014-08-14 12:44:36
 -  [454](https://github.com/edamame-course/docs/tree/gh-pages/extra/Handouts/QIIMEFlowChart_454_13aug2014.pdf?raw=true)
 
 
-## 4.1 Make resemblance matrices to analyze comparative (beta) diversity
+## 3.1 Make resemblance matrices to analyze comparative (beta) diversity
 Make sure that you are in the EDAMAME_16S directory.  
 
 If you need the Subsampling_otu_table_even4711.biom file from Parts 1 and 2 of the tutorial you can use curl to grab it:
@@ -34,12 +34,13 @@ Due to a bug in this version of QIIME, this may return a warning that says "Visi
 
 There should be four new resemblance matrices in the directory.  We're going to get all crazy and open these outside of the terminal. Use scp to transfer them to your desktop, then use Excel to inspect them and to compare their values.  This should be a square matrix, and the upper and lower triangles should be mirror-images.  The diagonal should be zero.
 
-From a terminal with your computer as the working directory:
+From a terminal with your computer as the working directory, grab all files in this directory ending in .txt, which is all of them:
 
 ```
 scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/beta_div_even4711/*.txt /home/your_username/Desktop
 ```
-
+Windows users: right click on each file and go to "open with -> Excel".
+Mac users: control click each file then go to "open with -> Excel" 
 
 Pop quiz:  Why is the diagonal zero?
 
@@ -50,7 +51,7 @@ QIIME scripts can easily make an ordination using principal components analysis 
 
 
 ```
-principal_coordinates.py -i beta_div_even4708/ -o beta_div_even4708_PCoA/
+principal_coordinates.py -i beta_div_even4711/ -o beta_div_even4711_PCoA/
 ```
 
 Notice that the `-i` command only specifies the directory, and not an individual filepath.  PCoA will be performed on all resemblances in that directory.  If we navigate into the new directory, we see there is one results file for each input resemblence matrix.
