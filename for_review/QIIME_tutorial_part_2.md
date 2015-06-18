@@ -69,7 +69,7 @@ Inspect the new tree file ([Newick](http://marvin.cs.uidaho.edu/Teaching/CS515/n
 
 ### 3.4 Rarefaction (subsampling)
 
-Navigate back into the QIIMETutorial directory.
+Navigate back into the EDAMAME_16S directory.
 
 Before we start any ecological analyses, we want to evenly subsample ("rarefy", but see this [discussion](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531)) all the samples to an equal ("even") number of sequences so that they can be directly compared to one another. Many heartily agree (as exampled by [Gihring et al. 2011](http://onlinelibrary.wiley.com/doi/10.1111/j.1462-2920.2011.02550.x/full)) that sample-to-sample comparisons cannot be made unless subsampling to an equal sequencing depth is performed.
 
