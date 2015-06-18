@@ -457,15 +457,15 @@ less F3D0_S188_L001_R1_001.fastq
 `less` opens the file, and lets you navigate through it. The commands are identical to the `man` program.
 
 
- | Some commands using `less` |                        |
--|----------------------------|------------------------|-
- | key                        | action                 |
- | : ------- :                | : ---------- :         |
- | "space"                    | to go forward          |
- | "b"                        | to go backwarsd        |
- | "g"                        | to go to the beginning |
- | "G"                        | to go to the end       |
- | "q"                        | to quit                |
+**Some commands in `less`**
+
+| key     | action |
+| ------- | ---------- |
+| "space" | to go forward |
+|  "b"    | to go backwarsd |
+|  "g"    | to go to the beginning |
+|  "G"    | to go to the end |
+|  "q"    | to quit |
 
 `less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. Try searching the `dictionary.txt` file for the word "cat". If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
 
