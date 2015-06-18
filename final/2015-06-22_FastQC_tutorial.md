@@ -7,6 +7,9 @@ Authored by Siobhan Cusack with contribution from Ashley Shade for EDAMAME2015
 EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
 ***
 
+##Overarching Goal
+* This tutorial will contribute towards an understanding of **microbial amplicon analysis**
+
 ##Learning Objectives
 * Understand the information provided in Illumina "raw" fastq files
 * Install axillary software on a QIIME EC2 instance
