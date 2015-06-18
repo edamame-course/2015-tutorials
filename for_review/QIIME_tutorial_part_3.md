@@ -32,7 +32,7 @@ If you need the Subsampling_otu_table_even4711.biom file from Parts 1 and 2 of t
 curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/otu_table_mc2_w_tax_even4711.biom
 ```
  
-We will make three kinds of resemblance matrices (sample by sample comparisons) for assessing comparative diversity.
+We will make four kinds of resemblance matrices (sample by sample comparisons) for assessing comparative diversity.
 
 Use the `-s` option to see all of the different options for calculating comparative (beta) diversity in QIIME.
 
