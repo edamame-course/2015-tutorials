@@ -2,7 +2,7 @@
 layout: page
 title: "QIIME Tutorial 3"
 comments: true
-date: 2015-06-23 12:44:36
+date: 2015-06-23 
 ---
 ### Handouts of workflow charts are available for the QIIME workflow discussed in these tutorials:
 -  [Paired-End Illumina](https://github.com/edamame-course/docs/tree/gh-pages/extra/Handouts/QIIMEFlowChart_IlluminaPairedEnds_13aug2014.pdf?raw=true)
