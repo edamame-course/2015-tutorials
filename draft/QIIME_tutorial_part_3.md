@@ -64,7 +64,7 @@ Inspect the one of these files using nano.
 nano pcoa_weighted_unifrac_Subsampling_otu_table_even4711.txt
 ```
 
-![img18](../img/pcoa_table.jpg)
+![img18](../img/beta_diversity2.jpg)
 
 The first column has SampleIDs, and column names are PCoA axis scores for every dimension.  In PCoA, there are as many dimensions (axes) as there are samples. Remember that, typically, each axis explains less variability in the dataset than the previous axis.
 
