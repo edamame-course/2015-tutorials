@@ -101,13 +101,16 @@ Make 2D plots for each PCoA analysis from each of the four difference resemblanc
 [The Ordination Web Page](http://ordination.okstate.edu/) is a great resource about all the different flavors of ordination.
 
 ### 3.3  Other visualizations in QIIME
-We can make a non-metric multidimensional scaling (NMDS) plot:
+We can make a non-metric multidimensional scaling (NMDS) plot.
+Navigate back to EDAMAME_16S directory.
 
 ```
 mkdir NMS_Plot
 nmds.py -i beta_div_even4711/bray_curtis_Subsampling_otu_table_even4711.txt -o NMS_Plot/BC_coords.txt
+cd NMS_Plot
+head BC_coords.txt
 ```
-##screenshot
+![img20](../img/NMS_plot.jpg)
 
 We can also make a quick heatmap in QIIME, which shows the number of sequences per sample relative to one another.
 
