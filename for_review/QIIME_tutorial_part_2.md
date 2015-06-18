@@ -13,7 +13,7 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 ***
 
 ##Overarching Goal  
-* This tutorial will contribute to an understanding of *microbial amplicon analysis*
+* This tutorial will contribute to an understanding of * microbial amplicon analysis *
 
 ##Learning Objectives
 * Extract summary information from a biom OTU table
@@ -40,10 +40,12 @@ Previously, we left off with quality-controlled merged Illumina paired-end seque
 Navigate to the usearch61_openref/ directory. The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  Let's use biom commands to summarize the table.  Let's proceed with the table that has singletons removed and taxonomy assigned ("mc2_w_tax.biom").
 
 ```
-biom summarize_table -i otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax_biom.txt
+biom summarize_table -i otu_table_mc2_w_tax.biom -o summary_otu_table_mc2_w_tax.txt
+
+more summary_otu_table_mc2_w_tax.txt 
 ```
 
-The summary file contains information about the number of sequences per sample, which will help us to make decisions about rarefaction (subsampling).  When we inspect the file, we see that sample C03.05102014.R1.D02.CTAACCTCCGCT has 4711 reads, the minimum observed.  This is what we will use as a subsampling depth.  Also, a lot of the info in this file is typically reported in methods sections of manuscripts.
+The summary file contains information about the number of sequences per sample, which will help us to make decisions about rarefaction (subsampling).  When we inspect the file, we see that sample C03.05102014.R1.D02.CTAACCTCCGCT has the minimum number of reads observed.  This is what we will use as a subsampling depth.  Also, a lot of the info in this file is typically reported in methods sections of manuscripts.
 
 ![img13](../img/summary_table.jpg)
 
@@ -115,7 +117,7 @@ There is workflow script, [alpha_rarefaction.py](http://qiime.org/scripts/alpha_
 
 ### 3.6 Visualizing within-sample diversity
 
-`summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html). This will take about 10 minutes.
+`summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html). This will take about 10 minutes; if you want to be safe, you can [tmux](https://github.com/edamame-course/2015-tutorials/blob/master/final/2015-06-22_tmux.md).
 
 ```
 summarize_taxa_through_plots.py -o WS_Diversity_even4711/taxa_summary4711/ -i otu_table_mc2_w_tax_even4711.biom 
@@ -124,18 +126,18 @@ summarize_taxa_through_plots.py -o WS_Diversity_even4711/taxa_summary4711/ -i ot
 When the script is finished, navigate into the results file, and into the "taxa_summary_plots" and find the html area and bar charts.
 As you are navigating to these html files, notice that the script has produced an OTU/biom table for every taxonomic level (designated by the "L"):
 
-![image16](../img/lineage_files.jpg)
+![image16](../img/lineage2.tff)
 
 The "L" stands for "lineage", and each "level" is designated by a number.  L1 is Domain, L2 is Phylum, L3 is Class, etc.  The more resolved the lineage (higher number), the less accurate the definition (e.g., L6 is not entirely and consistently the same as  "genus").
 
 To view the HTML files, you will need to transfer the HTML files themselves and their companion files in the ```charts``` directory to your desktop using scp. Open a terminal with the working directory on your computer, not the EC2.
 
 ```
-scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/usearch61_openref/WS_Diversity/taxa_summary4711/taxa_summary_plots/bar_charts.html /home/your_username/Desktop
+scp -i **your/key/file** ubuntu@**your_DNS**:EDAMAME_16S/usearch61_openref/WS_Diversity_even4711/taxa_summary4711/taxa_summary_plots/bar_charts.html ~/Desktop
 
-scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/WS_Diversity/taxa_summary4711/taxa_summary_plots/area_charts.html /home/your_username/Desktop
+scp -i **your/key/file** ubuntu@**your_DNS**:EDAMAME_16S/WS_Diversity_even4711/taxa_summary4711/taxa_summary_plots/area_charts.html ~/Desktop
 
-scp -r -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/WS_Diversity/taxa_summary4711/taxa_summary_plots/charts /home/your_username/Desktop
+scp -r -i **your/key/file** ubuntu@**your_DNS**:EDAMAME_16S/WS_Diversity/taxa_summary4711/taxa_summary_plots/charts /home/your_username/Desktop
 
 ```
 The last command above contains the ```-r``` flag after ```scp```. The r means "recursive", and specifies that because we have a whole directory full of files, we want scp to go back and grab all of the files there, not just one. You will get an error if you try to scp a directory without the -r flag.  
