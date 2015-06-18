@@ -13,6 +13,9 @@ Authored by Jackson Sorensen for EDAMAME2015
 EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
 ***
 
+##Overarching Goal
+* This tutorial will contribute towards an understanding of **cloud computing**
+
 ##Learning Objectives
 * Use `ssh` to connect to a running Amazon EC2 instance 
 * Use `scp` to transfer files between a personal computer and the instance
