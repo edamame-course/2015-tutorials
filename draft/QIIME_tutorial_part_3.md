@@ -13,10 +13,11 @@ date: 2014-08-14 12:44:36
 Make sure that you are in the QIIMETutorial directory.  
 
 If you need the Subsampling_otu_table_even4711.biom file from Parts 1 and 2
-of the tutorial you can download it [here](../QIIME_files/Subsampling_otu_table_even4711.biom).
-
-
-
+of the tutorial you can download it [here](../QIIME_files/Subsampling_otu_table_even4711.biom), or use curl on the EC2:
+```
+curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/Subsampling_otu_table_even4711.biom
+```
+ 
 We will make three kinds of resemblance matrices (sample by sample comparisons) for assessing comparative diversity.
 
 Use the `-s` option to see all of the different options for calculating beta diversity in QIIME.
