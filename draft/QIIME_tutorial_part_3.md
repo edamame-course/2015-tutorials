@@ -102,19 +102,19 @@ Make 2D plots for each PCoA analysis from each of the four difference resemblanc
 We can make a non-metric multidimensional scaling (NMDS) plot:
 
 ```
-mkdir MNS_Plot
-nmds.py -i beta_div_even4708/bray_curtis_Subsampling_otu_table_even4708.txt -o NMS_Plot/BC_coords.txt
+mkdir NMS_Plot
+nmds.py -i beta_div_even4711/bray_curtis_Subsampling_otu_table_even4711.txt -o NMS_Plot/BC_coords.txt
 ```
 ##screenshot
 
 We can also make a quick heatmap in QIIME, which shows the number of sequences per sample relative to one another.
 
 ```
-make_otu_heatmap_html.py -i Subsampling_otu_table_even4708.biom -o heatmap/
+make_otu_heatmap.py -i Subsampling_otu_table_even4711.biom -o heatmap/
 ```
 
 ```
-open Subsampling_otu_table_even4708.html
+open Subsampling_otu_table_even4711.html
 ```
 
 Explore this visualization.  You can filter the minimum number of OTUs, filter by sample ID, or by OTU ID.  
@@ -127,8 +127,8 @@ QIIME visualizations are currently being re-vamped by the developers.  In the ne
 This command changes frequently, as the biom format is a work in progress.  Use `biom convert -h` to find the most up-to-date arguments and options; the web page is not updated as frequently as the help file.
 
 ```
-mkdir biom_converted_even4708
-biom convert -i Subsampling_otu_table_even4708.biom -o biom_converted_even4708/table.from_biom.txt --table-type "OTU table" --to-tsv
+mkdir biom_converted_even4711
+biom convert -i Subsampling_otu_table_even4711.biom -o biom_converted_even4711/table.from_biom.txt --table-type "OTU table" --to-tsv
 
 ```
 
