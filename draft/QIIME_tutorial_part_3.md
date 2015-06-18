@@ -80,11 +80,11 @@ make_2d_plots.py -i beta_div_even4711_PCoA/pcoa_weighted_unifrac_Subsampling_otu
 
 Navigate into the new directory and open the html link.
 ```
-cd plotting_PCoA2d_even4711_wu/
+cd PCoA_2D_plot/
 ```
 
 ```
-open _2D_PCoA_plots.html
+open pcoa_weighted_unifrac_Subsampling_otu_table_even4711_2D_PCoA_plots.html
 ```
 
 ![img19](../img/pcoa_2D.png)
