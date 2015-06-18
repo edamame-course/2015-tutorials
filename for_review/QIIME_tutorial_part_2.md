@@ -30,45 +30,32 @@ The summary file contains information about the number of sequences per sample, 
 ![img13](../img/summary_table.jpg)
 
 
-### 3.3 Make a phylogenetic tree (now done by pick_open_reference_otus)
-
-We will make a phylogenetic tree of the short-read sequences so that we can use information about the relatedness among taxa to estimate and compare diversity.  We will use FastTree for this.  
-It is best not to use trees made from short-reads as very robust hypotheses of evolution. I suggest using trees from short-read sequences for ecological analyses, visualization and hypothesis-generation rather than strict phylogenetic inference.
-Documentation is [here](http://qiime.org/scripts/make_phylogeny.html).
-
-```
-mkdir fasttree_usearch61
-```
-
-```
-make_phylogeny.py -i pynast_aligned/rep_set_aligned.fasta -t fasttree -o fasttree_usearch61/fasttree_usearch.tre
-```
-
-A few notables:  The tree algorithm input is the alignment file; the output extension is .tre.
-
-Inspect the new tree file ([Newick](http://marvin.cs.uidaho.edu/Teaching/CS515/newickFormat.html) format). The OTU ID is given first, and then the branch length to the next node. This format is generally compatible with other tree-building and viewing software. For example, I have used it to input into the [Interactive Tree of Life](http://itol.embl.de/) to build visually appealing figures. [Topiary Explorer](http://topiaryexplorer.sourceforge.net/) is another options for visualization, and is a QIIME add-on.
-
 ### 3.4 Rarefaction (subsampling)
+
+***
+*BREAK* Subsampling Learning Activity!
+***
+
 
 Navigate back into the EDAMAME_16S directory.
 
-Before we start any ecological analyses, we want to evenly subsample ("rarefy", but see this [discussion](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531)) all the samples to an equal ("even") number of sequences so that they can be directly compared to one another. Many heartily agree (as exampled by [Gihring et al. 2011](http://onlinelibrary.wiley.com/doi/10.1111/j.1462-2920.2011.02550.x/full)) that sample-to-sample comparisons cannot be made unless subsampling to an equal sequencing depth is performed.
+Before we start any ecological analyses, we want to evenly subsample ("rarefy", but see this [discussion](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531)) all the samples to an equal ("even") number of sequences so that they can be directly compared to one another. Many heartily agree (as exampled by [Gihring et al. 2011](http://onlinelibrary.wiley.com/doi/10.1111/j.1462-2920.2011.02550.x/full)) that sample-to-sample comparisons cannot be made unless subsampling to an equal sequencing depth is performed. 
 
 To subsample the OTU table, we need to decide the appropriate subsampling depth. What is the best number of sequences?  As a rule, we must subsample to the minimum number of sequences per sample for all samples *included* in analyses.  Sometimes this is not straightforward, but here are some things to consider:
 
 *  Are there low-sequence samples that have very few reads because there was a technological error (a bubble, poor DNA extraction, poor amplification, etc)?  These samples should be removed (and hopefully re-sequenced), especially if there is no biological explanation for the low number of reads.
 *  How complex is the community?  An acid-mine drainage community is less rich than a soil, and so fewer sequences per sample are needed to evaluate diversity.
 *  How exhaustive is the sequencing?  If this is unknown, an exploratory rarefaction analysis could be done to estimate.
-*  How important is it to keep all samples in the analysis?  Consider the costs and benefits of, for example, dropping one not-very-well-sequenced replicate in favor of increasing overall sequence information.  If you've got $$ to spare, built-in sequencing redundancy/replication is helpful for this.
+*  How important is it to keep all samples in the analysis?  Consider the costs and benefits of, for example, dropping one not-very-well-sequenced replicate in favor of increasing overall sequence information.  Will it destroy your experimental design if you remove a few samples? If you've got $$ to spare, built-in sequencing redundancy/replication is helpful for this.
 *  Don't fret!  Soon sequencing will be so inexpensive that we will be sequencing every community exhaustively and not have to worry about it anymore.
 
-In this example dataset, we want to keep all of our samples, so we will subsample to 4711.  Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
+In this example dataset, we want to keep all of our samples, so we will subsample to 4711, which is the minimum number of sequences in any sample.  Documentation is [here](http://qiime.org/scripts/single_rarefaction.html?highlight=rarefaction).
 
 ```
 single_rarefaction.py -i usearch61_openref/otu_table_mc2_w_tax.biom -o Subsampling_otu_table_even4711.biom -d 4711
 ```
 
-We append _even4711 to the end of the table to distinguish it from the full table.  This is even4711 table is the final biom table on which to perform ecological analyses.  If we run the [biom summary](http://biom-format.org/documentation/summarizing_biom_tables.html) command, we will now see that every sample in the new table has exactly the same number of sequences:
+We append _even4711 to the end of the table to distinguish the subsampled table from the full table.  This is even4711 table is the final biom table on which to perform ecological analyses.  If we run the [biom summary](http://biom-format.org/documentation/summarizing_biom_tables.html) command, we will now see that every sample in the new table has exactly the same number of sequences:
 
 ```
 biom summarize_table -i Subsampling_otu_table_even4711.biom -o summary_Subsampling_otu_table_even4711.txt
@@ -76,11 +63,11 @@ head summary_Subsampling_otu_table_even4711.txt
 ```
 ![img14](../img/rarefaction.jpg)
 
-Our "clean" dataset has 54 samples and 24263 OTUs defined at 97% sequence identity.
+Our "clean" dataset has 54 samples and 24,263 OTUs defined at 97% sequence identity.
 
-There is a [recent paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531) that suggests that even subsampling is not necessary, but this is very actively debated.
+There is a [paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531) that suggests that even subsampling is not necessary, but this is very actively debated.
 
-### 3.5 Calculating alpha (within-sample) diversity
+### 3.5 Calculating within-sample (alpha) diversity
 
 Navigate back into the EDAMAME_16S directory, and make a new directory for alpha diversity results.
 
@@ -109,7 +96,7 @@ alpha_diversity.py -s
 
 There is workflow script, [alpha_rarefaction.py](http://qiime.org/scripts/alpha_rarefaction.html), which is useful if you want to understand how measures of alpha diversity change with sequencing effort.  The script calculates alpha diversity on iterations of a subsampled OTU table.
 
-### 3.6 Visualizing alpha diversity
+### 3.6 Visualizing within-sample diversity
 
 `summarize_taxa_through_plots.py` is a QIIME workflow script that calculates summaries of OTUs at different taxonomic levels. Documentation is [here](http://qiime.org/scripts/summarize_taxa_through_plots.html). This will take about 10 minutes.
 
@@ -147,8 +134,8 @@ The links above and below the charts point to the raw data or other summaries.  
 
 In your browser, carefully inspect and interact with these quick charts.  Though these are not publication-ready, they are a great first exploration of the taxa in the dataset.
 
-(We will test differences in alpha diversity in R.)
 
+***
 
 ## Where to find QIIME resources and help
 *  [QIIME](qiime.org) offers a suite of developer-designed [tutorials](http://www.qiime.org/tutorials/tutorial.html).
