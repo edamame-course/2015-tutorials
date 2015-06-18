@@ -12,6 +12,8 @@ Authored by Ashley Shade, with modifications by Sang-Hoon Lee and Siobhan Cusack
 EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
 ***
 
+##Overarching Goal:  Microbial amplicon analysis
+
 ##Learning Objectives
 * Extract summary information from a biom OTU table
 * Subsample a dataset to an even sequencing coverage across all ccommunity observations
@@ -23,15 +25,16 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 ###Handout of workflow charts are available for the QIIME workflow discussed in these tutorials:
 -  [Paired-End Illumina](https://github.com/edamame-course/docs/tree/gh-pages/extra/Handouts/QIIMEFlowChart_IlluminaPairedEnds_13aug2014.pdf?raw=true)
 
+***
 
-## Welcome back, Microbe Enthusiasts!
+_Welcome back, Microbe Enthusiasts!_  
 
 ## Working with the OTU table in QIIME
 
 Previously, we left off with quality-controlled merged Illumina paired-end sequences, and then used a QIIME workflow script to pick OTUs with one representative sequence from each OTU, align the representative sequences, build a tree build the alignment, and assign taxonomy to the OTU based on the representative sequence.  Wow.  That is a LOT.  Take a moment to relish in your own computational prowess.
 
 
-### 3.2  Summarize and OTU table
+### 2.1  Summarize and OTU table
 
 The OTU table is the table on which all ecological analyses (e.g. diversity, patterns, etc) are performed.  Let's use biom commands to summarize the table.  Remember that our workflow produced many different OTU tables. Let's proceed with the table that has singletons removed and taxonomy assigned ("mc2_w_tax.biom").
 
@@ -44,7 +47,7 @@ The summary file contains information about the number of sequences per sample, 
 ![img13](../img/summary_table.jpg)
 
 
-### 3.4 Rarefaction (subsampling)
+### 2.2 Rarefaction (subsampling)
 
 ***
 *BREAK* Subsampling Learning Activity!
@@ -81,7 +84,7 @@ Our "clean" dataset has 54 samples and 24,263 OTUs defined at 97% sequence ident
 
 There is a [paper](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003531) that suggests that even subsampling is not necessary, but this is very actively debated.
 
-### 3.5 Calculating within-sample (alpha) diversity
+### 2.3 Calculating within-sample (alpha) diversity
 
 Navigate back into the EDAMAME_16S directory, and make a new directory for alpha diversity results.
 
