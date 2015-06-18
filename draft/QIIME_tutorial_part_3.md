@@ -28,14 +28,18 @@ beta_diversity.py -s
 To compare weighted/uweighted and phylogenetic/taxonomic metrics, we will ask QIIME to create four resemblance matrices of all of these different flavors.
 
 ```
-beta_diversity.py -i Subsampling_otu_table_even4708.biom -m unweighted_unifrac,weighted_unifrac,binary_sorensen_dice,bray_curtis -o beta_div_even4708/ -t usearch61_openref_prefilter0_90/rep_set.tre
+beta_diversity.py -i Subsampling_otu_table_even4711.biom -m unweighted_unifrac,weighted_unifrac,binary_sorensen_dice,bray_curtis -o beta_div_even4711/ -t usearch61_openref/rep_set.tre
+```
+Due to a bug in this version of QIIME, this may return a warning that says "VisibleDeprecationWarning". Do not be alarmed! The script has still worked as it was supposed to. Navigate to the new directory called "beta_div_even4711". 
+
+There should be four new resemblance matrices in the directory.  We're going to get all crazy and open these outside of the terminal. Use scp to transfer them to your desktop, then use Excel to inspect them and to compare their values.  This should be a square matrix, and the upper and lower triangles should be mirror-images.  The diagonal should be zero.
+
+From a terminal with your computer as the working directory:
+
+```
+scp -i your/key/file ubuntu@ec2-your_DNS.compute-1.amazonaws.com:EDAMAME_16S/beta_div_even4711/*.txt /home/your_username/Desktop
 ```
 
-There should be four new resemblance matrices in the new directory.  We're going to get all crazy and open these outside of the terminal. Use Excel to inspect them, and to compare their values.  This should be a square matrix, and the upper and lower triangles should be mirror-images.  The diagonal should be zero.
-
-```
-cd beta_div_even4708
-```
 
 Pop quiz:  Why is the diagonal zero?
 
