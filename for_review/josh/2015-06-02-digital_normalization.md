@@ -5,6 +5,22 @@ date: null
 category: tutorial
 tags: []
 ---
+Authored by Joshua Herr with contribution from Ashley Shade and Jackson Sorensen for EDAMAME2015     
+
+[EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
+
+***
+EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
+***
+
+##Overarching Goal  
+* This tutorial will contribute towards an understanding of **metagenome analysis**
+
+##Learning Objectives
+* Use digital normalization to remove excess data
+* Trim/Filter out errors from sequences by identifying low coverage kmers in high coverage areas
+
+***
 
 # Getting started
 We'll start using the files we generated in the previous step (quality trimming step).  Here's where we're going to be running a program for a while (how long depends on the amount of memory your computer has and how large your data set is).  
