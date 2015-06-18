@@ -89,9 +89,9 @@ Use scp to transfer the new html file and its companion files to your desktop, t
 
 ```
 
-![img19](../img/pcoa_2D.png)
+![img19](../img/pcoa_2D.jpg)
 
-This is where  a comprehensive mapping file is priceless because any values or categories reported in the mapping file will be automatically color-coded for data exploration.  In the example above, there is an obvious difference in the community structure of the gut microbiota of the F3 mouse over time (using).
+This is where  a comprehensive mapping file is priceless because any values or categories reported in the mapping file will be automatically color-coded for data exploration.  In the example above, there is an obvious difference in the community structure of one of the samples (pink diamonds).
 
 Take some time to explore these plots: toggle samples, note color categories, hover over points to examine sample IDs.  What hypotheses can be generated based on exploring these ordinations?
 
@@ -100,7 +100,7 @@ Make 2D plots for each PCoA analysis from each of the four difference resemblanc
 
 [The Ordination Web Page](http://ordination.okstate.edu/) is a great resource about all the different flavors of ordination.
 
-### 4.3  Other visualizations in QIIME
+### 3.3  Other visualizations in QIIME
 We can make a non-metric multidimensional scaling (NMDS) plot:
 
 ```
