@@ -70,7 +70,7 @@ The first column has SampleIDs, and column names are PCoA axis scores for every 
 
 These PCoA results files can be imported into other software for making ordinations outside of QIIME.
 
-Navigate back into the QIIMETutorial directory.
+Navigate back into the EDAMAME_16S directory.
 
 We can make 2d plots of the output of `principal_coordinates.py`, and map the colors to the categories in the mapping file.
 
