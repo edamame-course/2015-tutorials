@@ -13,7 +13,7 @@ date: 2014-08-14 12:44:36
 Make sure that you are in the QIIMETutorial directory.  
 
 If you need the Subsampling_otu_table_even4711.biom file from Parts 1 and 2
-of the tutorial you can download it [here](../QIIME_files/Subsampling_otu_table_even4711.biom)
+of the tutorial you can download it [here](../QIIME_files/Subsampling_otu_table_even4711.biom).
 
 
 
