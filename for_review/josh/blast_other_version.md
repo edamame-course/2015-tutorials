@@ -41,31 +41,9 @@ sudo cp -r blast-2.2.24/data /usr/local/blast-data
 ## Download the databases
 Now, we can't run BLAST without downloading the databases. Let's start by doing a BLAST of some sequences from an environmental sequencing project (not telling you from what yet). For this you'll need the nt db.  This, like a lot of NCBI databases is huge, so I don't suggest putting this on your laptop unless you have a lot of room.  It's best on a larger computer (HPCC, Amazon machine, that you have access to).  I wouldn't install this database unless you know you have room on your computer.
 
-Use curl to retrieve them:
-
 ```
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.01.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.02.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.03.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.04.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.05.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.06.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.07.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.08.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.09.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.10.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.11.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.12.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.13.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.14.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.15.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.16.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.17.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.18.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.19.tar.gz \
+wget https://s3.amazonaws.com/edamame/EDAMAME_MG.tar.gz
 ```
-
-This downloads the database files into the current working directory from the given FTP site, naming the files for the last part of the path (e.g. 'mouse.protein.faa.gz'). You can do this from any Web or FTP address.
 
 Now you've got these files. How big are they?
 
@@ -79,13 +57,12 @@ These are large files and they are going to be even larger when you uncompress t
 tar xzf *.tar.gz
 ```
 
-So, now we've got the database files, but BLAST requires that each subject database be preformatted for use; this is a way of speeding up certain types of searches. To do this, we have to format the database.  You should do:
+Now, you can see the CentraliaMG_7GB.fastq file in the EDAMAME_MG folder.
 
 ```
-formatdb -i nt.*.faa -o T -p F
+cd EDAMAME_MG
+ls
 ```
-
-The -i parameter gives the name of the database, the -o parameter says "save the results", and the -p parameter says "this is a protein database". For DNA, you'd want to use '-p F', or false.
 
 Before we start a BLAST of all of our sequences, we need to make sure our blast is working.  To do this, we want to start with something small. Let's take a few sequences off the top of the mouse protein set:
 
