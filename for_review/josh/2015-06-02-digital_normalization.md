@@ -17,7 +17,7 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 * This tutorial will contribute towards an understanding of **metagenome analysis**
 
 ##Learning Objectives
-* Use digital normalization to remove excess data
+* Use digital normalization to remove redundant data
 * Trim/Filter out errors from sequences by identifying low coverage kmers in high coverage areas
 
 ***
