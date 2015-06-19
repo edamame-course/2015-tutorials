@@ -23,7 +23,7 @@ which blastn
 If you have BLAST installed and in your path (BLAST may be installed but not in your path), it will give you something like this:
 
 ```
-/opt/blast/bin/blastn
+/usr/bin/blastn
 ```
 
 If you don't have BLAST (you should have it in your QIIME or mothur paths), then you will need to install it.
