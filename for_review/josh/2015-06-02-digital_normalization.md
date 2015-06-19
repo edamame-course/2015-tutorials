@@ -14,7 +14,7 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 ***
 
 ##Overarching Goal  
-* This tutorial will contribute towards an understanding of **metagenome analysis**
+* This tutorial will contribute towards an understanding of **microbial metagenome analysis**
 
 ##Learning Objectives
 * Use digital normalization to remove redundant data
