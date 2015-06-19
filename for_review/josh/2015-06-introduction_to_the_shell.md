@@ -336,7 +336,7 @@ We want to be able to look at these files and do some things with them.
 
 ### Wild cards
 
-Navigate to the `~/edamame-data/shell/MiSeq` directory. This directory contains our FASTQ files and some other ones we'll need for analyses. If we type `ls`, we will see that there are a bunch of files with long file names. Some of the end with .fastq
+Navigate to the `~/edamame-data/shell/MiSeq` directory. This directory some of our FASTQ files we'll need for analyses. If we type `ls`, we will see that there are a bunch of files with long file names. Some of the end with .fastq
 
 The `*` character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
 
