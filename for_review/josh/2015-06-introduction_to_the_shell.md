@@ -10,8 +10,9 @@ Authored by Tracy Teal with [Software Carpentry](http://software-carpentry.org/l
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
 ***
-Software Carpentry has a CC-BY [license](https://github.com/swcarpentry/shell-novice/blob/gh-pages/LICENSE.md)
-EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
+Software Carpentry has a CC-BY [license](https://github.com/swcarpentry/shell-novice/blob/gh-pages/LICENSE.md)   
+EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md).   
+_Share, adapt, and attribute please!_   
 ***
 
 ##Overarching Goal  
