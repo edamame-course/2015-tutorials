@@ -17,25 +17,22 @@ Before I forget, let me say that there are a lot of tips and tricks for working 
 First, let's check and see if we have BLAST.
 
 ```
-which blastall
+which blastn
 ```
 
 If you have BLAST installed and in your path (BLAST may be installed but not in your path), it will give you something like this:
 
 ```
-/opt/blast/bin/blastall
+/opt/blast/bin/blastn
 ```
 
 If you don't have BLAST (you should have it in your QIIME or mothur paths), then you will need to install it.
 
 ## Installing BLAST
-To install the BLAST software, you need to download it from NCBI, unpack it, and copy it into standard locations:
+To install the BLAST software, type this:
 
 ```
-curl -O ftp://ftp.ncbi.nih.gov/blast/executables/release/2.2.24/blast-2.2.24-ia32-linux.tar.gz
-tar xzf blast-2.2.24-ia32-linux.tar.gz
-cp blast-2.2.24/bin/* /usr/local/bin
-cp -r blast-2.2.24/data /usr/local/blast-data
+sudo apt-get install ncbi-blast+
 ```
 
 ## Download the databases
@@ -44,25 +41,7 @@ Now, we can't run BLAST without downloading the databases. Let's start by doing 
 Use curl to retrieve them:
 
 ```
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.01.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.02.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.03.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.04.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.05.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.06.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.07.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.08.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.09.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.10.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.11.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.12.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.13.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.14.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.15.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.16.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.17.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.18.tar.gz \
-curl -O ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.19.tar.gz \
+curl -O ftp://ftp.ncbi.nih.gov/refseq/release/bacteria/bacteria.20.1.genomic.fna.gz
 ```
 
 This downloads the database files into the current working directory from the given FTP site, naming the files for the last part of the path (e.g. 'mouse.protein.faa.gz'). You can do this from any Web or FTP address.
