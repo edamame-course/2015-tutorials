@@ -801,28 +801,3 @@ find . -type f -print | xargs grep Volume
 * Learn by doing. There's no real other way to learn this than by trying it out.  Write your next paper in nano (really emacs or vi), open pdfs from the command line, automate something you don't really need to automate.
 
 
-## Bonus:
-
-**backtick, xargs**: Example find all files with certain text
-
-**alias** -> rm -i
-
-**variables** -> use a path example
-
-**.bashrc**
-
-**du**
-
-**ln**
-
-**ssh and scp**
-
-**Regular Expressions**
-
-**Permissions**
-
-**Chaining commands together**
-
-## Notes:
-
-This tutorial was developed by Tracy Teal and borrows largely from teaching materials from [Software Carpentry](http://http://software-carpentry.org/).
