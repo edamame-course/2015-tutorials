@@ -26,9 +26,6 @@ _Share, adapt, and attribute please!_
 
 # Using The Shell
 
-This tutorial data files can be downloaded from github: [https://github.com/edamame-course/edamame-data/tree/master/shell/README.md](https://github.com/edamame-course/edamame-data/tree/master/shell/README.md)
-
-
 ## Objectives
 
 * What is the shell?
