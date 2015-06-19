@@ -70,9 +70,9 @@ So, now we've got the database files, but BLAST requires that each subject datab
 makeblastdb -in bacteria.20.1.genomic.fna -dbtype nucl -out bacteriaRef
 ```
 
-The -i parameter gives the name of the database, the -o parameter says "save the results", and the -p parameter says "this is a protein database". For DNA, you'd want to use '-p F', or false.
+The -in parameter gives the name of the database, the -out parameter says "save the results", and the -dbtype parameter says "what type of the database". For DNA, you'd want to use '-dbtype nucl'. FYI, for protein, '-dbtype prot'.
 
-Before we start a BLAST of all of our sequences, we need to make sure our blast is working.  To do this, we want to start with something small. Let's take a few sequences off the top of the mouse protein set:
+Before we start a BLAST of all of our sequences, we need to make sure our blast is working.  To do this, we want to start with something small. To make our life easy, let's use one small part of the sequences as a query:
 Let's see what we want to blast today.
 
 ```
@@ -120,7 +120,8 @@ blastn -db bacteriaRef -query  bacteria.307.rna.fna -out outtabular.txt -outfmt 
 ```
 
 ## Different BLAST options
-BLAST has lots and lots and lots of options. Run 'blastall' by itself to see what they are. Some of the most useful ones are `-evalue`.
+BLAST has lots and lots and lots of options. Run 'blastn' by itself to see what they are. Some of the most useful ones are `-evalue`.
 
-more information here:
-http://www.ncbi.nlm.nih.gov/books/NBK279690/
+If you want to search protein, use 'blastp' instead of 'blastn'. 'blastx', 'tblastn', 'tblastx' also available.
+
+more information here: http://www.ncbi.nlm.nih.gov/books/NBK279690/
