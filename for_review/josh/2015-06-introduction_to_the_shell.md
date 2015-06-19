@@ -2,8 +2,26 @@
 layout: page
 title: "The Shell"
 comments: true
-date: 2014-08-13 16:44:36
+date: 2015-06-22 16:44:36
 ---
+#Introduction to the shell
+***
+Authored by Tracy Teal with [Software Carpentry](http://software-carpentry.org/lessons.html), with modifications by Joshua Herr and Paul Wilburn  for EDAMAME2015     
+[EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
+
+***
+Software Carpentry has a CC-BY [license](https://github.com/swcarpentry/shell-novice/blob/gh-pages/LICENSE.md)
+EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
+***
+
+##Overarching Goal  
+* This tutorial will contribute towards developing of **computing literacy**
+
+##Learning Objectives
+*	Understand what the shell is, how to access it from your computer, and how to use it.
+*	Navigate in around in a Unix file system to view and manipulate files
+
+***
 
 # Using The Shell
 
@@ -772,9 +790,9 @@ find . -type f -print | xargs grep Volume
 `find` generates a list of all the files we are interested in, then we pipe them to `xargs`.  `xargs` takes the items given to it and passes them as arguments to `grep`.  `xargs` generally only creates a single instance of `grep` (or whatever program it is running).
 
 
-
+*** Help and other resources
 ## Where can I learn more about the shell?
-
+* [Software Carpentry reference page] (http://swcarpentry.github.io/shell-novice/reference.html)
 * Software Carpentry tutorial - [The Unix shell](http://software-carpentry.org/v4/shell/index.html)
 * The shell handout - [Command Reference](http://files.fosswire.com/2007/08/fwunixref.pdf)
 * [explainshell.com](http://explainshell.com)
