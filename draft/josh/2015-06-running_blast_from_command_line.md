@@ -36,7 +36,7 @@ sudo apt-get install ncbi-blast+
 ```
 
 ## Download the databases
-Now, we can't run BLAST without downloading the databases. Let's start by doing a BLAST of some sequences from an environmental sequencing project (not telling you from what yet). For this you'll need the nt db.  This, like a lot of NCBI databases is huge, so I don't suggest putting this on your laptop unless you have a lot of room.  It's best on a larger computer (HPCC, Amazon machine, that you have access to).  I wouldn't install this database unless you know you have room on your computer.
+Now, we can't run BLAST without downloading the databases. Let's start by doing a BLAST of some sequences from an environmental sequencing project (not telling you from what yet). For this you'll need the nt db.  This, like a lot of NCBI databases is huge, so I don't suggest putting this on your laptop unless you have a lot of room.  It's best on a larger computer (HPCC, Amazon machine, that you have access to).  I wouldn't install this database unless you know you have room on your computer. Let's download small part of database for tutorial.
 
 Use curl to retrieve them:
 
@@ -45,6 +45,12 @@ curl -O ftp://ftp.ncbi.nih.gov/refseq/release/bacteria/bacteria.20.1.genomic.fna
 ```
 
 This downloads the database files into the current working directory from the given FTP site, naming the files for the last part of the path (e.g. 'mouse.protein.faa.gz'). You can do this from any Web or FTP address.
+
+Let's get one more small file for our query.
+
+```
+curl -O ftp://ftp.ncbi.nih.gov/refseq/release/bacteria/bacteria.307.rna.fna.gz
+```
 
 Now you've got these files. How big are they?
 
@@ -55,24 +61,24 @@ ls -l *.gz
 These are large files and they are going to be even larger when you uncompress them.
 
 ```
-gunzip *.faa.gz
+gunzip *.fna.gz
 ```
 
 So, now we've got the database files, but BLAST requires that each subject database be preformatted for use; this is a way of speeding up certain types of searches. To do this, we have to format the database.  You should do:
 
 ```
-formatdb -i nt.*.faa -o T -p F
+makeblastdb -in bacteria.20.1.genomic.fna -dbtype nucl -out bacteriaRef
 ```
 
 The -i parameter gives the name of the database, the -o parameter says "save the results", and the -p parameter says "this is a protein database". For DNA, you'd want to use '-p F', or false.
 
 Before we start a BLAST of all of our sequences, we need to make sure our blast is working.  To do this, we want to start with something small. Let's take a few sequences off the top of the mouse protein set:
+Let's see what we want to blast today.
 
 ```
-head nt.01.fasta > nt_first.fasta
+cat bacteria.307.rna.fna
 ```
 
-Here, the program 'head' takes the first ten lines from that file, and the `>` tells UNIX to put them into another file, `nt-first.fasta`.
 
 Just a reminder:
 
@@ -82,7 +88,7 @@ Just a reminder:
 Now try a BLAST:
 
 ```
-blastall -i nt-first.fasta -d nt -p blastn
+blastn -db bacteriaRef -query  bacteria.307.rna.fna
 ```
 
 You can do three things at this point.
@@ -92,7 +98,7 @@ First, you can scroll up in your terminal window to look at the output.
 Second, you can save the output to a file:
 
 ```
-blastall -i nt-first.fasta -d nt -p blastn -o out.txt
+blastn -db bacteriaRef -query  bacteria.307.rna.fna -out out.txt
 ```
 
 and then use 'less' to look at it:
@@ -104,8 +110,17 @@ less out.txt
 and third, you can pipe it directly to less, by which I mean you can send all of the output to the 'less' command without saving it to a file:
 
 ```
-blastall -i nt-first.fasta -d nt -p blastn | less
+blastn -db bacteriaRef -query  bacteria.307.rna.fna | less
+```
+
+Sometimes tabular form (output format) is useful. To get the result in tabular form,
+
+```
+blastn -db bacteriaRef -query  bacteria.307.rna.fna -out outtabular.txt -outfmt 6
 ```
 
 ## Different BLAST options
-BLAST has lots and lots and lots of options. Run 'blastall' by itself to see what they are. Some of the most useful ones are `-v`, `-b`, and `-e`.
+BLAST has lots and lots and lots of options. Run 'blastall' by itself to see what they are. Some of the most useful ones are `-evalue`.
+
+more information here:
+http://www.ncbi.nlm.nih.gov/books/NBK279690/
