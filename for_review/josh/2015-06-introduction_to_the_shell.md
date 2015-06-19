@@ -581,15 +581,15 @@ The philosophy behind these command line programs is that none of them really do
 
 Now we can move around in the file structure, look at files, search files, redirect. But what if we want to do normal things like copy files or move them around or get rid of them. Sure we could do most of these things without the command line, but what fun would that be?! Besides it's often faster to do it at the command line, or you'll be on a remote server like Amazon where you won't have another option.
 
-The stability.files file is one that tells us what sample name goes with what sequences. This is a really important file, so we want to make a copy so we don't lose it.
+The "Centralia_full_map_corrected.txt" is one that tells us what environmental data goes with which samples. This is a really important file, so we want to make a copy so we don't lose it.
 
-Lets copy the file using the `cp` command. The `cp` command backs up the file. Navigate to the `data` directory and enter:
+Lets copy the file using the `cp` command. The `cp` command backs up the file. Navigate to the `MiSeq/Centralia_mapping_files` directory and enter:
 
 ```
-cp stability.files stability.files_backup
+cp Centralia_full_map_corrected.txt Centralia_full_map_corrected_backup.txt
 ```
 
-Now `stability.files_backup` has been created as a copy of `stability.files`.
+Now `Centralia_full_map_corrected_backup.txt` has been created as a copy of `Centralia_full_map_corrected.txt`.
 
 Let's make a `backup` directory where we can put this file.
 
@@ -602,21 +602,21 @@ mkdir backup
 We can now move our backed up file in to this directory. We can move files around using the command `mv`. Enter this command:
 
 ```
-mv stability.files_backup backup/
+mv Centralia_full_map_corrected_backup.txt backup/
 ```
 
-This moves `stability.files_backup` into the directory `backup/` or the full path would be `~/edamame-data/shell/MiSeq/backup`
+This moves `Centralia_full_map_corrected_backup.txt` into the directory `backup/` or the full path would be `~/edamame-data/shell/MiSeq/backup`
 
 The `mv` command is also how you rename files. Since this file is so important, let's rename it:
 
 ```
-mv stability.files stability.files_IMPORTANT
+mv Centralia_full_map_corrected.txt Centralia_full_map_corrected_IMPORTANT.txt
 ```
 
-Now the file name has been changed to stability.files_IMPORTANT. Let's delete the backup file now:
+Now the file name has been changed to Centralia_full_map_corrected_IMPORTANT.txt. Let's delete the backup file now:
 
 ```
-rm backup/stability.files_backup
+rm backup/Centralia_full_map_corrected_backup.txt
 ```
 
 The `rm` file removes the file. Be careful with this command. It doesn't just nicely put the files in the Trash. They're really gone.
@@ -627,9 +627,9 @@ The `rm` file removes the file. Be careful with this command. It doesn't just ni
 
 Do the following:
 
-1.  Rename the `stability.files_IMPORTANT` file to `stability.files`.
+1.  Rename the `Centralia_full_map_corrected_IMPORTANT.txt` file to `Centralia_full_map_corrected.txt`.
 2.  Create a directory in the `MiSeq` directory called `new`
-3.  Then, copy the `stability.files` file into `new`
+3.  Then, copy the `Centralia_full_map_corrected.txt` file into `new`
 
 ****
 
