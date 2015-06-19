@@ -52,7 +52,7 @@ There are many reasons to learn about the shell.
 * To use remote computers or cloud computing, you need to use the shell.
 * We're going to use it in this class, for all of the reasons above.
 
-![Automation](img/shell/gvng.jpg)
+![Automation](https://github.com/edamame-course/data/blob/master/shell/gvng.jpg)
 
 Unix is user-friendly. It's just very selective about who its friends are.
 
@@ -78,7 +78,7 @@ Go ahead and drag the Terminal application to your Dock for easy access.
 
 Windows
 -------
-For Windows, we're going to be using gitbash.
+For Windows, we're going to be using MobaXTerm.
 Download and install [MobaXterm](http://mobaxterm.mobatek.net/)
 Open up the program.
 
