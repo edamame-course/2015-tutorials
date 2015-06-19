@@ -825,4 +825,4 @@ find . -type f -print | xargs grep Volume
 
 ## Notes:
 
-This tutorial was developed by Tracy Teal and Josh Herr and borrows largely from teaching materials from [Software Carpentry](http://http://software-carpentry.org/).
+This tutorial was developed by Tracy Teal and borrows largely from teaching materials from [Software Carpentry](http://http://software-carpentry.org/).
