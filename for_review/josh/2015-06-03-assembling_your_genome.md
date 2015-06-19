@@ -50,7 +50,7 @@ You'll want to read the (minimal) manual first, but we're going to use a couple 
 Taking that into consideration, we're going to run this code:
 
 ```
-megahit -m 0.9 -l 500 --cpu-only -r *.qc.fastq.keep.abundfilt -o megahit_assembly
+megahit -m 0.9 -l 500 --cpu-only -r *.qc.fastq.keep.abundfilt.keep -o megahit_assembly
 ```
 
 You should slowly see something similar to the following output:
