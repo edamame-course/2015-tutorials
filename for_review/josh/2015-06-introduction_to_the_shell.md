@@ -6,7 +6,7 @@ date: 2015-06-22 16:44:36
 ---
 #Introduction to the shell
 ***
-Authored by Tracy Teal with [Software Carpentry](http://software-carpentry.org/lessons.html), with modifications by Joshua Herr and Paul Wilburn  for EDAMAME2015     
+Authored by Tracy Teal with [Software Carpentry](http://software-carpentry.org/lessons.html), with minor modifications by Ashley Shade and Joshua Herr   
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
 ***
