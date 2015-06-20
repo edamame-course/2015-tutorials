@@ -1,4 +1,4 @@
-#How to Connect and Transfer files to an EC2 instance
+#Assessing the quality of raw amplicon sequencing data
 Authored by Siobhan Cusack with contribution from Ashley Shade for EDAMAME2015     
 
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
