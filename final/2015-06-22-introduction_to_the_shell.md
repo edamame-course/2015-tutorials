@@ -155,7 +155,7 @@ As you are seeing the list of directories in the `home` folder, pick one and typ
 cd <name of directory>
 ```
 
-You are just entered a lower level directory of your choice. Check out its contents by typing:
+You have just entered a lower level directory of your choice. Check out its contents by typing:
 
 ```
 ls
@@ -169,7 +169,7 @@ Type:
 cd ..
 ```
 
-Let's also check to see where we are. Sometimes when we're wandering around in the file system, it's easy to lose track of where we are and get lost.
+Sometimes when we're wandering around in the file system, it's easy to lose track of where we are and get lost.
 
 If you want to know what directory you're currently in, type:
 
@@ -180,7 +180,7 @@ pwd
 This stands for 'print working directory'. The directory you're currently working in.
 
 
-We are ready. Using `cd <directory>`, `ls` and (optionally) `pwd`, go in to the `tutorial_shell` directory and list its contents. Remember, if you get lost, going home is easy with `cd` by itself.
+We are ready. Using `cd <directory>`, `ls` and (optionally) `pwd`, to the `tutorial_shell` directory and list its contents. Remember, if you get lost, going home is easy with `cd` by itself.
 
 Good work. You can now move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way?
 
@@ -219,7 +219,7 @@ ls tutorial_shell
 This will list the contents of the `tutorial_shell` directory without
 you having to navigate there.
 
-The `cd` command works in a similar way. Using `cd ..` navigate two levels higher than `tutorial_shell`. Now navigate back to tutorial shell in one line of code that looks something like:
+The `cd` command works in a similar way. Using `cd ..` twice, navigate two levels higher than `tutorial_shell`. Now navigate back to tutorial shell in one line of code that looks something like:
 
 ```
 cd <directory_1>/<directory_2>/tutorial_shell
