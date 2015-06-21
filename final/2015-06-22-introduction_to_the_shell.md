@@ -236,21 +236,21 @@ The `cd` command takes an argument which is the directory name. Directories can 
 /home/<username>
 ```
 
-which is the full name of your home directory. This tells you that you are in a directory called `<your username>`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `your username` is a directory in `home` which is a directory in `/`.
+which is the full name of your home directory. This tells you that you are in a directory called `<username>`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `<username>` is a directory in `home` which is a directory in `/`.
 
-Now enter the following command:
+Let's try an exercise. Navigate to the `tutorial_shell` directory if you are not already there.
 
-```
-cd /home/<your username>/edamame-data/shell/hidden
-```
-
-This jumps to `hidden`. Now go back to the home directory (cd). We saw earlier that the command:
+Check where you are with `pwd`. The output should look something like `/home/<username>/.../tutorial_shell` Copy the entire output. Next, go to the home directory with `cd`. Once in home directory, type:
 
 ```
-cd edamame-data/shell/hidden
+cd <pwd output>
 ```
 
-had the same effect - it took us to the `hidden` directory. But, instead of specifying the full path (`/home/username/edamame-data/shell`), we specified a *relative path*. In other words, we specified the path relative to our current directory. A full path always starts with a `/`. A relative path does not.
+This jumps back to the `tutorial_shell`.
+
+Now go back to the home directory again with `cd`. Once in home directory, type `cd` plus the output of pwd minus the `/home/<username>`
+
+The reduced command had the same effect - it took us to the `tutorial_shell` directory. But, instead of specifying the *full path*, which starts with the root directory `/`, we specified a *relative path*. In other words, we specified the path relative to our current directory. A full path always starts with a `/`. A relative path does not.
 
 A relative path is like getting directions from someone on the street. They tell you to "go right at the Stop sign, and then turn left on Main Street". That works great if you're standing there together, but not so well if you're trying to tell someone how to get there from another country. A full path is like GPS coordinates. It tells you exactly where something is no matter where you are right now.
 
@@ -299,11 +299,17 @@ We did an experiment and want to look at the bacterial communities a soil chrono
 
 We want to be able to look at these files and do some things with them.
 
+First, let's extract the archive we have in `tutorial_shell`. Once in this directory, type:
+
+```
+tar -xzvf EDAMAME_16S.tar.gz
+```
+
+Done!
+
 ### Wild cards
 
-paul_break
-
-Navigate to the `~/edamame-data/shell/MiSeq` directory. This directory some of our FASTQ files we'll need for analyses. If we type `ls`, we will see that there are a bunch of files with long file names. Some of the end with .fastq
+Navigate to the `tutorial_shell/EDAMAME_16S/Fastq` directory. This directory some of our FASTQ files we'll need for analyses. If we type `ls`, we will see that there are a bunch of files with long file names. Some of the end with .fastq
 
 The `*` character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
 
@@ -354,10 +360,12 @@ BONUS: List all of the files in '/bin' that contain the letter 'a' or 'c'
 Navigate to the home directory. Typing out directory names can waste a lot of time. When you start typing out the name of a directory, then hit the tab key, the shell will try to fill in the rest of the directory name. For example, enter:
 
 ```
-cd e<tab>
+cd <someletter><tab>
 ```
 
-The shell will fill in the rest of the directory name for `edamame-data`. Now go to edamame-data/shell/MiSeq
+The shell will fill in the rest of the directory name.
+
+Now go to `tutorial_shell/EDAMAME_16S/Fastq`
 
 ```
 ls C<tab><tab>
@@ -422,17 +430,13 @@ This prints out the contents of the `C01D01R_sub.fastq` file.
 ****
 **Short Exercises**
 
-1.  Print out the contents of the `~edamame-data/shell/MiSeq/Centralia_mapping_files/Centralia_full_map_corrected.txt ` file. What does this file contain?
+1.  Print out the contents of the `tutorial_shell/EDAMAME_16S/MappingFiles/Centralia_Full_Map.txt ` file. What does this file contain?
 
-2.  Without changing directories, (you should still be in `edamame-data`), use one short command to print the contents of all of the files in the `/home/username/edamame-data/shell/MiSeq` directory.
+2.  Without changing directories, (you should still be in `edamame-data`), use one short command to print the contents of all of the files in the `tutorial_shell/EDAMAME_16S/Fastq` directory.
 
 ****
 
-Make sure we're in the right place for the next set of the lessons. We want to be in the `shell` directory. Check if you're there with `pwd` and if not navigate there. One way to do that would be
-
-```
-cd ~/edamame-data/shell/MiSeq
-```
+Make sure we're in the right place for the next set of the lessons. We want to be in the `tutorial_shell/EDAMAME_16S/Fastq` directory. Check if you're there with `pwd` and if not navigate there.
 
 `cat` is a terrific program, but when the file is really big, it can be annoying to use. The program, `less`, is useful for this case. Enter the following command:
 
@@ -440,7 +444,7 @@ cd ~/edamame-data/shell/MiSeq
 less C01D01R_sub.fastq
 ```
 
-`less` opens the file, and lets you navigate through it. The commands are identical to the `man` program.
+`less` opens the file, and lets you navigate through it. The commands are identical to the `man` program. To quit `less` and go back to the shell, press `q`.
 
 
 **Some commands in `less`**
@@ -453,9 +457,9 @@ less C01D01R_sub.fastq
 |  "G"    | to go to the end |
 |  "q"    | to quit |
 
-`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. Try searching the `dictionary.txt` file for the word "cat". If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
+`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word that does not exist from that point forward, `less` will not find it. You need to go to the beginning of the file and search.
 
-For instance, let's search for the sequence `1101:14341` in our file. You can see that we go right to that sequence and can see what it looks like.
+For instance, let's search for the sequence `HWI-M03127:41:ACE13:1:1114:22908:11882` in our file. You can see that we go right to that sequence and can see what it looks like.
 
 Remember, the `man` program actually uses `less` internally and therefore uses the same commands, so you can search documentation using "/" as well!
 
@@ -488,7 +492,7 @@ grep ACE13:1:2109:11596 C01D01R_sub.fastq
 We get back the whole line that had '1101:14341' in it. What if we wanted all four lines, the whole part of that FASTQ sequence, back instead.
 
 ```
-grep -A 3 grep ACE13:1:2109:11596 C01D01R_sub.fastq
+grep -A 3 ACE13:1:2109:11596 C01D01R_sub.fastq
 ```
 
 The `-A` flag stands for "after match" so it's returning the line that matches plus the three after it. The `-B` flag returns that number of lines before the match.
@@ -496,7 +500,7 @@ The `-A` flag stands for "after match" so it's returning the line that matches p
 ****
 ** Exercise **
 
-Search for the sequence `CCTGTTTGC` in the `C01D01R_sub.fastq` file and in the output have the sequence name and the sequence. e.g.
+Search for the sequence `CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCAGTATCTGCCCAGGTCGCCGCCTT` in the `C01D01R_sub.fastq` file and in the output have the sequence name and the sequence. e.g.
 
 ```
 @HWI-M03127:41:ACE13:1:1114:14857:17361 2:N:0:GGAGACAAGGGA
