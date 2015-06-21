@@ -626,7 +626,9 @@ nano awesome.sh
 
 Type in your command, so it looks like
 
+```
 grep -B 1 CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * > good_data.txt
+```
 
 Now we want to save the file and exit. At the bottom of nano, you see the "^X Exit". That means that we use Ctrl-X to exit. Type `Ctrl-X`. It will ask if you want to save it. Type `y` for yes. Then it asks if you want that file name. Hit 'Enter'.
 
