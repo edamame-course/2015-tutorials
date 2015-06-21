@@ -500,7 +500,7 @@ The `-A` flag stands for "after match" so it's returning the line that matches p
 ****
 ** Exercise **
 
-Search for the sequence `CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCAGTATCTGCCCAGGTCGCCGCCTT` in the `C01D01R_sub.fastq` file and in the output have the sequence name and the sequence. e.g.
+Search for the sequence `CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA` in the `C01D01R_sub.fastq` file and in the output have the sequence name and the sequence. e.g.
 
 ```
 @HWI-M03127:41:ACE13:1:1114:14857:17361 2:N:0:GGAGACAAGGGA
@@ -521,7 +521,7 @@ The redirection command for putting something in a file is `>`
 Let's try it out and put all the sequences that contain 'CCTGTTTGC' from all the files in to another file called 'good-data.txt'
 
 ```
-grep -B 2 CCTGTTTGC * > good-data.txt
+grep -B 2 CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * > good-data.txt
 ```
 
 The prompt should sit there a little bit, and then it should look like nothing happened. But type `ls`. You should have a new file called good-data.txt. Take a look at it and see if it has what you think it should.
@@ -529,7 +529,7 @@ The prompt should sit there a little bit, and then it should look like nothing h
 There's one more useful redirection command that we're going to show, and that's called the pipe command, and it is `|`. It's probably not a key on your keyboard you use very much. What `|` does is take the output that scrolling by on the terminal and then can run it through another command. When it was all whizzing by before, we wished we could just slow it down and look at it, like we can with `less`. Well it turns out that we can! We pipe the `grep` command through `less`.
 
 ```
-grep CCTGTTTGC * | less
+grep CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * | less
 ```
 
 Now we can use the arrows to scroll up and down and use `q` to get out.
@@ -537,13 +537,13 @@ Now we can use the arrows to scroll up and down and use `q` to get out.
 We can also do something tricky and use the command `wc`. `wc` stands for `word count`. It counts the number of lines or characters. So, we can use it to count the number of lines we're getting back from our `grep` command. And that will magically tell us how many sequences we're finding. We're
 
 ```
-grep CCTGTTTGC * | wc
+grep CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * | wc
 ```
 
 That tells us the number of lines, words and characters in the file. If we just want the number of lines, we can use the `-l` flag for `lines`.
 
 ```
-grep CCTGTTTGC * | wc -l
+grep CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * | wc -l
 ```
 
 Redirecting is not super intuitive, but it's really powerful for stringing together these different commands, so you can do whatever you need to do.
@@ -554,15 +554,15 @@ The philosophy behind these command line programs is that none of them really do
 
 Now we can move around in the file structure, look at files, search files, redirect. But what if we want to do normal things like copy files or move them around or get rid of them. Sure we could do most of these things without the command line, but what fun would that be?! Besides it's often faster to do it at the command line, or you'll be on a remote server like Amazon where you won't have another option.
 
-The "Centralia_full_map_corrected.txt" is one that tells us what environmental data goes with which samples. This is a really important file, so we want to make a copy so we don't lose it.
+The `Centralia_Full_Map.txt` is one that tells us what environmental data goes with which samples. This is a really important file, so we want to make a copy so we don't lose it.
 
-Lets copy the file using the `cp` command. The `cp` command backs up the file. Navigate to the `MiSeq/Centralia_mapping_files` directory and enter:
+Lets copy the file using the `cp` command. The `cp` command backs up the file. Navigate to the `Fastq/MappingFiles` directory and enter:
 
 ```
-cp Centralia_full_map_corrected.txt Centralia_full_map_corrected_backup.txt
+cp Centralia_Full_Map.txt Centralia_Full_Map_backup.txt
 ```
 
-Now `Centralia_full_map_corrected_backup.txt` has been created as a copy of `Centralia_full_map_corrected.txt`.
+Now `Centralia_Full_Map_backup.txt` has been created as a copy of `Centralia_Full_Map.txt`.
 
 Let's make a `backup` directory where we can put this file.
 
@@ -575,21 +575,21 @@ mkdir backup
 We can now move our backed up file in to this directory. We can move files around using the command `mv`. Enter this command:
 
 ```
-mv Centralia_full_map_corrected_backup.txt backup/
+mv Centralia_Full_Map_backup.txt backup/
 ```
 
-This moves `Centralia_full_map_corrected_backup.txt` into the directory `backup/` or the full path would be `~/edamame-data/shell/MiSeq/backup`
+This moves `Centralia_Full_Map_backup.txt` into the directory `backup/`. Check the full path of backup with `pwd`
 
 The `mv` command is also how you rename files. Since this file is so important, let's rename it:
 
 ```
-mv Centralia_full_map_corrected.txt Centralia_full_map_corrected_IMPORTANT.txt
+mv Centralia_Full_Map.txt Centralia_Full_Map_IMPORTANT.txt
 ```
 
-Now the file name has been changed to Centralia_full_map_corrected_IMPORTANT.txt. Let's delete the backup file now:
+Now the file name has been changed to `Centralia_Full_Map_IMPORTANT.txt`. Let's delete the backup file now:
 
 ```
-rm backup/Centralia_full_map_corrected_backup.txt
+rm backup/Centralia_Full_Map_backup.txt
 ```
 
 The `rm` file removes the file. Be careful with this command. It doesn't just nicely put the files in the Trash. They're really gone.
@@ -600,9 +600,9 @@ The `rm` file removes the file. Be careful with this command. It doesn't just ni
 
 Do the following:
 
-1.  Rename the `Centralia_full_map_corrected_IMPORTANT.txt` file to `Centralia_full_map_corrected.txt`.
-2.  Create a directory in the `MiSeq` directory called `new`
-3.  Then, copy the `Centralia_full_map_corrected.txt` file into `new`
+1.  Rename the `Centralia_Full_Map_IMPORTANT.txt` file to `Centralia_Full_Map.txt`.
+2.  Create a directory in the `Fastq` directory called `new`
+3.  Then, copy the `Centralia_Full_Map.txt` file into `new`
 
 ****
 
