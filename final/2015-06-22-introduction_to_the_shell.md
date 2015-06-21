@@ -4,7 +4,7 @@ title: "The Shell"
 comments: true
 date: 2015-06-22 16:44:36
 ---
-#Introduction to the shell
+# Introduction to the shell
 ***
 Authored by Tracy Teal with [Software Carpentry](http://software-carpentry.org/lessons.html), with minor modifications by Ashley Shade, Joshua Herr, and Paul Wilburn 
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
@@ -15,18 +15,16 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 _Share, adapt, and attribute please!_   
 ***
 
-##Overarching Goal  
+## Overarching Goal  
 * This tutorial will contribute towards developing of **computing literacy**
 
-##Learning Objectives
+## Learning Objectives
 *	Understand what the shell is, how to access it from your computer, and how to use it.
-*	Navigate in around in a Unix file system to view and manipulate files
+*	Navigate around a Unix file system to view and manipulate files
 
 ***
 
 # Using The Shell
-
-Paul's test edit
 
 ## Objectives
 
@@ -86,72 +84,27 @@ Linux
 Well, you should be set if you're already using Linux
 
 
-## Starting with the shell
+## Preliminaries
 
-We will spend most of our time learning about the basics of the shell by manipulating some experimental data.
+We will spend most of our time using the shell to manipulate example data files.
 
-Now we're going to download the data for the tutorial. For this you'll need internet access, because you're going to get it off the web.
-
-Open the shell
-
-Enter the command:
+Open your browser. In the address bar, enter
 
 ```
-git clone https://github.com/edamame-course/edamame-data.git
+https://s3.amazonaws.com/edamame/EDAMAME_16S.tar.gz
 ```
 
-This command will grab all of the data needed for this workshop from the internet.  (We're not going to talk about git right now, but it's a tool for doing version control.)
-
-Now let's go in to that directory
-
-```
-cd edamame-data
-```
-The command 'cd' stands for 'change directory'
-
-In this directory, there should be some things we just downloaded. Let's check. Type:
-
-```
-ls
-```
-
-`ls` stands for 'list' and it lists the contents of a directory.
-
-There's a few directories there, but not too much. Let's go look in the shell lesson.
-
-```
-cd shell
-ls
-```
-
-In there, all mixed up together are files and directories/folders. If we want to know which is which, we can type:
-
-```
-ls -F
-```
-
-Anything with a "/" after it is a directory. Things with a "\*" after them are programs. It there's nothing there it's a file.
-
-You can also use the command `ls -l` to see whether items in a directory are files or directories. `ls -l` gives a lot more information too, such as the size of the file
-
-So, we can see that we have several files, directories and a program. Great!
-
-## The Unix directory file structure (a.k.a. where am I?)
-
-As you've already just seen, you can move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way.
-
-When you're working with bioinformatics programs, you're working with your data and it's key to be able to have that data in the right place and make sure the program has access to the data. Many of the problems people run in to with command line bioinformatics programs is not having the data in the place the program expects it to be.
-
+Create a folder named `tutorial_shell` and place the EDAMAME_16S.tar.gz file there. We'll come back to it using the shell in just a minute.
 
 ## Moving around the file system
 
 Let's practice moving around a bit.
 
-We're going to work in that `shell` directory we just downloaded.
+We're going to work in that `tutorial_shell` you just created.
 
-First let's navigate there using the regular way by clicking on the different folders.
+Let's navigate there using the regular way by clicking on the different folders.
 
-First we did something like go to the folder of our username. Then we opened 'edamame-data' then 'shell'
+First we did something like go to the folder of our username. Then we clicked on an n number of directories then eventually 'tutorial_shell'
 
 Let's draw out how that went.
 
@@ -165,17 +118,56 @@ That (/) at the base is often also called the 'top' level.
 
 When you are working at your computer or log in to a remote computer, you are on one of the branches of that tree, your home directory (/home/username)
 
+
 Now let's go do that same navigation at the command line.
 
-Let's type:
+Open The Shell
+
+Congrats! You are in the home directory. Just to be sure, let's type:
 
 ```
 cd
 ```
 
-This put's you in your home directory. This folder here that you are already in.
+This command will always place you home.
 
-Now let's use `cd` and `ls`, go in to the 'shell' directory and list its contents.
+This directory should have some other folders, perhaps files and/or programs. Let's check. Type:
+
+```
+ls
+```
+
+`ls` stands for 'list' and it lists the contents of a directory.
+
+Oftentimes, a directory will have a mix of objects. If we want to know which is which, we can type:
+
+```
+ls -F
+```
+
+Anything with a "/" after it is a directory. Things with a "\*" after them are programs. It there's nothing there it's a file.
+
+You can also use the command `ls -l` to see whether items in a directory are files or directories. `ls -l` gives a lot more information too, such as the size of the file
+
+As you are seeing the list of directories in the `home` folder, pick one and type:
+
+```
+cd <name of directory>
+```
+
+You are just entered a lower level directory of your choice. Check out its contents by typing:
+
+```
+ls
+```
+
+To go 'back up a level' we need to use `..`
+
+Type:
+
+```
+cd ..
+```
 
 Let's also check to see where we are. Sometimes when we're wandering around in the file system, it's easy to lose track of where we are and get lost.
 
@@ -187,23 +179,12 @@ pwd
 
 This stands for 'print working directory'. The directory you're currently working in.
 
-What if we want to move back up and out of the 'data' directory? Can we just type 'edamame-data'? Try it and see what happens.
 
-To go 'back up a level' we need to use `..`
+We are ready. Using `cd <directory>`, `ls` and (optionally) `pwd`, go in to the `tutorial_shell` directory and list its contents. Remember, if you get lost, going home is easy with `cd` by itself.
 
-Type:
+Good work. You can now move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way?
 
-```
-cd ..
-```
-
-Now do `ls` and `pwd`. See now that we went back up in to the 'edamame' directory. `..` just means go back up a level.
-
-***
-**Exercise**
-
-Now we're going to try a hunt. Move around in the 'hidden' directory and try to find the file 'youfoundit.txt'
-***
+When you're working with bioinformatics programs, you're working with your data and it's key to be able to have that data in the right place and make sure the program has access to the data. Many of the problems people run into with command line bioinformatics programs result from not having the data in the place the program expects it to be.
 
 ## Arguments
 
@@ -221,53 +202,46 @@ Programs that are run from the shell can get extremely complicated. To see an ex
 
 ## Examining the contents of other directories
 
-By default, the `ls` commands lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the `pwd` command. However, you can also give `ls` the names of other directories to view. Navigate to the home directory if you are not already there.
+By default, the `ls` command lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the `pwd` command. However, you can also give `ls` the names of other directories to view. Navigate to the `tutorial_shell` directory if you are not already there.
 
 Type:
 
 ```
-cd
+cd ..
 ```
 
 Then enter the command:
 
 ```
-ls edamame-data
+ls tutorial_shell
 ```
 
-This will list the contents of the `edamame-data` directory without
+This will list the contents of the `tutorial_shell` directory without
 you having to navigate there.
 
-The `cd` command works in a similar way. Try entering:
+The `cd` command works in a similar way. Using `cd ..` navigate two levels higher than `tutorial_shell`. Now navigate back to tutorial shell in one line of code that looks something like:
 
 ```
-cd
-cd edamame-data/shell/hidden
+cd <directory_1>/<directory_2>/tutorial_shell
 ```
 
-and you will jump directly to `hidden` without having to go through
-the intermediate directory.
-
-****
-**Exercise**
-
-Try finding the 'anotherfile.txt' file without changing directories.
-****
+and you will jump directly to `tutorial_shell` without having to go through
+the intermediates.
 
 ## Full vs. Relative Paths
 
 The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative* path or a full *path*. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory. Now, enter the `pwd` command and you should see:
 
 ```
-/home/username
+/home/<username>
 ```
 
-which is the full name of your home directory. This tells you that you are in a directory called `username`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `username` is a directory in `home` which is a directory in `/`.
+which is the full name of your home directory. This tells you that you are in a directory called `<your username>`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `your username` is a directory in `home` which is a directory in `/`.
 
 Now enter the following command:
 
 ```
-cd /home/username/edamame-data/shell/hidden
+cd /home/<your username>/edamame-data/shell/hidden
 ```
 
 This jumps to `hidden`. Now go back to the home directory (cd). We saw earlier that the command:
@@ -295,13 +269,7 @@ Now, list the contents of the /bin directory. Do you see anything familiar in th
 
 ### Shortcuts
 
-There are some shortcuts which you should know about. Dealing with the home directory is very common. So, in the shell the tilde character, `~`, is a shortcut for your home directory. Navigate to the `edamame` directory:
-
-```
-cd
-cd edamame-data
-cd shell
-```
+There are some shortcuts which you should know about. Dealing with the home directory is very common. So, in the shell the tilde character, `~`, is a shortcut for your home directory. Navigate to the `tutorial_shell` directory:
 
 Then enter the command:
 
@@ -315,13 +283,13 @@ This prints the contents of your home directory, without you having to type the 
 ls ..
 ```
 
-prints the contents of the `/home/username/edamame-data`. You can chain these together, so:
+prints the contents of the directory one level higher than `tutorial_shell`. You can chain these together, so:
 
 ```
 ls ../../
 ```
 
-prints the contents of `/home/username` which is your home directory. Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but we'll see when it is needed in a little while.
+prints the contents of two levels higher than `tutorial_shell`. Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but we'll see when it is needed in a little while.
 
 To summarize, while you are in the `shell` directory, the commands `ls ~`, `ls ~/.`, `ls ../../`, and `ls /home/username` all do exactly the same thing. These shortcuts are not necessary, they are provided for your convenience.
 
@@ -332,6 +300,8 @@ We did an experiment and want to look at the bacterial communities a soil chrono
 We want to be able to look at these files and do some things with them.
 
 ### Wild cards
+
+paul_break
 
 Navigate to the `~/edamame-data/shell/MiSeq` directory. This directory some of our FASTQ files we'll need for analyses. If we type `ls`, we will see that there are a bunch of files with long file names. Some of the end with .fastq
 
