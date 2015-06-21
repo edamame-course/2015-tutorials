@@ -518,7 +518,7 @@ We can do that with something called "redirection". The idea is that we're redir
 
 The redirection command for putting something in a file is `>`
 
-Let's try it out and put all the sequences that contain 'CCTGTTTGC' from all the files in to another file called 'good-data.txt'
+Let's try it out and put all the sequences that contain 'CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA' from all the files in to another file called 'good-data.txt'
 
 ```
 grep -B 2 CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * > good-data.txt
@@ -624,13 +624,9 @@ To write in files, we're going to use the program `nano`. We're going to create 
 nano awesome.sh
 ```
 
-Now you have something that looks like
-
-![nano1.png](img/shell/nano1.png)
-
 Type in your command, so it looks like
 
-![nano2.png](img/shell/nano2.png)
+grep -B 1 CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * > good_data.txt
 
 Now we want to save the file and exit. At the bottom of nano, you see the "^X Exit". That means that we use Ctrl-X to exit. Type `Ctrl-X`. It will ask if you want to save it. Type `y` for yes. Then it asks if you want that file name. Hit 'Enter'.
 
@@ -675,25 +671,13 @@ Navigate to the `shell` directory and list the contents. You will notice that th
 hello.sh
 ```
 
-You should get an error saying that hello.sh cannot be found. That is because the directory `/home/username/edamame-data/shell` is not in the `PATH`. You can run the `hello.sh` program by entering:
+You should get an error saying that hello.sh cannot be found. That is because the directory `tutorial_shell` is not in the `PATH`. You can run the `hello.sh` program by entering:
 
 ```
 ./hello.sh
 ```
 
-Remember that `.` is a shortcut for the current working directory. This tells the shell to run the `hello.sh` program which is located right here. So, you can run any program by entering the path to that program. You can run `hello.sh` equally well by specifying:
-
-```
-/home/username/edamame-data/shell/hello.sh
-```
-
-Or by entering:
-
-```
-~/edamame-data/shell/hello.sh
-```
-
-When there are no `/` characters, the shell assumes you want to look in one of the default places for the program.
+Remember that `.` is a shortcut for the current working directory. This tells the shell to run the `hello.sh` program which is located right here. So, you can run any program by entering the path to that program. You can run `hello.sh` equally well by specifying its *full path*.
 
 ## Writing scripts
 
