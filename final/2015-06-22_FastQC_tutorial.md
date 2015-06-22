@@ -29,7 +29,9 @@ Connect to the QIIME 1.9.1 AMI, and if you haven't done so already, download the
 Before starting, make sure the sequencing files (in the 16S "subsampled" directory) have the .fastq extension.
 
 Inspect the raw data files.  What do the guts of a fastq file look like?
+
 ```
+cd EDAMAME_16S/Fastq
 more C01D01F_sub.fastq
 ```
 
@@ -45,6 +47,7 @@ A good sequencing center should return some information on how the sequencing we
 
 Moving on to FastQC. Install FastQC from the home directory.
 ```
+cd 
 wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.3.zip
 ```
 This will download a .zip file into the home directory. Let's unzip it.
