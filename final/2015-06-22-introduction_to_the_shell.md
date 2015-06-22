@@ -4,9 +4,9 @@ title: "The Shell"
 comments: true
 date: 2015-06-22 16:44:36
 ---
-#Introduction to the shell
+# Introduction to the shell
 ***
-Authored by Tracy Teal with [Software Carpentry](http://software-carpentry.org/lessons.html), with minor modifications by Ashley Shade and Joshua Herr   
+Authored by Tracy Teal with [Software Carpentry](http://software-carpentry.org/lessons.html), with minor modifications by Ashley Shade, Joshua Herr, and Paul Wilburn 
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
 ***
@@ -15,12 +15,12 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 _Share, adapt, and attribute please!_   
 ***
 
-##Overarching Goal  
+## Overarching Goal  
 * This tutorial will contribute towards developing of **computing literacy**
 
-##Learning Objectives
+## Learning Objectives
 *	Understand what the shell is, how to access it from your computer, and how to use it.
-*	Navigate in around in a Unix file system to view and manipulate files
+*	Navigate around a Unix file system to view and manipulate files
 
 ***
 
@@ -84,30 +84,54 @@ Linux
 Well, you should be set if you're already using Linux
 
 
-## Starting with the shell
+## Preliminaries
 
-We will spend most of our time learning about the basics of the shell by manipulating some experimental data.
+We will spend most of our time using the shell to manipulate example data files.
 
-Now we're going to download the data for the tutorial. For this you'll need internet access, because you're going to get it off the web.
-
-Open the shell
-
-Enter the command:
+Open your browser. In the address bar, enter
 
 ```
-git clone https://github.com/edamame-course/edamame-data.git
+https://s3.amazonaws.com/edamame/EDAMAME_16S.tar.gz
 ```
 
-This command will grab all of the data needed for this workshop from the internet.  (We're not going to talk about git right now, but it's a tool for doing version control.)
+Create a folder named `tutorial_shell` and place the EDAMAME_16S.tar.gz file there. We'll come back to it using the shell in just a minute.
 
-Now let's go in to that directory
+## Moving around the file system
+
+Let's practice moving around a bit.
+
+We're going to work in that `tutorial_shell` you just created.
+
+Let's navigate there using the regular way by clicking on the different folders.
+
+First we did something like go to the folder of our username. Then we clicked on an n number of directories then eventually 'tutorial_shell'
+
+Let's draw out how that went.
+
+Now let's draw some of the other files and folders we could have clicked on.
+
+This is called a hierarchical file system structure, like an upside down tree with root (/) at the base that looks like this.
+
+![Unix](https://raw.githubusercontent.com/edamame-course/2014-tutorials/master/img/shell/Slide1.jpg)
+
+That (/) at the base is often also called the 'top' level.
+
+When you are working at your computer or log in to a remote computer, you are on one of the branches of that tree, your home directory (/home/username)
+
+
+Now let's go do that same navigation at the command line.
+
+Open The Shell
+
+Congrats! You are in the home directory. Just to be sure, let's type:
 
 ```
-cd edamame-data
+cd
 ```
-The command 'cd' stands for 'change directory'
 
-In this directory, there should be some things we just downloaded. Let's check. Type:
+This command will always place you home.
+
+This directory should have some other folders, perhaps files and/or programs. Let's check. Type:
 
 ```
 ls
@@ -115,14 +139,7 @@ ls
 
 `ls` stands for 'list' and it lists the contents of a directory.
 
-There's a few directories there, but not too much. Let's go look in the shell lesson.
-
-```
-cd shell
-ls
-```
-
-In there, all mixed up together are files and directories/folders. If we want to know which is which, we can type:
+Oftentimes, a directory will have a mix of objects. If we want to know which is which, we can type:
 
 ```
 ls -F
@@ -132,60 +149,17 @@ Anything with a "/" after it is a directory. Things with a "\*" after them are p
 
 You can also use the command `ls -l` to see whether items in a directory are files or directories. `ls -l` gives a lot more information too, such as the size of the file
 
-So, we can see that we have several files, directories and a program. Great!
-
-## The Unix directory file structure (a.k.a. where am I?)
-
-As you've already just seen, you can move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way.
-
-When you're working with bioinformatics programs, you're working with your data and it's key to be able to have that data in the right place and make sure the program has access to the data. Many of the problems people run in to with command line bioinformatics programs is not having the data in the place the program expects it to be.
-
-
-## Moving around the file system
-
-Let's practice moving around a bit.
-
-We're going to work in that `shell` directory we just downloaded.
-
-First let's navigate there using the regular way by clicking on the different folders.
-
-First we did something like go to the folder of our username. Then we opened 'edamame-data' then 'shell'
-
-Let's draw out how that went.
-
-Now let's draw some of the other files and folders we could have clicked on.
-
-This is called a hierarchical file system structure, like an upside down tree with root (/) at the base that looks like this.
-
-![Unix](img/shell/Slide1.jpg)
-
-That (/) at the base is often also called the 'top' level.
-
-When you are working at your computer or log in to a remote computer, you are on one of the branches of that tree, your home directory (/home/username)
-
-Now let's go do that same navigation at the command line.
-
-Let's type:
+As you are seeing the list of directories in the `home` folder, pick one and type:
 
 ```
-cd
+cd <name of directory>
 ```
 
-This put's you in your home directory. This folder here that you are already in.
-
-Now let's use `cd` and `ls`, go in to the 'shell' directory and list its contents.
-
-Let's also check to see where we are. Sometimes when we're wandering around in the file system, it's easy to lose track of where we are and get lost.
-
-If you want to know what directory you're currently in, type:
+You have just entered a lower level directory of your choice. Check out its contents by typing:
 
 ```
-pwd
+ls
 ```
-
-This stands for 'print working directory'. The directory you're currently working in.
-
-What if we want to move back up and out of the 'data' directory? Can we just type 'edamame-data'? Try it and see what happens.
 
 To go 'back up a level' we need to use `..`
 
@@ -195,13 +169,22 @@ Type:
 cd ..
 ```
 
-Now do `ls` and `pwd`. See now that we went back up in to the 'edamame' directory. `..` just means go back up a level.
+Sometimes when we're wandering around in the file system, it's easy to lose track of where we are and get lost.
 
-***
-**Exercise**
+If you want to know what directory you're currently in, type:
 
-Now we're going to try a hunt. Move around in the 'hidden' directory and try to find the file 'youfoundit.txt'
-***
+```
+pwd
+```
+
+This stands for 'print working directory'. The directory you're currently working in.
+
+
+We are ready. Using `cd <directory>`, `ls` and (optionally) `pwd`, to the `tutorial_shell` directory and list its contents. Remember, if you get lost, going home is easy with `cd` by itself.
+
+Good work. You can now move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way?
+
+When you're working with bioinformatics programs, you're working with your data and it's key to be able to have that data in the right place and make sure the program has access to the data. Many of the problems people run into with command line bioinformatics programs result from not having the data in the place the program expects it to be.
 
 ## Arguments
 
@@ -219,62 +202,55 @@ Programs that are run from the shell can get extremely complicated. To see an ex
 
 ## Examining the contents of other directories
 
-By default, the `ls` commands lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the `pwd` command. However, you can also give `ls` the names of other directories to view. Navigate to the home directory if you are not already there.
+By default, the `ls` command lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the `pwd` command. However, you can also give `ls` the names of other directories to view. Navigate to the `tutorial_shell` directory if you are not already there.
 
 Type:
 
 ```
-cd
+cd ..
 ```
 
 Then enter the command:
 
 ```
-ls edamame-data
+ls tutorial_shell
 ```
 
-This will list the contents of the `edamame-data` directory without
+This will list the contents of the `tutorial_shell` directory without
 you having to navigate there.
 
-The `cd` command works in a similar way. Try entering:
+The `cd` command works in a similar way. Using `cd ..` twice, navigate two levels higher than `tutorial_shell`. Now navigate back to tutorial shell in one line of code that looks something like:
 
 ```
-cd
-cd edamame-data/shell/hidden
+cd <directory_1>/<directory_2>/tutorial_shell
 ```
 
-and you will jump directly to `hidden` without having to go through
-the intermediate directory.
-
-****
-**Exercise**
-
-Try finding the 'anotherfile.txt' file without changing directories.
-****
+and you will jump directly to `tutorial_shell` without having to go through
+the intermediates.
 
 ## Full vs. Relative Paths
 
 The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative* path or a full *path*. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory. Now, enter the `pwd` command and you should see:
 
 ```
-/home/username
+/home/<username>
 ```
 
-which is the full name of your home directory. This tells you that you are in a directory called `username`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `username` is a directory in `home` which is a directory in `/`.
+which is the full name of your home directory. This tells you that you are in a directory called `<username>`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `<username>` is a directory in `home` which is a directory in `/`.
 
-Now enter the following command:
+Let's try an exercise. Navigate to the `tutorial_shell` directory if you are not already there.
 
-```
-cd /home/username/edamame-data/shell/hidden
-```
-
-This jumps to `hidden`. Now go back to the home directory (cd). We saw earlier that the command:
+Check where you are with `pwd`. The output should look something like `/home/<username>/.../tutorial_shell` Copy the entire output. Next, go to the home directory with `cd`. Once in home directory, type:
 
 ```
-cd edamame-data/shell/hidden
+cd <pwd output>
 ```
 
-had the same effect - it took us to the `hidden` directory. But, instead of specifying the full path (`/home/username/edamame-data/shell`), we specified a *relative path*. In other words, we specified the path relative to our current directory. A full path always starts with a `/`. A relative path does not.
+This jumps back to the `tutorial_shell`.
+
+Now go back to the home directory again with `cd`. Once in home directory, type `cd` plus the output of pwd minus the `/home/<username>`
+
+The reduced command had the same effect - it took us to the `tutorial_shell` directory. But, instead of specifying the *full path*, which starts with the root directory `/`, we specified a *relative path*. In other words, we specified the path relative to our current directory. A full path always starts with a `/`. A relative path does not.
 
 A relative path is like getting directions from someone on the street. They tell you to "go right at the Stop sign, and then turn left on Main Street". That works great if you're standing there together, but not so well if you're trying to tell someone how to get there from another country. A full path is like GPS coordinates. It tells you exactly where something is no matter where you are right now.
 
@@ -293,13 +269,7 @@ Now, list the contents of the /bin directory. Do you see anything familiar in th
 
 ### Shortcuts
 
-There are some shortcuts which you should know about. Dealing with the home directory is very common. So, in the shell the tilde character, `~`, is a shortcut for your home directory. Navigate to the `edamame` directory:
-
-```
-cd
-cd edamame-data
-cd shell
-```
+There are some shortcuts which you should know about. Dealing with the home directory is very common. So, in the shell the tilde character, `~`, is a shortcut for your home directory. Navigate to the `tutorial_shell` directory:
 
 Then enter the command:
 
@@ -313,13 +283,13 @@ This prints the contents of your home directory, without you having to type the 
 ls ..
 ```
 
-prints the contents of the `/home/username/edamame-data`. You can chain these together, so:
+prints the contents of the directory one level higher than `tutorial_shell`. You can chain these together, so:
 
 ```
 ls ../../
 ```
 
-prints the contents of `/home/username` which is your home directory. Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but we'll see when it is needed in a little while.
+prints the contents of two levels higher than `tutorial_shell`. Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but we'll see when it is needed in a little while.
 
 To summarize, while you are in the `shell` directory, the commands `ls ~`, `ls ~/.`, `ls ../../`, and `ls /home/username` all do exactly the same thing. These shortcuts are not necessary, they are provided for your convenience.
 
@@ -329,9 +299,17 @@ We did an experiment and want to look at the bacterial communities a soil chrono
 
 We want to be able to look at these files and do some things with them.
 
+First, let's extract the archive we have in `tutorial_shell`. Once in this directory, type:
+
+```
+tar -xzvf EDAMAME_16S.tar.gz
+```
+
+Done!
+
 ### Wild cards
 
-Navigate to the `~/edamame-data/shell/MiSeq` directory. This directory some of our FASTQ files we'll need for analyses. If we type `ls`, we will see that there are a bunch of files with long file names. Some of the end with .fastq
+Navigate to the `tutorial_shell/EDAMAME_16S/Fastq` directory. This directory some of our FASTQ files we'll need for analyses. If we type `ls`, we will see that there are a bunch of files with long file names. Some of the end with .fastq
 
 The `*` character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
 
@@ -382,10 +360,12 @@ BONUS: List all of the files in '/bin' that contain the letter 'a' or 'c'
 Navigate to the home directory. Typing out directory names can waste a lot of time. When you start typing out the name of a directory, then hit the tab key, the shell will try to fill in the rest of the directory name. For example, enter:
 
 ```
-cd e<tab>
+cd <someletter><tab>
 ```
 
-The shell will fill in the rest of the directory name for `edamame-data`. Now go to edamame-data/shell/MiSeq
+The shell will fill in the rest of the directory name.
+
+Now go to `tutorial_shell/EDAMAME_16S/Fastq`
 
 ```
 ls C<tab><tab>
@@ -450,17 +430,13 @@ This prints out the contents of the `C01D01R_sub.fastq` file.
 ****
 **Short Exercises**
 
-1.  Print out the contents of the `~edamame-data/shell/MiSeq/Centralia_mapping_files/Centralia_full_map_corrected.txt ` file. What does this file contain?
+1.  Print out the contents of the `tutorial_shell/EDAMAME_16S/MappingFiles/Centralia_Full_Map.txt ` file. What does this file contain?
 
-2.  Without changing directories, (you should still be in `edamame-data`), use one short command to print the contents of all of the files in the `/home/username/edamame-data/shell/MiSeq` directory.
+2.  Without changing directories, (you should still be in `edamame-data`), use one short command to print the contents of all of the files in the `tutorial_shell/EDAMAME_16S/Fastq` directory.
 
 ****
 
-Make sure we're in the right place for the next set of the lessons. We want to be in the `shell` directory. Check if you're there with `pwd` and if not navigate there. One way to do that would be
-
-```
-cd ~/edamame-data/shell/MiSeq
-```
+Make sure we're in the right place for the next set of the lessons. We want to be in the `tutorial_shell/EDAMAME_16S/Fastq` directory. Check if you're there with `pwd` and if not navigate there.
 
 `cat` is a terrific program, but when the file is really big, it can be annoying to use. The program, `less`, is useful for this case. Enter the following command:
 
@@ -468,7 +444,7 @@ cd ~/edamame-data/shell/MiSeq
 less C01D01R_sub.fastq
 ```
 
-`less` opens the file, and lets you navigate through it. The commands are identical to the `man` program.
+`less` opens the file, and lets you navigate through it. The commands are identical to the `man` program. To quit `less` and go back to the shell, press `q`.
 
 
 **Some commands in `less`**
@@ -481,9 +457,9 @@ less C01D01R_sub.fastq
 |  "G"    | to go to the end |
 |  "q"    | to quit |
 
-`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. Try searching the `dictionary.txt` file for the word "cat". If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
+`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word that does not exist from that point forward, `less` will not find it. You need to go to the beginning of the file and search.
 
-For instance, let's search for the sequence `1101:14341` in our file. You can see that we go right to that sequence and can see what it looks like.
+For instance, let's search for the sequence `HWI-M03127:41:ACE13:1:1114:22908:11882` in our file. You can see that we go right to that sequence and can see what it looks like.
 
 Remember, the `man` program actually uses `less` internally and therefore uses the same commands, so you can search documentation using "/" as well!
 
@@ -516,7 +492,7 @@ grep ACE13:1:2109:11596 C01D01R_sub.fastq
 We get back the whole line that had '1101:14341' in it. What if we wanted all four lines, the whole part of that FASTQ sequence, back instead.
 
 ```
-grep -A 3 grep ACE13:1:2109:11596 C01D01R_sub.fastq
+grep -A 3 ACE13:1:2109:11596 C01D01R_sub.fastq
 ```
 
 The `-A` flag stands for "after match" so it's returning the line that matches plus the three after it. The `-B` flag returns that number of lines before the match.
@@ -524,7 +500,7 @@ The `-A` flag stands for "after match" so it's returning the line that matches p
 ****
 ** Exercise **
 
-Search for the sequence `CCTGTTTGC` in the `C01D01R_sub.fastq` file and in the output have the sequence name and the sequence. e.g.
+Search for the sequence `CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA` in the `C01D01R_sub.fastq` file and in the output have the sequence name and the sequence. e.g.
 
 ```
 @HWI-M03127:41:ACE13:1:1114:14857:17361 2:N:0:GGAGACAAGGGA
@@ -542,10 +518,10 @@ We can do that with something called "redirection". The idea is that we're redir
 
 The redirection command for putting something in a file is `>`
 
-Let's try it out and put all the sequences that contain 'CCTGTTTGC' from all the files in to another file called 'good-data.txt'
+Let's try it out and put all the sequences that contain 'CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA' from all the files in to another file called 'good-data.txt'
 
 ```
-grep -B 2 CCTGTTTGC * > good-data.txt
+grep -B 2 CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * > good-data.txt
 ```
 
 The prompt should sit there a little bit, and then it should look like nothing happened. But type `ls`. You should have a new file called good-data.txt. Take a look at it and see if it has what you think it should.
@@ -553,7 +529,7 @@ The prompt should sit there a little bit, and then it should look like nothing h
 There's one more useful redirection command that we're going to show, and that's called the pipe command, and it is `|`. It's probably not a key on your keyboard you use very much. What `|` does is take the output that scrolling by on the terminal and then can run it through another command. When it was all whizzing by before, we wished we could just slow it down and look at it, like we can with `less`. Well it turns out that we can! We pipe the `grep` command through `less`.
 
 ```
-grep CCTGTTTGC * | less
+grep CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * | less
 ```
 
 Now we can use the arrows to scroll up and down and use `q` to get out.
@@ -561,13 +537,13 @@ Now we can use the arrows to scroll up and down and use `q` to get out.
 We can also do something tricky and use the command `wc`. `wc` stands for `word count`. It counts the number of lines or characters. So, we can use it to count the number of lines we're getting back from our `grep` command. And that will magically tell us how many sequences we're finding. We're
 
 ```
-grep CCTGTTTGC * | wc
+grep CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * | wc
 ```
 
 That tells us the number of lines, words and characters in the file. If we just want the number of lines, we can use the `-l` flag for `lines`.
 
 ```
-grep CCTGTTTGC * | wc -l
+grep CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * | wc -l
 ```
 
 Redirecting is not super intuitive, but it's really powerful for stringing together these different commands, so you can do whatever you need to do.
@@ -578,15 +554,15 @@ The philosophy behind these command line programs is that none of them really do
 
 Now we can move around in the file structure, look at files, search files, redirect. But what if we want to do normal things like copy files or move them around or get rid of them. Sure we could do most of these things without the command line, but what fun would that be?! Besides it's often faster to do it at the command line, or you'll be on a remote server like Amazon where you won't have another option.
 
-The "Centralia_full_map_corrected.txt" is one that tells us what environmental data goes with which samples. This is a really important file, so we want to make a copy so we don't lose it.
+The `Centralia_Full_Map.txt` is one that tells us what environmental data goes with which samples. This is a really important file, so we want to make a copy so we don't lose it.
 
-Lets copy the file using the `cp` command. The `cp` command backs up the file. Navigate to the `MiSeq/Centralia_mapping_files` directory and enter:
+Lets copy the file using the `cp` command. The `cp` command backs up the file. Navigate to the `Fastq/MappingFiles` directory and enter:
 
 ```
-cp Centralia_full_map_corrected.txt Centralia_full_map_corrected_backup.txt
+cp Centralia_Full_Map.txt Centralia_Full_Map_backup.txt
 ```
 
-Now `Centralia_full_map_corrected_backup.txt` has been created as a copy of `Centralia_full_map_corrected.txt`.
+Now `Centralia_Full_Map_backup.txt` has been created as a copy of `Centralia_Full_Map.txt`.
 
 Let's make a `backup` directory where we can put this file.
 
@@ -599,21 +575,21 @@ mkdir backup
 We can now move our backed up file in to this directory. We can move files around using the command `mv`. Enter this command:
 
 ```
-mv Centralia_full_map_corrected_backup.txt backup/
+mv Centralia_Full_Map_backup.txt backup/
 ```
 
-This moves `Centralia_full_map_corrected_backup.txt` into the directory `backup/` or the full path would be `~/edamame-data/shell/MiSeq/backup`
+This moves `Centralia_Full_Map_backup.txt` into the directory `backup/`. Check the full path of backup with `pwd`
 
 The `mv` command is also how you rename files. Since this file is so important, let's rename it:
 
 ```
-mv Centralia_full_map_corrected.txt Centralia_full_map_corrected_IMPORTANT.txt
+mv Centralia_Full_Map.txt Centralia_Full_Map_IMPORTANT.txt
 ```
 
-Now the file name has been changed to Centralia_full_map_corrected_IMPORTANT.txt. Let's delete the backup file now:
+Now the file name has been changed to `Centralia_Full_Map_IMPORTANT.txt`. Let's delete the backup file now:
 
 ```
-rm backup/Centralia_full_map_corrected_backup.txt
+rm backup/Centralia_Full_Map_backup.txt
 ```
 
 The `rm` file removes the file. Be careful with this command. It doesn't just nicely put the files in the Trash. They're really gone.
@@ -624,9 +600,9 @@ The `rm` file removes the file. Be careful with this command. It doesn't just ni
 
 Do the following:
 
-1.  Rename the `Centralia_full_map_corrected_IMPORTANT.txt` file to `Centralia_full_map_corrected.txt`.
-2.  Create a directory in the `MiSeq` directory called `new`
-3.  Then, copy the `Centralia_full_map_corrected.txt` file into `new`
+1.  Rename the `Centralia_Full_Map_IMPORTANT.txt` file to `Centralia_Full_Map.txt`.
+2.  Create a directory in the `Fastq` directory called `new`
+3.  Then, copy the `Centralia_Full_Map.txt` file into `new`
 
 ****
 
@@ -648,13 +624,11 @@ To write in files, we're going to use the program `nano`. We're going to create 
 nano awesome.sh
 ```
 
-Now you have something that looks like
-
-![nano1.png](img/shell/nano1.png)
-
 Type in your command, so it looks like
 
-![nano2.png](img/shell/nano2.png)
+```
+grep -B 1 CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * > good_data.txt
+```
 
 Now we want to save the file and exit. At the bottom of nano, you see the "^X Exit". That means that we use Ctrl-X to exit. Type `Ctrl-X`. It will ask if you want to save it. Type `y` for yes. Then it asks if you want that file name. Hit 'Enter'.
 
@@ -699,25 +673,13 @@ Navigate to the `shell` directory and list the contents. You will notice that th
 hello.sh
 ```
 
-You should get an error saying that hello.sh cannot be found. That is because the directory `/home/username/edamame-data/shell` is not in the `PATH`. You can run the `hello.sh` program by entering:
+You should get an error saying that hello.sh cannot be found. That is because the directory `tutorial_shell` is not in the `PATH`. You can run the `hello.sh` program by entering:
 
 ```
 ./hello.sh
 ```
 
-Remember that `.` is a shortcut for the current working directory. This tells the shell to run the `hello.sh` program which is located right here. So, you can run any program by entering the path to that program. You can run `hello.sh` equally well by specifying:
-
-```
-/home/username/edamame-data/shell/hello.sh
-```
-
-Or by entering:
-
-```
-~/edamame-data/shell/hello.sh
-```
-
-When there are no `/` characters, the shell assumes you want to look in one of the default places for the program.
+Remember that `.` is a shortcut for the current working directory. This tells the shell to run the `hello.sh` program which is located right here. So, you can run any program by entering the path to that program. You can run `hello.sh` equally well by specifying its *full path*.
 
 ## Writing scripts
 

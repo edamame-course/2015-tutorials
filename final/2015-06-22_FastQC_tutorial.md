@@ -1,5 +1,5 @@
-#How to Connect and Transfer files to an EC2 instance
-Authored by Siobhan Cusack with contribution from Ashley Shade for EDAMAME2015     
+#Assessing the quality of raw amplicon sequencing data
+Authored by Siobhan Cusack, with contributions from Ashley Shade and Jackson Sorensen for EDAMAME2015     
 
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
@@ -19,7 +19,6 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 
 #Data quality checking with FastQC
 
-Authored by Siobhan Cusack, with contributions from Ashley Shade and Jackson Sorensen
 
 ####Information in this tutorial is based on the FastQC manual which can be accessed [here](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/).
 
