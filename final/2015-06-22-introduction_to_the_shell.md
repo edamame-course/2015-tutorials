@@ -524,7 +524,7 @@ Let's try it out and put all the sequences that contain 'CCTGTTTGCTCCCCACGCTCTCG
 grep -B 2 CCTGTTTGCTCCCCACGCTCTCGCACCTCAGTGTCA * > good-data.txt
 ```
 
-The prompt should sit there a little bit, and then it should look like nothing happened. But type `ls`. You should have a new file called good-data.txt. Take a look at it and see if it has what you think it should.
+The above code makes use of the `*` wilcard to search *ALL* of the files in your current directory for the sequence. The `>` here says to write the results from the `grep` command we just ran to a new file called good-tdata.txt The prompt should sit there a little bit, and then it should look like nothing happened. But type `ls`. You should have a new file called good-data.txt. Take a look at it and see if it has what you think it should.
 
 There's one more useful redirection command that we're going to show, and that's called the pipe command, and it is `|`. It's probably not a key on your keyboard you use very much. What `|` does is take the output that scrolling by on the terminal and then can run it through another command. When it was all whizzing by before, we wished we could just slow it down and look at it, like we can with `less`. Well it turns out that we can! We pipe the `grep` command through `less`.
 
