@@ -16,8 +16,8 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 * This tutorial will contribute towards an understanding of BLAST running locally
 
 ##Learning Objectives
-*Build local DB
-*Blast query into local DB
+* Build local DB
+* Blast query into local DB
 
 ***
 
