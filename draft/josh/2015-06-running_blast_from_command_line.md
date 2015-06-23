@@ -1,11 +1,25 @@
 ---
+layout: page
 title: Running BLAST from the command line to identify environmental sequences
-layout: post
-date: 2015-06
-category: null
 comments: true
-tags: []
+date: 2015-06-25 14:00:00
 ---
+#Running BLAST from the command line to identify environmental sequnences
+Authored by Jin Choi for EDAMAME2015, based on a previous tutorial.
+[EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
+
+***
+EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
+***
+
+##Overarching Goal
+* This tutorial will contribute towards an understanding of BLAST running locally
+
+##Learning Objectives
+*Build local DB
+*Blast query into local DB
+
+***
 
 # Introduction
 OK, your first introduction to the use and abuse of command line tools is... BLAST! That's right, the [Basic Local Alignment Search Tool](http://en.wikipedia.org/wiki/BLAST)!
@@ -123,5 +137,9 @@ blastn -db bacteriaRef -query  bacteria.307.rna.fna -out outtabular.txt -outfmt 
 BLAST has lots and lots and lots of options. Run 'blastn' by itself to see what they are. Some of the most useful ones are `-evalue`.
 
 If you want to search protein, use 'blastp' instead of 'blastn'. 'blastx', 'tblastn', 'tblastx' also available.
+***
+##Help and other resources
+* [Manual of Blast+]( http://www.ncbi.nlm.nih.gov/books/NBK279690/)
 
-more information here: http://www.ncbi.nlm.nih.gov/books/NBK279690/
+-----------------------------------------------
+-----------------------------------------------
