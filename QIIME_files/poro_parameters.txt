@@ -1,2 +1,3 @@
 pick_otus:similarity	0.99
+
 assign_taxonomy.py:id_to_taxonomy_fp /home/ubuntu/qiime_software/gg_otus-12_10-release/taxonomy/99_otu_taxonomy.txt
