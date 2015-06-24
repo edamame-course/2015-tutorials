@@ -169,11 +169,11 @@ blastn -db My16sAmplicon -query MyQuery.txt -out outtabular.txt -outfmt 6
 
 Let's try to search Reference Soil database using a your 16s amplicon query.
 
-1. Make Reference Soil database
+### 1. Make Reference Soil database
 
 Hint: Here is the fasta format of reference soil. : RefSoil16s.fa
 
-2. Search using a sample 16s amplicon query
+### 2. Search using a sample 16s amplicon query
 
 Hint: You can use this sample query: rep_set_sub.fna
 
