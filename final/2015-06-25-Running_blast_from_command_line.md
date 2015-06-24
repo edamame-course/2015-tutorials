@@ -170,10 +170,12 @@ blastn -db My16sAmplicon -query MyQuery.txt -out outtabular.txt -outfmt 6
 Let's try to search Reference Soil database using a your 16s amplicon query.
 
 1. Make Reference Soil database
-Here is the fasta format of reference soil. : RefSoil16s.fa
+
+Hint: Here is the fasta format of reference soil. : RefSoil16s.fa
 
 2. Search using a sample 16s amplicon query
-You can use this sample query: MyQuery.txt
+
+Hint: You can use this sample query: MyQuery.txt
 
 ## Different BLAST options
 BLAST has lots and lots and lots of options. Run 'blastn' by itself to see what they are. Some of the most useful ones are `-evalue`.
