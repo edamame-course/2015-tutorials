@@ -71,7 +71,7 @@ unzip file.
 tar -zxvf Blast_Tutorial.tar.gz
 ```
 
-Let's move into the directory
+Let's navigate into the directory
 
 ```
 cd Blast_Tutorial
@@ -111,12 +111,9 @@ ls
 
 You may notice that there are 3 files that were generated.
 
-My16sAmplicon.nhr
+My16sAmplicon.nhr, My16sAmplicon.nin, My16sAmplicon.nsq
 
-My16sAmplicon.nin
-
-My16sAmplicon.nsq
-
+BLAST use this 3 files to make search efficiently.
 
 Just a reminder:
 
