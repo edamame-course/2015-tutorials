@@ -47,14 +47,14 @@ If you have BLAST installed and in your path (BLAST may be installed but not in 
 
 If you don't have BLAST, then you will need to install it.
 
-## Installing BLAST
+## Step 1: Installing BLAST
 To install the BLAST software, type this:
 
 ```
 sudo apt-get install ncbi-blast+
 ```
 
-## Download the databases
+## Step 2: Download the databases
 Now, we can't run BLAST without downloading the databases. Let's start by doing a BLAST of some sequences from an environmental sequencing project (not telling you from what yet). For this you'll need the nt db.  This, like a lot of NCBI databases is huge, so I don't suggest putting this on your laptop unless you have a lot of room.  It's best on a larger computer (HPCC, Amazon machine, that you have access to).  I wouldn't install this database unless you know you have room on your computer. Let's download small part of database for tutorial.
 
 Use curl to retrieve database and the file that we use today:
@@ -86,8 +86,11 @@ ls -l
 Let me tell you what are the file.
 
 MyQuery.txt : This will be used for query
+
 Refsoil16s.fa : You can use this for exercise as a database
+
 rep_set.fna : We well use this for database. This is the same file that we create from qiime tutorial.  
+
 rep_set_sub.fna : You can use this for exercise as a query
 
 Database files are large files, but let's use something small for this tutorial.
@@ -109,7 +112,9 @@ ls
 You may notice that there are 3 files that were generated.
 
 My16sAmplicon.nhr
+
 My16sAmplicon.nin
+
 My16sAmplicon.nsq
 
 
@@ -118,7 +123,7 @@ Just a reminder:
 1. UNIX generally doesn't care what the file is called, so '.fna' and '.fa' are all the same to it. 
 2. UNIX utilities work well with text files, and almost everything you'll encounter is a basic text file. This is different from Windows and Mac, where more complicated formats are used that can't be as easily dealt with on UNIX.
 
-
+## Step 3: Run BLAST
 Now try a BLAST: You need a file that have your query in. Here is your query looks like.
 
 ```
@@ -140,7 +145,7 @@ First, you can scroll up in your terminal window to look at the output.
 Second, you can save the output to a file:
 
 ```
-blastn -db bacteriaRef -query  bacteria.307.rna.fna -out out.txt
+blastn -db My16sAmplicon -query MyQuery.txt -out out.txt
 ```
 
 and then use 'less' to look at it:
@@ -152,14 +157,24 @@ less out.txt
 and third, you can pipe it directly to less, by which I mean you can send all of the output to the 'less' command without saving it to a file:
 
 ```
-blastn -db bacteriaRef -query  bacteria.307.rna.fna | less
+blastn -db My16sAmplicon -query MyQuery.txt | less
 ```
 
 Sometimes tabular form (output format) is useful. To get the result in tabular form,
 
 ```
-blastn -db bacteriaRef -query  bacteria.307.rna.fna -out outtabular.txt -outfmt 6
+blastn -db My16sAmplicon -query MyQuery.txt -out outtabular.txt -outfmt 6
 ```
+
+## Excercise
+
+Let's try to search Reference Soil database using a your 16s amplicon query.
+
+1. Make Reference Soil database
+Here is the fasta format of reference soil. : RefSoil16s.fa
+
+2. Search using a sample 16s amplicon query
+You can use this sample query: MyQuery.txt
 
 ## Different BLAST options
 BLAST has lots and lots and lots of options. Run 'blastn' by itself to see what they are. Some of the most useful ones are `-evalue`.
