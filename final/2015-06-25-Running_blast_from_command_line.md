@@ -57,13 +57,6 @@ sudo apt-get install ncbi-blast+
 ## Download the databases
 Now, we can't run BLAST without downloading the databases. Let's start by doing a BLAST of some sequences from an environmental sequencing project (not telling you from what yet). For this you'll need the nt db.  This, like a lot of NCBI databases is huge, so I don't suggest putting this on your laptop unless you have a lot of room.  It's best on a larger computer (HPCC, Amazon machine, that you have access to).  I wouldn't install this database unless you know you have room on your computer. Let's download small part of database for tutorial.
 
-To make our life easy, let's make a directory and work in there.
-
-```
-mkdir BLAST
-cd BLAST
-```
-
 Use curl to retrieve database and the file that we use today:
 
 ```
@@ -76,6 +69,12 @@ unzip file.
 
 ```
 tar -zxvf Blast_Tutorial.tar.gz
+```
+
+Let's move into the directory
+
+```
+cd Blast_Tutorial
 ```
 
 Now you've got these files. How big are they?
@@ -101,23 +100,37 @@ makeblastdb -in rep_set.fna -dbtype nucl -out My16sAmplicon
 
 The -in parameter gives the name of the database, the -out parameter says "save the results", and the -dbtype parameter says "what type of the database". For DNA, you'd want to use '-dbtype nucl'. FYI, for protein, '-dbtype prot'.
 
-Before we start a BLAST of all of our sequences, we need to make sure our blast is working.  To do this, we want to start with something small. To make our life easy, let's use one small part of the sequences as a query:
-Let's see what we want to blast today.
+Let's see how BLAST database looks like
 
 ```
-cat bacteria.307.rna.fna
+ls
 ```
+
+You may notice that there are 3 files that were generated.
+
+My16sAmplicon.nhr
+My16sAmplicon.nin
+My16sAmplicon.nsq
 
 
 Just a reminder:
 
-1. UNIX generally doesn't care what the file is called, so '.faa' and '.fa' are all the same to it. 
+1. UNIX generally doesn't care what the file is called, so '.fna' and '.fa' are all the same to it. 
 2. UNIX utilities work well with text files, and almost everything you'll encounter is a basic text file. This is different from Windows and Mac, where more complicated formats are used that can't be as easily dealt with on UNIX.
 
-Now try a BLAST:
+
+Now try a BLAST: You need a file that have your query in. Here is your query looks like.
 
 ```
-blastn -db bacteriaRef -query  bacteria.307.rna.fna
+cat MyQuery.txt
+```
+
+We have 4 bacteria and 5 fungi.
+
+Now BLAST. We use blastn because we will search nucleotide database using a nucleotide query.
+
+```
+blastn -db My16sAmplicon -query MyQuery.txt
 ```
 
 You can do three things at this point.
