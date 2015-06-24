@@ -175,7 +175,7 @@ Hint: Here is the fasta format of reference soil. : RefSoil16s.fa
 
 2. Search using a sample 16s amplicon query
 
-Hint: You can use this sample query: MyQuery.txt
+Hint: You can use this sample query: rep_set_sub.fna
 
 ## Different BLAST options
 BLAST has lots and lots and lots of options. Run 'blastn' by itself to see what they are. Some of the most useful ones are `-evalue`.
