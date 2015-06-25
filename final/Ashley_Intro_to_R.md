@@ -16,8 +16,8 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 * Use the vegan package to calculate resemblances
 * Visualize comparative diversity using heatmaps and ordinations
 * Export tables from R.
+***
 
-***R tutorial
 
 ###1. Fast Introduction to R: formatting files and reading in tables 
 Create a new directory for R analyses, above the Manduca_raw_data directory. This is helpful to keep analyses separate, and to not accidentally alter the output files from QIIME that you may be using repeatedly for various analyses. copies into the new directory: 
@@ -39,8 +39,11 @@ Hints for sorting a resemblance matrix in Excel:
 
 Open R, and if you haven't already, install the vegan package for community ecology. On a Mac, this is down by going to the menu bar, Tools -> Install packages. Select the box to also install dependencies (dependencies = existing packages/functions that vegan needs to execute some of its functions) 
 Note: Here is a link to info about the vegan package: http://vegan.r-forge.r-project.org/ 
-Then, to load the functions of the vegan package into your current R environment, in the R console and type: 
-> library(vegan)
+Then, to load the functions of the vegan package into your current R environment, in the R console and type:
+```
+library(vegan)
+```
+
 Now, change directory to the one that you just created. On the Mac menu bar, select Tools -> Set working directory -> Choose directory. 
 Or, if you are using R Studio, navigate to the lower right panel, click on the "Files" tab, and the click on the top right-hand side "..." button (below the refresh arrow, see below), to browse to the correct directory. Then click on the "More" tab, and select "set as working directory." 
 Or, you could use the "setwd()" command in the console. Lots of options. Now, we will use our OTU table to calculate two other resemblance matrices using functions from the vegan package. 
@@ -85,8 +88,11 @@ Get into the habit of checking your tables to make sure they match your expectat
 Note: If for any reason your expectations of your own dataset are not met, check formatting of the input files. In my experience, formatting issues are the number one reason for errors. 
 Read in the mapping file and use the "attach" function to link the information to the OTU table. But, there is some formatting that we must do first. First, open the file and remove the "#" on the first line, but maintain the column name "SampleID". The “#” indicates to R to ignore the row, which is needed in QIIME but NOT needed in R because we want to use the column names to sort our contextual data. 
 Second, ensure the samples are in the same order across files. The R analyses described below only work if the samples are in the same order across files! 
-Third, remember that there was one sample, KM43 that had low sequences and was omitted from the final OTU table. We need to omit it from the map file also. 
-> map=read.table("Manduca_map_sorted.txt", header=TRUE, sep="\t")
+Third, remember that there was one sample, KM43 that had low sequences and was omitted from the final OTU table. We need to omit it from the map file also.
+```
+map=read.table("Manduca_map_sorted.txt", header=TRUE, sep="\t")
+```
+
 For the next step, we will remove the ConsensusLineage labels from the table, as we do not need them at the moment. We do this by first calling the labels as a vector, rdp, and then removing the whole column (column 77) from the table. Now, we have a vector of taxonomic assignments called rdp, plus a "classic" sparse OTU table, called otu. You can use your R workspace browser (upper right window in R studio) to keep track of the objects you have in your R environment, and their dimensions.
 ``` 
 rdp=otu[,ncol(otu]
@@ -101,14 +107,14 @@ We will use the vegdist function to calculate a Bray-Curtis and a Sørenson rese
 braycurtis.d=vegdist(t(otu), method="bray")
 
 head(braycurtis.d)
-``
-
-Now braycurtis.d is the name of our new resemblance matrix. I use the .d ending to remind myself that it is a resemblance matrix. R sees a resemblance matrix as something different than a table or data frame, as it sees the otu table. Instead, R sees a very long vector. That is why the "head()" command returns the first few values of a vector instead of a table with rows and columns. 
-Sorenson's similarity has the exact same calculations as bray-curtis, except that it does not weight species. Therefore, we make a Sorenson matrix using the exact same protocol, except that we set the binary argument to TRUE to tell R not to use the information about the taxa relative abundances in the OTU table. Compare the head of sorenson.d to that of braycurtis.d. 
-Note: Bray-Curtis can be calculated as a similarity or dissimilarity metric, but it is traditionally used as a dissimilarity, as it is in the vegan package. This means that the first two samples compared are 0.19 (%) dissimilar (or, 0.81 similar) using Bray-Curtis, but are 0.45 dissimilar (0.55 similar) using Sørenson. This is typical, as not using information about the relative contributions of taxa may make patterns become less apparent. UniFrac is also a metric of dissimilarity, so the same logic applies for their interpretation. 
 ```
-> sorenson.d=vegdist(t(otu), method="bray", binary=TRUE) 
-> head(sorenson.d)  
+
+Now 'braycurtis.d' is the name of our new resemblance matrix. I use the .d ending to remind myself that it is a resemblance matrix. R sees a resemblance matrix as something different than a table or data frame, as it sees the otu table. Instead, R sees a very long vector. That is why the 'head()' command returns the first few values of a vector instead of a table with rows and columns. 
+Sorenson's similarity has the exact same calculations as bray-curtis, except that it does not weight species. Therefore, we make a Sorenson matrix using the exact same protocol, except that we set the binary argument to TRUE to tell R not to use the information about the taxa relative abundances in the OTU table. Compare the head of sorenson.d to that of braycurtis.d. 
+Note: Bray-Curtis can be calculated as a similarity or dissimilarity metric, but it is traditionally used as a dissimilarity, as it is in the vegan package. As an example, it could be that  two samples  are 0.19 (%) dissimilar (or, 0.81 similar) using Bray-Curtis, but can be 0.45 dissimilar (0.55 similar) using Sørenson. This is typical, as not using information about the relative contributions of taxa may make patterns become less apparent. UniFrac is also a metric of distnace, so the same logic applies for their interpretation. 
+```
+sorenson.d=vegdist(t(otu), method="bray", binary=TRUE) 
+head(sorenson.d)  
 ```
    
 Now, we read in the UniFrac resemblance matrices made in QIIME. When we read them into the R environment, R recognizes them as tables. We use the `as.dist()` command to let R know that these are resemblance matrices. Run the command lines one at a time, and inspect the head of each object as you go along. We name the new resemblance matrices “weighted_u.d” and “unweighted_u.d”
@@ -143,7 +149,11 @@ braycurtis.mds <- metaMDS(braycurtis.d)
 
 plot(braycurtis.mds, type="t")
 ```
-We apply metaMDS to all of the resemblance matrices and compare them by dividing the plot space into 2 rows and 2 columns with the par() command. Inspect the plots- zoom in if you like. How are they different? How do unweighted metrics (Sørenson, unweighted UniFrac) differ in pattern from weighted metrics (Bray-Curtis, weighted UniFrac)? How do phylogenetic metrics (weighted UniFrac, unweighted UniFrac) differ in pattern from taxonomic matrics (Bray-Curtis, Sørenson)?  What does this tell us about the relative importance of ecological characteristics of our communities in determining the overarching patterns we observe?
+We apply metaMDS to all of the resemblance matrices and compare them by dividing the plot space into 2 rows and 2 columns with the par() command. Inspect the plots- zoom in if you like. 
+Questions to ponder:
+_How are they different? How do unweighted metrics (Sørenson, unweighted UniFrac) differ in pattern from weighted metrics (Bray-Curtis, weighted UniFrac)?_
+_How do phylogenetic metrics (weighted UniFrac, unweighted UniFrac) differ in pattern from taxonomic matrics (Bray-Curtis, Sørenson)?_ 
+_What does this tell us about the relative importance of ecological characteristics of our communities in determining the overarching patterns we observe?_
 ```
 sorenson.mds=metaMDS(sorenson.d)
 weighted_u.mds=metaMDS(weighted_u.d)
@@ -183,10 +193,9 @@ ad=adonis(braycurtis.d~Treatment, data=map, permutations=999)
 a.table=ad$aov.tab
 ```
 
-Inspect a.table. Is the global effect of Treatment significant?
+Inspect a.table. _Is the global effect of Treatment significant?_
 
-####6.2 Permuted multivariate analysis of beta-dispersion (PERMDISP) The vegan function `betadisper()` performs PERMDISP. This test is different from the others in 
-that it specifically tests for differences in the spread (dispersion, variability) among groups. 
+####6.2 Permuted multivariate analysis of beta-dispersion (PERMDISP) The vegan function `betadisper()` performs PERMDISP. This test is different from the others in that it specifically tests for differences in the spread (dispersion, variability) among groups.   
    
 Therefore, if you use this test in combination with one of the other three, you will be able to tease apart whether groups of communities are different because they have different centroids or different spreads. For example, if PERMANOVA yields a significant difference, but PERMDISP does not, you can safely say that the distinction between groups can be attributed to differences in their centroid. Ordinations are often a good way to visually support and summarize these findings. 
 ```
