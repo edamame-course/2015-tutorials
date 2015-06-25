@@ -210,10 +210,11 @@ Fill in the chart as you go:
 | ------------- |:-------------:| :-----:|
 | 15:00     | Check in after 3 pm | Front Desk at McCrary Dining Hall |
 
-|_Test_|Sorenson|Bray-Curtis|Weighted UniFrac|Unweighted UniFrac|
-| :------------- :|:-------------:| :-----:|:-----:| :-----:|
-|PERMANOVA (adonis)|R2 =, p = | R2 =, p = | R2 =, p = | R2 =, p = |
-|PERMDISP|Global p = , list significant pairwise differences | Global p = , list significant pairwise differences | Global p = , list significant pairwise differences | Global p = , list significant pairwise differences |
+
+|_Test_| Sorenson | Bray-Curtis | Weighted UniFrac | Unweighted UniFrac |
+| :------------:|:-------------: | :-----: | :-----: | :-----: |
+| PERMANOVA (adonis)|R2 =, p = | R2 =, p = | R2 =, p = | R2 =, p = |
+| PERMDISP|Global p = , list significant pairwise differences | Global p = , list significant pairwise differences | Global p = , list significant pairwise differences | Global p = , list significant pairwise differences |
 
 ####6.3  How reproducible are replicates samples? 
 In answering this question, we will also introduce how to use loops in R. Loops are a useful way to prevent yourself from doing tedious, repetitive calculations. Here, we write a loop to examine the reproducibility across replicates. Details for each step in the loop are provided in the R script. In the end, we plot the results to find that there is quite a bit of variability between some of the replicate samples.   
