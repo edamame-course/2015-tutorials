@@ -5,7 +5,7 @@ date: null
 category: tutorial
 tags: []
 ---
-##Digital Normalization (DigiNorm)
+##Digital Normalization 
 
 Authored by Joshua Herr with contribution from Jackson Sorensen for EDAMAME2015     
 
