@@ -205,11 +205,7 @@ b=betadisper(braycurtis.d, group=map[,"Treatment"], type="median") >b > b.pe
 
 b.perm 
 ```
-Fill in the chart as you go:
-| Time       | Activity        | Location  |
-| ------------- |:-------------:| :-----:|
-| 15:00     | Check in after 3 pm | Front Desk at McCrary Dining Hall |
-
+Fill in the chart as you finish the tests:
 
 |_Test_| Sorenson | Bray-Curtis | Weighted UniFrac | Unweighted UniFrac |
 | :------------:|:-------------: | :-----: | :-----: | :-----: |
