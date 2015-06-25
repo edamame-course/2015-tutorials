@@ -187,7 +187,8 @@ Welcome back! Open R studio and change directory to the analysis folder that y
 2.	Read in the Bray-Curtis and Sørenson resemblance matrices. Tell R that these are resemblance matrices.  
 We will go through the hypothesis tests with the Bray-Curtis resemblance, and then you can go then you will work through the remaining Sørenson, weighted UniFrac, and unweighted UniFrac on your own. Make a table of results and compare across tests and across resemblance metrics. 
 
-####6.1 PERMANOVA (permuted analysis of variance) The vegan function `adonis()` performs permutated analysis of variance to test for differences (in centroid and/or dispersion) between treatment groups. The algorithm acts on the resemblance matrix, and links it to Treatment groups through the map file. We set it up exactly like the ANOVA, and the output is an ANOVA table, which we call a.table: 
+####6.1 PERMANOVA (permuted analysis of variance)   
+The vegan function `adonis()` performs permutated analysis of variance to test for differences (in centroid and/or dispersion) between treatment groups. The algorithm acts on the resemblance matrix, and links it to Treatment groups through the map file. We set it up exactly like the ANOVA, and the output is an ANOVA table, which we call a.table: 
 ```
 ad=adonis(braycurtis.d~Treatment, data=map, permutations=999)
 
@@ -196,7 +197,8 @@ a.table=ad$aov.tab
 
 Inspect a.table. _Is the global effect of Treatment significant?_
 
-####6.2 Permuted multivariate analysis of beta-dispersion (PERMDISP) The vegan function `betadisper()` performs PERMDISP. This test is different from the others in that it specifically tests for differences in the spread (dispersion, variability) among groups.   
+####6.2 Permuted multivariate analysis of beta-dispersion (PERMDISP)   
+The vegan function `betadisper()` performs PERMDISP. This test is different from the others in that it specifically tests for differences in the spread (dispersion, variability) among groups.   
    
 Therefore, if you use this test in combination with one of the other three, you will be able to tease apart whether groups of communities are different because they have different centroids or different spreads. For example, if PERMANOVA yields a significant difference, but PERMDISP does not, you can safely say that the distinction between groups can be attributed to differences in their centroid. Ordinations are often a good way to visually support and summarize these findings. 
 ```
@@ -207,7 +209,6 @@ b.perm
 Fill in the chart as you go:
 ||Sorenson|Bray-Curtis|Weighted UniFrac|Unweighted UniFrac|
 | :------------- :|:-------------:| :-----:|:-----:| :-----:|
-
 |PERMANOVA (adonis)|R2 =, p = | R2 =, p = | R2 =, p = | R2 =, p = |
  |PERMDISP|Global p = , list significant pairwise differences | Global p = , list significant pairwise differences | Global p = , list significant pairwise differences | Global p = , list significant pairwise differences |
 
