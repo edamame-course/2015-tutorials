@@ -36,7 +36,7 @@ We'll be using a tool which is not aware of paired-end reads. This is fine as th
 
 ## Quality Trimming Your Sequence Data
 
-1.  Start a ```m1.xlarge``` machine from Amazon Web Services running the EDAMAME AWS ami (insert ami here).  This instance has about 15 GB of RAM, and 2 CPUs, and should be enough to complete the assembly of the example data set we will use.
+1.  Start a ```m3.large``` machine from Amazon Web Services running the EDAMAME-2015 AWS ami (ami-af04f2c4).  This instance has about 8 GB of RAM, and 2 CPUs, and should be enough to complete the assembly of the example data set we will use.
 
 **Note:** One of the issues with processing whole genome shotgun data is how long it takes for the computer to process many steps of the workflow.  This can be time consuming and you should consider using ```screen``` or ```tmux``` to ensure that an internet connection issue does not cause you to lose your workflow progress.
 
