@@ -5,6 +5,8 @@ date: null
 category: tutorial
 tags: []
 ---
+##Digital Normalization (DigiNorm)
+
 Authored by Joshua Herr with contribution from Jackson Sorensen for EDAMAME2015     
 
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
