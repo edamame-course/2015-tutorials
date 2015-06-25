@@ -143,8 +143,8 @@ heatmap.2(t(otu), trace="none",col=colors)
 
 Inspect the plot. Zoom in if you can, as it may be hard to distinguish the sample IDs and the OTU IDs because the dataset is large. The default heatmap.2 algorithm clusters samples that have similar compositions, and also OTUs that have similar abundances and occurrence patterns. However, remember that these OTUs vary widely in their abundances, and so similarly abundant OTUs will cluster together. Futhermore, because most of the OTUs in the dataset are in low abundance (rare), most of the heatmap is white, meaning that these OTUs have values close to zero.
 
-####4.2 Ordination in R We will use the metaMDS function to apply non-metric multidimensional scaling analysis to ordinate our data. NMDS is a robust method that makes few assumptions about the data, so it is a good "default" choice for ordination in the absence of any other information. When 
-plotting, we set `type = t` to show the sample IDs. 
+####4.2 Ordination in R   
+We will use the metaMDS function to apply non-metric multidimensional scaling analysis to ordinate our data. NMDS is a robust method that makes few assumptions about the data, so it is a good "default" choice for ordination in the absence of any other information. When plotting, we set `type = t` to show the sample IDs. 
 ```
 braycurtis.mds <- metaMDS(braycurtis.d)
 
