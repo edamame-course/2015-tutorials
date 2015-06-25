@@ -16,6 +16,7 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 * Use the vegan package to calculate resemblances
 * Visualize comparative diversity using heatmaps and ordinations
 * Export tables from R.
+
 ***
 
 
