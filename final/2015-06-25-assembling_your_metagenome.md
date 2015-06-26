@@ -110,18 +110,43 @@ Maximum length: 234281
 
 Megahit actually runs numerous iterations of assemblies. Here we are looking at the last iteration and the number of contigs and total length of that iteration of the assembly. Later, we will be using QUAST to calculate all of our assembly stats.  There may be some odd terminology in some of the log file, [see this wiki for more information on terminology arising from the Celera Assembler](http://wgs-assembler.sourceforge.net/wiki/index.php/Celera_Assembler_Terminology) (the first assembly program designed for the Human Genome Project)
 
-I'm sure you're wondering just how much of our input sequencing actually assembled here?  Well, we have to run some stats on our original input files.  Let's use the handy [fastx-toolkit](http://hannonlab.cshl.edu/fastx_toolkit/), which is already installed on the EDAMAME ami.  
+## Calculating summary statistics for our Metagenome assembly, using QUAST. 
 
-Let's get some more stats on our assembly:
+Quast is a program that will calculate some statistics about our metagenome assembly to give us an idea how well it assembled. Again, we do need to quickly install Quast and one of its dependencies so we can get it running on our machine. This shouldn't take very long. Copy each of the following lines of code one line at a time to install Quast.
 
 ```
-fastx_quality_stats -i *.qc.fastq.keep.abundfilt > trimmed_data.txt
-
-fastx_quality_stats -i ./megahit_assembly/final.contigs.fa > assembly.txt
+sudo apt-get install python-matplotlib
+cd ~
+wget https://downloads.sourceforge.net/project/quast/quast-2.3.tar.gz
+tar xzvf quast-2.3.tar.gz
+cd quast-2.3
 ```
 
-You can print this to screen, but we'll send it to two files which will be tab-separated values files of some statistics of our files.
+Let's run a quick test to ensure quast is working. 
+```
+python metaquast.py --test
+```
 
-You should keep in mind that the total dataset we started with consisted of 4.9854 x 10e9 bases of data, which means we only assembled 5.74% of our total reads.  This is not a bad number, but it will give you an idea of what you are up against.
-
-Next, we'll try to focus in on a few of our contigs to see if we can "stitch" them together into real genomes.
+The test should run fairly quickly and not shoot any warning or nonfatal errors. 
+Now we can take a look at our assembly using QUAST. **From the ~/quast-2.3 directory** run the following line of code. 
+```
+python metaquast.py -o ~/EDAMAME_MG/megahit_assembly ~/EDAMAME_MG/megahit_assembly/final.contigs.fa 
+```
+Once QUAST has finished running, change into the quast_output directory and use `ls` to take a look at all of the files it created. Use `less` to examine the `report.txt` file. 
+```
+Assembly                   final.contigs
+# contigs (>= 0 bp)        33174        
+# contigs (>= 1000 bp)     1842         
+Total length (>= 0 bp)     22158177     
+Total length (>= 1000 bp)  2184708      
+# contigs                  33174        
+Largest contig             2620         
+Total length               22158177     
+GC (%)                     58.93        
+N50                        647          
+N75                        560          
+L50                        13442        
+L75                        22678        
+# N's per 100 kbp          0.00
+```
+  
