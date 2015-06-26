@@ -31,6 +31,10 @@ prokka --outdir CentraliaMG_Prokka New_Headers.fa
 Make sure that you do not have a directory called "CentraliaMG_Prokka" before running this script as prokka will fail if you do. Once prokka finishes, it will output 11 files in total. You can find out more about each of these output files from the prokka paper [here](http://bioinformatics.oxfordjournals.org/content/30/14/2068.long). 
 
 #Resources and help
+## General bioinformatic help
+- [BioStars](https://www.biostars.org/)
+- [SeqAnswers](http://seqanswers.com/)
+- 
 ## Pierre Lindebaum
 - [Blog](http://plindenbaum.blogspot.com/)
 - [awk script](https://www.biostars.org/p/53212/)
