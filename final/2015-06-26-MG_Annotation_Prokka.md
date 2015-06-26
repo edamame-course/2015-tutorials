@@ -33,8 +33,8 @@ Make sure that you do not have a directory called "CentraliaMG_Prokka" before ru
 #Resources and help
 ## General bioinformatic help
 - [BioStars](https://www.biostars.org/)
-- [SeqAnswers](http://seqanswers.com/)
-- 
+- [SeqAnswers](http://seqanswers.com/)   
+
 ## Pierre Lindebaum
 - [Blog](http://plindenbaum.blogspot.com/)
 - [awk script](https://www.biostars.org/p/53212/)
