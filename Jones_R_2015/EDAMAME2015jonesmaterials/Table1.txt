@@ -1,0 +1,6 @@
+"Sample1"	"Sample2"	"Sample3"	"Sample4"
+"OTU1"	25	80	60	90
+"OTU2"	25	0	5	0
+"OTU3"	25	0	5	0
+"OTU4"	25	0	0	0
+"OTU5"	0	20	30	10
