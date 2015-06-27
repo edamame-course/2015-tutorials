@@ -181,9 +181,44 @@ Hint: You can use this sample query: rep_set_sub.fna
 BLAST has lots and lots and lots of options. Run 'blastn' by itself to see what they are. Some of the most useful ones are `-evalue`.
 
 If you want to search protein, use 'blastp' instead of 'blastn'. 'blastx', 'tblastn', 'tblastx' also available.
+
+alignment view options:
+
+0 = pairwise,
+
+1 = query-anchored showing identities,
+
+2 = query-anchored no identities,
+
+3 = flat query-anchored, show identities,
+
+4 = flat query-anchored, no identities,
+
+5 = XML Blast output,
+
+6 = tabular,
+
+7 = tabular with comment lines,
+
+8 = Text ASN.1,
+
+9 = Binary ASN.1
+
+10 = Comma-separated values
+
+11 = BLAST archive format (ASN.1)
+
 ***
 ##Help and other resources
-* [Manual of Blast+]( http://www.ncbi.nlm.nih.gov/books/NBK279690/)
+* [Manual of Blast+](http://www.ncbi.nlm.nih.gov/books/NBK279690/)
+
+* [FTP link for RefSeq DB](ftp://ftp.ncbi.nlm.nih.gov/refseq/release/)
+
+* [RefSeq site](http://www.ncbi.nlm.nih.gov/refseq/)
+
+* [HMP site](http://www.hmpdacc.org)
+
+* [Stript for get the best hit from BLAST search in tabular form](https://github.com/metajinomics/Get_best_hit_blast_tabular)
 
 -----------------------------------------------
 -----------------------------------------------
