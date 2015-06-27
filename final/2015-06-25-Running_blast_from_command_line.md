@@ -212,7 +212,7 @@ alignment view options:
 ##Help and other resources
 * [Manual of Blast+](http://www.ncbi.nlm.nih.gov/books/NBK279690/)
 
-* [FTP link for RefSeq DB](ftp://ftp.ncbi.nlm.nih.gov/refseq/release/)
+* FTP link for RefSeq DB : ftp://ftp.ncbi.nlm.nih.gov/refseq/release/
 
 * [RefSeq site](http://www.ncbi.nlm.nih.gov/refseq/)
 
