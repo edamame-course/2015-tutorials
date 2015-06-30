@@ -7,7 +7,7 @@ Authored by Siobhan Cusack for EDAMAME 2015
 EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-tutorials/blob/master/LICENSE.md). _Share, adapt, and attribute please!_
 ***
 
-When using a pipeline such as QIIME, you may want to change the default parameters of a given script. To do this, you will need to create a parameters file. QIIME has a good overview of parameters files [here](http://qiime.org/documentation/qiime_parameters_files.html).
+When using a pipeline such as QIIME, you may want to change the default parameters of a script. To do this, you will need to create a parameters file. QIIME has a good overview of parameters files [here](http://qiime.org/documentation/qiime_parameters_files.html).
 
 As an example, when using [pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html), I may want to change the OTU cutoff to 99% instead of the default 97%. Let's try this.
 
