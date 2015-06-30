@@ -55,14 +55,14 @@ Now we're going to run pick_open_reference OTUs with our new parameters file fro
 ```
 pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref_99/ -f -p poro_parameters.txt
 ```
-Once it finishes running, inspect the log file using more. 
+Once it finishes running, inspect the log file using ```more```. 
 
 ![img3](../img/similarity_99.jpg)
 
 That's it! You can now change the OTU cutoff to anything your heart desires!
 
 
-Now for something more complicated; say I want to change the database used for clustering and aligning. We'll use Silva because a lot of you probably want to use it.
+Now for something more complicated; say I want to change the database used for clustering and aligning. We'll use Silva because it's well-curated.
 Go to Silva's [download page](http://www.arb-silva.de/no_cache/download/archive/qiime/), and click Silva_108_release_curated.tgz.
 
 Save this in a place where you can find it, like the desktop, use scp to transfer the file to your Amazon instance, stick it in the home directory, and unzip it:
