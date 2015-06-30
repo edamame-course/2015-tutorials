@@ -30,26 +30,27 @@ map.txt
 
 The phylogenetic resemblance matrices: 
 Make copies of the following files, and move them to your R working directory. 
-Open each of these files in Excel and sort them by SAMPLE IDs so that every sample is in the same order. You will have to sort both rows and columns for the resemblance matrices. Also, because the samples IDs do not have the same length, they will not be in consecutive order (e.g., KM1, KM10, KM11... instead of KM1, KM2, KM3). This is okay, as long as all of the samples are in the same order in each file. Save the files with "_sorted" appended to their names in the same directory. 
+Open each of these files in Excel and sort them by SAMPLE IDs so that every sample is in the same order. You will have to sort both rows and columns for the resemblance matrices. Also, if the samples IDs do not have the same character length, they will not be in consecutive order. This is okay, as long as all of the samples are in the same order in each file.  
 
 Hints for sorting a resemblance matrix in Excel: 
-1.	Sort by Rows. Highlight all of the data EXCEPT for the first column (which contains row  IDs). From the excel Menu, select Data -> Sort. Click on the Bottom Left button "Sort Options." Select "sort left to right." Select OK. Select "Sort by Row 1". Click okay. Cells should be sorted left to right, starting with sample KM1 in the upper left.  
-2.	Sort by Columns. Highlight all of the data. From the Excel Menu, select Data -> Sort. Click on the bottom left button "Sort options". Select "Sort top to bottom". Select OK. At the bottom of the box select "Header row." At the top of the box select "(Column A"). Select OK. Cells should be sorted from top to bottom.  
-3.	Check that the diagonal is ZERO. If so, you have sorted effectively!  
+1.	Sort by Rows. Highlight all of the data EXCEPT for the first column (which contains row  IDs). From the excel Menu, select Data -> Sort. Click on the Bottom Left button "Sort Options." Select "sort left to right." Select OK. Select "Sort by Row 1". Click okay. Cells should be sorted left to right.   
+2.	Sort by Columns. Highlight all of the data. From the Excel Menu, select Data -> Sort. Click on the bottom left button "Sort options". Select "Sort top to bottom". Select OK. At the bottom of the box select "Header row." At the top of the box select "(Column A"). Select OK. Cells should be sorted from top to bottom.   
+3.	Sanity check:  Check that the diagonal is ZERO.  
 
 Open R, and if you haven't already, install the vegan package for community ecology. On a Mac, this is down by going to the menu bar, Tools -> Install packages. Select the box to also install dependencies (dependencies = existing packages/functions that vegan needs to execute some of its functions) 
-Note: Here is a link to info about the vegan package: http://vegan.r-forge.r-project.org/ 
+Note: Here is a [link](http://vegan.r-forge.r-project.org/) to info about the vegan package. 
 Then, to load the functions of the vegan package into your current R environment, in the R console and type:
 ```
 library(vegan)
 ```
 
-Now, change directory to the one that you just created. On the Mac menu bar, select Tools -> Set working directory -> Choose directory. 
+Move into the  directory to the one that was just created. On the Mac menu bar, select Tools -> Set working directory -> Choose directory. 
 Or, if you are using R Studio, navigate to the lower right panel, click on the "Files" tab, and the click on the top right-hand side "..." button (below the refresh arrow, see below), to browse to the correct directory. Then click on the "More" tab, and select "set as working directory." 
-Or, you could use the "setwd()" command in the console. Lots of options. Now, we will use our OTU table to calculate two other resemblance matrices using functions from the vegan package. 
-First, we must read in the OTU table. Before R will accept the OTU table, we must do a little bit of formatting. Open the tab-delimited file in Excel (or, if you are using R Studio, you can open it there), and clear the "#OTU ID" cell. Then, save the file (make sure it is a tab-delimited txt file). The "#" tells R to skip reading the row, but this would remove our sample names and cause an error with analysis. Then, we will read the table into R using the "read.table()" command. We name the table "otu" : this makes it easy to call in R. 
+Or, you could use the "setwd()" command in the console. Lots of options!   
+Now, we will use our OTU table to calculate two resemblance matrices using functions from the vegan package.   
+First, we must read in the OTU table. Before R will accept the OTU table, we must do a little bit of formatting. Open the tab-delimited file in Excel (or, if you are using R Studio, you can open it there), and clear the "#OTU ID" cell. Then, save the file (make sure it is a tab-delimited txt file). The "#" tells R to skip reading the row, but this would remove our sample names and cause an error with analysis. Then, we will read the table into R using the `read.table()` command. We name the table "otu" : this makes it easy to call in R.   This table should have an even number of sequences per observation (evenly-subsampled); otherwise, community comparisons are invalid because of differences in sampling effort across observations.    
 ```
-otu=read.table("Manduca_otu_table_even861_sorted.txt", header=TRUE, row.names=1, sep="\t", check.names=FALSE)
+otu=read.table("data_even.txt", header=TRUE, row.names=1, sep="\t", check.names=FALSE)
 ```
 
 Then, use the `head()` command to view the top of otu. Check that the sample IDs, and the OTU IDs reasonable (sanity check!), and that the formatting seems okay:
@@ -85,15 +86,15 @@ Finally, we can check the dimensions of the table, to make sure that it is the s
 dim(otu)
 ```
 Get into the habit of checking your tables to make sure they match your expectations. Let's start with the columns. This should be the number of samples PLUS one column that has the taxonomic IDs (labeled "ConsensusLineage").  What about the rows?
-Note: If for any reason your expectations of your own dataset are not met, check formatting of the input files. In my experience, formatting issues are the number one reason for errors. 
-Read in the mapping file and use the "attach" function to link the information to the OTU table. But, there is some formatting that we must do first. First, open the file and remove the "#" on the first line, but maintain the column name "SampleID". The “#” indicates to R to ignore the row, which is needed in QIIME but NOT needed in R because we want to use the column names to sort our contextual data. 
+Note: If for any reason your expectations of your own dataset are not met, check formatting of the input files. In my experience, formatting issues are the number one reason for errors.   
+Read in the mapping file and use the "attach" function to link the information to the OTU table. But, there is some formatting that we must do first. First, open the file and remove the "#" on the first line, but maintain the column name "SampleID". The “#” indicates to R to ignore the row, which is needed in QIIME but NOT needed in R because we want to use the column names to sort our contextual data.   
 Second, ensure the samples are in the same order across files. The R analyses described below only work if the samples are in the same order across files! 
-Third, remember that there was one sample, KM43 that had low sequences and was omitted from the final OTU table. We need to omit it from the map file also.
+Third, remember that there was one sample, KM43 that had low sequences and was omitted from the final OTU table. We need to omit it from the map file also.   
 ```
 map=read.table("Manduca_map_sorted.txt", header=TRUE, sep="\t")
 ```
 
-For the next step, we will remove the ConsensusLineage labels from the table, as we do not need them at the moment. We do this by first calling the labels as a vector, rdp, and then removing the whole column (column 77) from the table. Now, we have a vector of taxonomic assignments called rdp, plus a "classic" sparse OTU table, called otu. You can use your R workspace browser (upper right window in R studio) to keep track of the objects you have in your R environment, and their dimensions.
+For the next step, we will remove the ConsensusLineage labels from the table, as we do not need them at the moment. We do this by first calling the labels as a vector, rdp, and then removing the whole column (column 77) from the table. Now, we have a vector of taxonomic assignments called rdp, plus a "classic" sparse OTU table, called otu. You can use your R workspace browser (upper right window in R studio) to keep track of the objects you have in your R environment, and their dimensions.   
 ``` 
 rdp=otu[,ncol(otu]
 names(rdp)=row.names(otu)
@@ -101,17 +102,17 @@ otu=otu[,-ncol(out)]
 dim(otu)
 ```
 
-###2. Beta diversity in R: making, reading in, and comparing resemblance matrices 
-We will use the vegdist function to calculate a Bray-Curtis and a Sørenson resemblance matrix from the OTU table. Navigate to the help window, and type in "vegdist()" to see the arguments for the function. We first need to transpose the OTU table using the "t()" command to have species in columns and samples in rows, just a formatting difference for the function - no big deal. It is easy to transpose the table directly inside the vegdist command. 
+###2. Comparative (beta) diversity in R: making, reading in, and comparing resemblance matrices 
+We will use the vegdist function to calculate a Bray-Curtis and a Sørenson resemblance matrix from the OTU table. Navigate to the help window, and type in `vegdist()` to see the arguments for the function. We first need to transpose the OTU table using the `t()` command to have species in columns and samples in rows, just a formatting difference for the function - no big deal. It is easy to transpose the table directly inside the vegdist command. 
 ```
 braycurtis.d=vegdist(t(otu), method="bray")
 
 head(braycurtis.d)
 ```
 
-Now 'braycurtis.d' is the name of our new resemblance matrix. I use the .d ending to remind myself that it is a resemblance matrix. R sees a resemblance matrix as something different than a table or data frame, as it sees the otu table. Instead, R sees a very long vector. That is why the 'head()' command returns the first few values of a vector instead of a table with rows and columns. 
-Sorenson's similarity has the exact same calculations as bray-curtis, except that it does not weight species. Therefore, we make a Sorenson matrix using the exact same protocol, except that we set the binary argument to TRUE to tell R not to use the information about the taxa relative abundances in the OTU table. Compare the head of sorenson.d to that of braycurtis.d. 
-Note: Bray-Curtis can be calculated as a similarity or dissimilarity metric, but it is traditionally used as a dissimilarity, as it is in the vegan package. As an example, it could be that  two samples  are 0.19 (%) dissimilar (or, 0.81 similar) using Bray-Curtis, but can be 0.45 dissimilar (0.55 similar) using Sørenson. This is typical, as not using information about the relative contributions of taxa may make patterns become less apparent. UniFrac is also a metric of distnace, so the same logic applies for their interpretation. 
+Now 'braycurtis.d' is the name of our new resemblance matrix. I use the .d ending to remind myself that it is a resemblance matrix. R sees a resemblance matrix as something different than a table or data frame, as it sees the otu table. Instead, R sees a very long vector. That is why the 'head()' command returns the first few values of a vector instead of a table with rows and columns.   
+Sorenson's similarity has the exact same calculations as Bray-Curtis, except that it does not weight species. Therefore, we make a Sorenson matrix using the exact same protocol, except that we set the binary argument to TRUE to tell R not to use the information about the taxa relative abundances in the OTU table. Compare the head of sorenson.d to that of braycurtis.d. 
+Note: Bray-Curtis can be calculated as a similarity or dissimilarity metric, but it is traditionally used as a dissimilarity, as it is in the vegan package. As an example, it could be that  two samples  are 0.19 (%) dissimilar (or, 0.81 similar) using Bray-Curtis, but can be 0.45 dissimilar (0.55 similar) using Sørenson. This is typical, as not using information about the relative contributions of taxa may make patterns become less apparent. UniFrac is also a metric of distance, so the same logic applies for their interpretation. 
 ```
 sorenson.d=vegdist(t(otu), method="bray", binary=TRUE) 
 head(sorenson.d)  
@@ -312,9 +313,9 @@ Do these results suggest a significant influence of space/time?
 
 As before, read in the Bray Curtis resemblance matrix, the OTU table, and the mapping file. Don't forget to assign the RDP column as "rdp" - we'll need these taxonomic IDs for today's analyses. 
 ```
-braycurtis=read.table("BrayCurtis_even861.txt", header=TRUE, row.names=1, sep="\t")
+braycurtis=read.table("BrayCurtis_even.txt", header=TRUE, row.names=1, sep="\t")
 braycurtis.d=as.dist(braycurtis)
- otu=read.table("Manduca_otu_table_even861_sorted.txt", header=TRUE, row.names=1,sep="\t", check.names=FALSE)
+ otu=read.table("data_even.txt", header=TRUE, row.names=1,sep="\t", check.names=FALSE)
 
 rdp=otu[,ncol(rdp)]
 
