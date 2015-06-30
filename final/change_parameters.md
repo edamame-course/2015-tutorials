@@ -21,7 +21,6 @@ curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/Q
 To make sure that the workflow script is running properly, it's a good idea to inspect the log file carefully. To get an idea of what the log file will look like when we use the default parameters, let's run it as we did in the QIIME tutorial.
 If you don't already have usearch installed, do that now:
 ```
-cd
 curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/usearch5.2.236_i86linux32
 curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/usearch6.1.544_i86linux32
 sudo cp usearch5.2.236_i86linux32 /usr/local/bin/usearch
@@ -29,7 +28,7 @@ sudo chmod +x /usr/local/bin/usearch
 sudo cp usearch6.1.544_i86linux32 /usr/local/bin/usearch61
 sudo chmod +x /usr/local/bin/usearch61
 ```
-Making sure you are in the directory containing the combined_seqs_smaller.fna file, run the following:
+In the home directory (containing the combined_seqs_smaller.fna file), run the following:
 
 ```
 pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref_97/ -f
