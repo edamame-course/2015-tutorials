@@ -34,7 +34,7 @@ In the home directory (containing the combined_seqs_smaller.fna file), run the f
 pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref_97/ -f
 
 ```
-This will take just a couple of minutes to run. Once it has finished, navigate into the usearch61_openref_97 directory and use more to inspect the log file fully.
+This will take just a couple of minutes to run. Once it has finished, navigate into the usearch61_openref_97 directory and use ```more``` to inspect the log file fully.
 
 [screenshot]
 
