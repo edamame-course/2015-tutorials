@@ -51,9 +51,9 @@ assign_taxonomy:id_to_taxonomy_fp  /home/ubuntu/qiime_software/gg_otus-12_10-rel
 ```
 Now exit and save the file. 
 
-The parameters file specifies to pick_open_reference_otus.py that when it gets to the pick_otus script, it should use a cutoff of 99% instead of 97%. It also specifies that when it gets to the assign_taxonomy script, it should use a file from QIIME that was created using a 99% rather than a 97% cutoff. 
+The parameters file specifies to the workflow script that when it gets to the pick_otus step, it should use a cutoff of 99% instead of 97%. It also specifies that when it gets to the assign_taxonomy step, it should use a file from QIIME that was created using a 99% rather than a 97% cutoff. 
 
-The format here is to specifies the script, the option, and the setting we want to use. It's similar to running a script with a flag (in the case of pick_otus here, "similarity" would be the flag) and the option that we would normally put after the flag goes after that. Important note: when making your parameters file, write out the script (without .py), then a colon, then the option, without any spaces. Then hit tab, and type your specification. The space between the option and your setting IS important.
+The format here is to specify the script, the option, and the setting we want to use. It's similar to running a script with a flag (in the case of pick_otus here, "similarity" would be the flag) and the option that we would normally put after the flag goes after that. Important note: when making your parameters file, write out the script (without .py), then a colon, then the option, without any spaces. Then hit tab, and type your specification. The space between the option and your setting IS important.
 
 No we're going to run pick_open_reference OTUs with our new parameters file.  
 
