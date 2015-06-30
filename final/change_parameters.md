@@ -38,7 +38,7 @@ This will take just a couple of minutes to run. Once it has finished, navigate i
 
 [screenshot]
 
-Navigate back to the directory containing the fna file and use nano to make a new file that we will put our parameter changes into.
+Navigate back to the home directory and use nano to make a new file that we will put our parameter changes into.
 
 ```
 nano parameters.txt
