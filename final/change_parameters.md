@@ -31,7 +31,7 @@ sudo chmod +x /usr/local/bin/usearch61
 In the home directory (containing the combined_seqs_smaller.fna file), run the following:
 
 ```
-pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref_97/ -f
+pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref_97/ -f
 
 ```
 This will take just a couple of minutes to run. Once it has finished, navigate into the usearch61_openref_97 directory and use ```more``` to inspect the log file fully.
@@ -58,7 +58,7 @@ The format here is to specifies the script, the option, and the setting we want 
 No we're going to run pick_open_reference OTUs with our new parameters file.  
 
 ```
-pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref/ -f -p parameters.txt
+pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref/ -f -p parameters.txt
 ```
 Once it finishes running, inspect the log file using more. 
 
