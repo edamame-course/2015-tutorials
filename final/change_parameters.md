@@ -50,7 +50,7 @@ The parameters file specifies to the workflow script that when it gets to the pi
 
 The format here is to specify the script, the option, and the setting we want to use. It's similar to running a script with a flag (in the case of pick_otus here, "similarity" would be the flag) and the option that we would normally put after the flag goes after that. Important note: when making your parameters file, write out the script (without .py), then a colon, then the option, without any spaces. Then hit tab, and type your specification. The space between the option and your setting IS important.
 
-Now we're going to run pick_open_reference OTUs with our new parameters file.  
+Now we're going to run pick_open_reference OTUs with our new parameters file from the home directory.  
 
 ```
 pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref_99/ -f -p poro_parameters.txt
