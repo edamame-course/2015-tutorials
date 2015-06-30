@@ -53,7 +53,7 @@ The format here is to specify the script, the option, and the setting we want to
 Now we're going to run pick_open_reference OTUs with our new parameters file.  
 
 ```
-pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref/ -f -p poro_parameters.txt
+pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref_99/ -f -p poro_parameters.txt
 ```
 Once it finishes running, inspect the log file using more. 
 
@@ -65,25 +65,18 @@ That's it! You can now change the OTU cutoff to anything your heart desires!
 Now for something more complicated; say I want to change the database used for clustering and aligning. We'll use Silva because a lot of you probably want to use it.
 Go to Silva's [download page](http://www.arb-silva.de/no_cache/download/archive/qiime/), and click the most recent release (Silva_104_release.tgz).
 
-Save this in a place where you can find it, like the desktop, use scp to transfer the file to your Amazon instance, and unzip it:
+Save this in a place where you can find it, like the desktop, use scp to transfer the file to your Amazon instance, stick it in the home directory, and unzip it:
 
 ```
 scp -i [your key file] Silva_104_release.tgz ubuntu@ec2-[your DNS]
-
+mv Silva_104_release.tgz /home/ubuntu
+cd /home/ubuntu
 tar -xvzf Silva_104_release.tgz
 
 ```
 This will generate a new directory called "silva_104". Navigate there and inspect the new files if you'd like to. 
 
-Now move the necessary files into the directory containing your fna file.
-
-```
-mv Silva_taxa_mapping_104set_97_otus.txt /home/ubuntu
-mv *.fasta /home/ubuntu
-cd /home/ubuntu
-
-```
-Navigate into the directory with these files and make a new parameters file.
+When you are ready to run the command, navigate back into the home directory and make a new parameters file.
 
 ```
 nano parameters_Silva.txt
@@ -101,7 +94,7 @@ assign_taxonomy:reference_seqs_fp   /home/ubuntu/silva_104/silva_104_rep_set.fas
 Exit and save the file, then run pick_open_reference_otus.py:
 
 ```
-pick_open_reference_otus.py -i combined_seqs.fna -m usearch61 -o usearch61_openref/ -f -p parameters_Silva.txt
+pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref_Silva/ -f -p parameters_Silva.txt
 
 ```
 Let it run, then inspect the log file to ensure that the correct database was used:
