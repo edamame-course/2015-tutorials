@@ -1,5 +1,6 @@
 ##Changing the default parameters in QIIME
 Authored by Siobhan Cusack for EDAMAME 2015
+
 [EDAMAME-2015 wiki](https://github.com/edamame-course/2015-tutorials/wiki)
 
 ***
