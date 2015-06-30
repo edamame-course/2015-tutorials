@@ -50,7 +50,7 @@ The parameters file specifies to the workflow script that when it gets to the pi
 
 The format here is to specify the script, the option, and the setting we want to use. It's similar to running a script with a flag (in the case of pick_otus here, "similarity" would be the flag) and the option that we would normally put after the flag goes after that. Important note: when making your parameters file, write out the script (without .py), then a colon, then the option, without any spaces. Then hit tab, and type your specification. The space between the option and your setting IS important.
 
-No we're going to run pick_open_reference OTUs with our new parameters file.  
+Now we're going to run pick_open_reference OTUs with our new parameters file.  
 
 ```
 pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref/ -f -p poro_parameters.txt
@@ -75,10 +75,13 @@ tar -xvzf Silva_104_release.tgz
 ```
 This will generate a new directory called "silva_104". Navigate there and inspect the new files if you'd like to. 
 
-Now move the necessary files into the directory containing your fna file. You can do this using:
+Now move the necessary files into the directory containing your fna file.
 
 ```
-mv *99* [your directory]
+mv Silva_taxa_mapping_104set_97_otus.txt /home/ubuntu
+mv *.fasta /home/ubuntu
+cd /home/ubuntu
+
 ```
 Navigate into the directory with these files and make a new parameters file.
 
