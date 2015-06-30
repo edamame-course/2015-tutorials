@@ -36,20 +36,15 @@ pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch
 ```
 This will take just a couple of minutes to run. Once it has finished, navigate into the usearch61_openref_97 directory and use ```more``` to inspect the log file fully.
 
-[screenshot]
+![img1](../img/similarity_97)
 
-Navigate back to the home directory and use nano to make a new file that we will put our parameter changes into.
+Navigate back to the home directory and grab the parameters file:
+```
+curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/poro_parameters.txt
+```
+Use nano to inspect the parameters file.
 
-```
-nano parameters.txt
-```
-This will open a new, empty file. Copy and paste the following into the new file:
-```
-pick_otus:similarity	0.99
-
-assign_taxonomy:id_to_taxonomy_fp  /home/ubuntu/qiime_software/gg_otus-12_10-release/taxonomy/99_otu_taxonomy.txt
-```
-Now exit and save the file. 
+![img2](../img/parameters.jpg)
 
 The parameters file specifies to the workflow script that when it gets to the pick_otus step, it should use a cutoff of 99% instead of 97%. It also specifies that when it gets to the assign_taxonomy step, it should use a file from QIIME that was created using a 99% rather than a 97% cutoff. 
 
@@ -58,11 +53,11 @@ The format here is to specify the script, the option, and the setting we want to
 No we're going to run pick_open_reference OTUs with our new parameters file.  
 
 ```
-pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref/ -f -p parameters.txt
+pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref/ -f -p poro_parameters.txt
 ```
 Once it finishes running, inspect the log file using more. 
 
-[screenshot]
+![img3](../img/similarity_99.jpg)
 
 That's it! You can now change the OTU cutoff to anything your heart desires!
 
