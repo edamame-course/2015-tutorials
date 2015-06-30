@@ -9,9 +9,9 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 
 When using a pipeline such as QIIME, you may want to change the default parameters of a given script. To do this, you will need to create a parameters file. QIIME has a good overview of parameters files [here](http://qiime.org/documentation/qiime_parameters_files.html).
 
-As an example, when using [pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html), I may want to change the OTU cutoff to 99% instead of the default 97%.
-To do this, I would create a parameters file to change the default of each individual script within the larger workflow script. That parameters file would look something like this:
-Log onto an EC2 instance and grab this combined_seqs_smaller.fna file, which is a file containing just a fraction of our full sequences for demonstration purposes:
+As an example, when using [pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html), I may want to change the OTU cutoff to 99% instead of the default 97%. Let's try this.
+
+Log onto an EC2 instance and grab the combined_seqs_smaller.fna file, which is a file containing just a fraction of our full sequences for demonstration purposes:
 
 ```
 curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/combined_seqs_smaller.fna
