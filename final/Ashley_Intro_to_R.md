@@ -308,7 +308,7 @@ a.table2
 
 Do these results suggest a significant influence of space/time?
 
-###6.5 Analyzing community patterns: The contributions of individual OTUs to community dynamics 
+###6.5 Analyzing community patterns
 
 As before, read in the Bray Curtis resemblance matrix, the OTU table, and the mapping file. Don't forget to assign the RDP column as "rdp" - we'll need these taxonomic IDs for today's analyses. 
 ```
@@ -325,7 +325,7 @@ otu=otu[,-(ncol(rdp))]
 map=read.table("Manduca_map_sorted.txt", header=TRUE, sep="\t")
 ```
 
-#####6.5.1 PROTEST: Procrustean superimposition analysis 
+#####6.5.1 : Do different treatments/series have similar patterns?  PROTEST: Procrustean superimposition analysis 
 We will use the `protest()` function from the vegan package to compare the time series of different treatments to one another. We want to know if the different treatments are synchronous (changing at the same general rate and direction, without requiring that the compositions are similar). For this to work, it is essential that the same observations are in the same order across treatments. PROTEST cannot read the sample IDs. 
 First, designate treatment groups from the map file using the `unique()` function, we did previously. Then, use the custom-function `makeRedresem.f()`  (make reduced resemblance) to generate a resemblance matrix for each treatment. Inspect the function, and notice that the input is the full resemblance matrix (in table format), plus a Treatment ID (given in quotes), and that the output (return) is in vector format. The treatment ID must match one of those from the mapping file exactly. 
 ```
@@ -357,9 +357,7 @@ mantel(Trt1.d, Trt2.d, method="pearson", permutations=999)
 
 Do both Mantel and PROTEST methods agree? 
 
-###6.5 Analyzing community patterns: The contributions of individual OTUs to community dynamics 
-
-#####6.5.1. Taxonomic Venn analysis 
+#####6.5.2. Taxonomic Venn analysis:  The contributions of individual OTUs to community dynamics
 We want to know which OTUs are shared among treatments, and which are unique to certain treatments. A taxonomic Venn analysis is the most straightforward and common method to do so. It is based on binary (presence/absence) data. First, we combine the instars for each treatment, and create smaller OTU table that we call "otu.trt", with each treatment as a column, and all OTU IDs in rows. For example, if any instar from Treatment 1 contained OTU 1, then there would be a "1" value in the Treatment 1 column in this OTU table. (You could do a similar analysis by instar, combining all treatments within each instar.). 
 ```
 otu.trt=matrix(0,ncol=length(u),nrow=nrow(otu))
@@ -415,7 +413,7 @@ length(VennOTUGroups)
 sum(1*(VennOTUGroups==2))
 sum(1*(VennOTUGroups==64))
 ```
-#####6.5.2Clustering OTUs by similar dynamics 
+#####6.5.3 Clustering OTUs by similar dynamics 
 By making use of the abundance data of OTUs, we can also identify OTUs that have common dynamics. This especially is useful when considering temporal or spatial series. First, we make an OTU table standardized by rows (OTU patterns) so that prevalent and rare taxa that have similar dynamics will be clustered together. Otherwise, the abundances of OTUs will drive the patterns, and not their dynamics. Then, we use the `hclust()` function (hierarchical clustering) based on Bray-Curtis dissimilarities calculated between all pairs of OTUs (rather than all pairs of samples/communities, as we did previously). The resulting dendrogram is large (as many nodes as OTUs), but informative. 
 ```
 rSums=rowSums(otu)
@@ -432,7 +430,7 @@ plot(otu.cluster, labels=rdp2)
 ```
 Explore these plots in detail on your own time, and also explore the related functions to hclust given at the bottom of the R help files, under "See Also". 
 
-#####6.5.3 Species abundance and species occurrence distributions 
+#####6.5.4 Species abundance and species occurrence distributions 
 The vegan package has a few options for exploring and plotting species abundance distributions. The most common is called using the `radfit()` function (aka rank abundance distribution). We apply this function to rSums, a vector of rowSums (OTU occurrences) calculated from the OTU table. The algorithm fits a few different but commonly used SAD models so that you can compare them. 
 ```
 r.sad=radfit(rSums)
@@ -451,7 +449,7 @@ r.sod
 
 plot(r.sod, las=1,ylab="Occurrence (out of 76 total observations)", xlab="OTUs ranked by occurrence", main="species occurrence distribution")
 ```
-#####6.5.4 MultiCOLA 
+#####6.5.5 MultiCOLA 
 I've written a custom script to perform MultiCOLA at different species cut-offs, as per Gobet et al. 2010. The authors of the work also provide some R scripts that you could use instead. I used Mantel tests to compare the "full" dataset with each "reduced" dataset, but you could also use PROTEST. The output of the custom function is a table of cut-offs, number of remaining OTUs, and the Mantel correlation R and p-value for significance.
 ``` 
 MantelMultiCOLA.f=function(otu_fp){
