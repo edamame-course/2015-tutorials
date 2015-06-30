@@ -65,7 +65,7 @@ That's it! You can now change the OTU cutoff to anything your heart desires!
 Now for something more complicated; say I want to change the database used for clustering and aligning. We'll use Silva because a lot of you probably want to use it.
 Go to Silva's [download page](http://www.arb-silva.de/no_cache/download/archive/qiime/), and click the most recent release (Silva_104_release.tgz).
 
-Save this in a place where you can find it, like the desktop, and use scp to transfer the file to your Amazon instance, and unzip it:
+Save this in a place where you can find it, like the desktop, use scp to transfer the file to your Amazon instance, and unzip it:
 
 ```
 scp -i [your key file] Silva_104_release.tgz ubuntu@ec2-[your DNS]
