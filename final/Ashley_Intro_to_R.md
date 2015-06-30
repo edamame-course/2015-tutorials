@@ -17,7 +17,7 @@ EDAMAME tutorials have a CC-BY [license](https://github.com/edamame-course/2015-
 * Export tables from R.
 
 ***
-
+**NOTE:  THIS TUTORIAL IS A WORK IN PROGRESS**
 
 ###1. Fast Introduction to R: formatting files and reading in tables 
 Create a new directory for R analyses, above the Manduca_raw_data directory. This is helpful to keep analyses separate, and to not accidentally alter the output files from QIIME that you may be using repeatedly for various analyses. copies into the new directory: 
@@ -235,4 +235,267 @@ names(meanreps.out)=u
 hist(meanreps.out)
 meanreps.out
 ```
+
+####6.4. Linking environmental gradients to community patterns 
+####6.4.1. Making a resemblance matrix of time (or space). 
+I have written a custom R function to create a time/space/environmental matrix to correlate to changes in the communities. It is called makeTimeDist.f. The .f signifies that this is a function and will require certain arguments to work. Inspect the syntax of the function in the provided R script, but don't worry too much about the mechanics of it now: 
+```
+makeTimeDist.f=function(map_file){
+  map=map_file
+  temp=as.matrix(map[,"Instar"])
+ 
+
+  names(temp)=map[,"SampleID"]
+  temp.d=dist(temp, method="manhattan", diag=FALSE)
+  head(temp.d)
+  temp.out=as.matrix(temp.d)
+  colnames(temp.out)=map[,"SampleID"]
+  row.names(temp.out)=map[,"SampleID"]
+  print(head(temp.out))
+  return(temp.d)
+}
+```
+ 
+The important part is to be able to use the function. The argument for the function is map_file. Thus, you should provide your map file as input. We also need to name the output of the function, here we've named it time.d so that it is clear that it is a distance matrix. 
+```
+space.d=makeSpaceDist.f(map)
+```
+Inspect the head of this time matrix, provided automatically by the function. Do the values make sense with what you know about the instars for each sample? 
+Now, we will use the non-parametric Mantel test `mantel()` to determine if changes in time correlate with community patterns.
+``` 
+mantel(time.d,braycurtis.d, method="pearson", permutations = 999)
+```
+How do we interpret the results from this test?  What is the test statistic?  What is the p-value?
+
+We can perform the Mantel test using our other resemblances and compare: 
+```
+mantel(time.d,sorenson.d, method="pearson", permutations = 999)
+
+mantel(time.d,weighted_u.d, method="pearson", permutations = 999)
+
+mantel(time.d,unweighted_u.d, method="pearson", permutations = 999)
+```
+
+_ Based on the above tests, which resemblance metric is most informative for understanding space gradients? _
+Time differences can also be tested using Mantel.  You can make a pair-wise difference in time matrix and substitute for the space matrix.
+
+####6.4.2 Correspondence analysis 
+We can also correlated changes in time with changes along an ordination axis of communities. This is sometimes desirable, as the most variability in communities is often explained by the first and second axes of ordination analyses. By focusing just on the variability along these two axes, we may be able to uncover clear patterns. 
+Use the `cca()` and `envfit()` functions to link space/time data to the communities. 
+
+```
+otu.ca=cca(t(otu))
+
+plot(otu.ca)
+
+ev.instar=envfit(otu.ca, as.numeric(map[,"Instar"]), perm=1000)
+
+ev.instar
+
+plot(ev.instar)
+```
+
+Do these results support that there is a significant influence of time on community structure?
+
+####6.4.3 Testing for time-treatment interactions. 
+Now that we have evidence that there are differences between treatments (evidenced by PERMANOVA and PERMDISP global differences), and that there are correlations with time, we want to go back and use the `adonis()` function to perform a PERMANOVA to test for a time- treatment interaction. 
+```
+ad2=adonis(braycurtis.d~Treatment*as.numeric(Instar), data=map, permutations=999)
+
+a.table2=ad2$aov.tab
+a.table2
+```
+
+Do these results suggest a significant influence of space/time?
+
+###6.5 Analyzing community patterns: The contributions of individual OTUs to community dynamics 
+
+As before, read in the Bray Curtis resemblance matrix, the OTU table, and the mapping file. Don't forget to assign the RDP column as "rdp" - we'll need these taxonomic IDs for today's analyses. 
+```
+braycurtis=read.table("BrayCurtis_even861.txt", header=TRUE, row.names=1, sep="\t")
+braycurtis.d=as.dist(braycurtis)
+ otu=read.table("Manduca_otu_table_even861_sorted.txt", header=TRUE, row.names=1,sep="\t", check.names=FALSE)
+
+rdp=otu[,ncol(rdp)]
+
+names(rdp)=row.names(otu)
+
+otu=otu[,-(ncol(rdp))]
+
+map=read.table("Manduca_map_sorted.txt", header=TRUE, sep="\t")
+```
+
+#####6.5.1 PROTEST: Procrustean superimposition analysis 
+We will use the `protest()` function from the vegan package to compare the time series of different treatments to one another. We want to know if the different treatments are synchronous (changing at the same general rate and direction, without requiring that the compositions are similar). For this to work, it is essential that the same observations are in the same order across treatments. PROTEST cannot read the sample IDs. 
+First, designate treatment groups from the map file using the `unique()` function, we did previously. Then, use the custom-function `makeRedresem.f()`  (make reduced resemblance) to generate a resemblance matrix for each treatment. Inspect the function, and notice that the input is the full resemblance matrix (in table format), plus a Treatment ID (given in quotes), and that the output (return) is in vector format. The treatment ID must match one of those from the mapping file exactly. 
+```
+u=unique(map[,"Treatment"])
+
+makeRedresem.f=function(resem_fp,group){  
+resem=resem_fp
+red=resem[map[,"Treatment"]==group, map[,"Treatment"]==group]
+   red.d=as.dist(red)
+   return(red.d)
+} 
+
+Trt1.d=makeRedresem.f(braycurtis,"TREATMENT1NAME")
+Trt2.d=makeRedresem.f(braycurtis,"TREATMENT2NAME") …
+```
+
+In the end, we have as many "mini" resemblance matrix as treatments.  We sanity check to make sure they are in the same order by using “head” to make sure that each treatment had samples in consecutive order, then we use protest to ask if their overarching patterns are comparable.
+
+```
+protest(Trt1.d,Trt2.d, permutations=999)
+```
+
+Using PROTEST, are the two treatments correlated in their dynamics? 
+
+If we use the mantel() function to test with the previously introduced Mantel test for linear matrix correlation, we get a similar result:
+```
+mantel(Trt1.d, Trt2.d, method="pearson", permutations=999)
+```
+
+Do both Mantel and PROTEST methods agree? 
+
+###6.5 Analyzing community patterns: The contributions of individual OTUs to community dynamics 
+
+#####6.5.1. Taxonomic Venn analysis 
+We want to know which OTUs are shared among treatments, and which are unique to certain treatments. A taxonomic Venn analysis is the most straightforward and common method to do so. It is based on binary (presence/absence) data. First, we combine the instars for each treatment, and create smaller OTU table that we call "otu.trt", with each treatment as a column, and all OTU IDs in rows. For example, if any instar from Treatment 1 contained OTU 1, then there would be a "1" value in the Treatment 1 column in this OTU table. (You could do a similar analysis by instar, combining all treatments within each instar.). 
+```
+otu.trt=matrix(0,ncol=length(u),nrow=nrow(otu))
+
+for(i in 1:length(u)){
+  temp=otu[,map$Treatment==u[i]]
+  dim(temp)
+  temp2=rowSums(temp)
+  otu.trt[,i]=temp2
+}
+
+row.names(otu.trt)=row.names(otu)
+colnames(otu.trt)=u
+```
+Then, we install the library limma and load it. We use the function `vennCounts()` to calculate all OTUs that are unique and shared among all combinations of treaments, and then write out the results to the file we name "VennCounts.txt." 
+> library(limma)
+> v=vennCounts(otu.trt)
+> #Write out the results of venncounts
+> write.table(v, "VennCounts.txt", quote=FALSE, sep="\t")
+
+Inspect the vennCounts output, which we called “v”. To interpret this output, the "1" says that the treatment group is included in the final count (rightmost column). This, there are 0 OTUs that are not included in any of the 6 groups, 63 OTUs that are unique to the MRS group, and 6 OTUs that are shared between the Lr and the MRS groups. 
+
+It is often of interest to be able to identify exactly who those 63 unique OTUs were in the MRS treatment. We use the rdp names and the OTU IDs to create files of a list for each treatment combination. There are a total of 64 possible treatment combinations, but some of them have no OTUs. There will be one file written out for each combination that includes OTUs, but the label for each file must be referenced to the VennCounts.txt file to determine to which group the OTUs belong. Below is a custom script that I wrote to do the job, with VennOTUGroups as a vector of each OTU's assignment among the 64 possible Venn Treatment Group combinations: 
+```
+#Make a presence/absence (binary) table
+
+otu.trt.pa=1*(otu.trt>0)
+u=unique(map[,"Treatment"])
+
+#This loop will output one text file per VennCounts #category that has a list of all ofthe OTU IDs and #their RDP taxonomic affiliations that belong to each #VennCount group.
+#The group name is the row of the Venn Count, so you #will have to compare the VennCount file to the output #to determine which group.
+
+tmp=NULL
+VennOTUGroups=vector(length=nrow(otu)
+for(y in 1:nrow(v)){
+  if(v[y,ncol(v)]!=0){
+    for(z in 1:nrow(otu.trt.pa)){
+      if(sum(1*(as.vector(otu.trt.pa[z,]) == as.vector(v[y,(1:ncol(v)-
+1)])))==length(u)){
+        VennOTUGroups[z]=y
+        n=c(row.names(otu.trt.pa)[z],paste(rdp[z]))
+        tmp=rbind(tmp,n)
+} } 
+    write.table(tmp, paste("VennCounts_Condition_",y,"_OTUList.txt",sep=""),
+row.names=FALSE, sep="\t", quote=FALSE)
+    print(dim(tmp))
+  }
+tmp=NULL }
+```
+We check the output to make sure it makes sense with what we expect (and that the script is working correctly). First, we check the length of VennOTUGroups - this should be the same length as the number of OTUs that we have (389). Then, we use a logical statement, "VennOTUGroups==2" to sum the number of times that it is TRUE that VennOTUGroups has a 2. From the head of v, we know that there should be 63 OTUs that are only viewed in MRS, which is VennOTUGroups 2. We could check other groups as well. There are 16 OTUs shared across all groups (Venn Group 64), which also matches v. 
+```
+length(VennOTUGroups)
+sum(1*(VennOTUGroups==2))
+sum(1*(VennOTUGroups==64))
+```
+#####6.5.2Clustering OTUs by similar dynamics 
+By making use of the abundance data of OTUs, we can also identify OTUs that have common dynamics. This especially is useful when considering temporal or spatial series. First, we make an OTU table standardized by rows (OTU patterns) so that prevalent and rare taxa that have similar dynamics will be clustered together. Otherwise, the abundances of OTUs will drive the patterns, and not their dynamics. Then, we use the `hclust()` function (hierarchical clustering) based on Bray-Curtis dissimilarities calculated between all pairs of OTUs (rather than all pairs of samples/communities, as we did previously). The resulting dendrogram is large (as many nodes as OTUs), but informative. 
+```
+rSums=rowSums(otu)
+otu.relrows=otu/rSums
+braycurtis.rows.d=vegdist(otu.relrows, method="bray")
+otu.cluster=hclust(braycurtis.rows.d, method="complete")
+plot(otu.cluster)
+```
+We can also label nodes by Venn Groups, or any other categorical value, like rdp names (abbreviated using the `make.cepnames()` function from vegan) 
+```
+plot(otu.cluster,labels=VennOTUGroups)
+rdp2=make.cepnames(rdp)
+plot(otu.cluster, labels=rdp2)
+```
+Explore these plots in detail on your own time, and also explore the related functions to hclust given at the bottom of the R help files, under "See Also". 
+
+#####6.5.3 Species abundance and species occurrence distributions 
+The vegan package has a few options for exploring and plotting species abundance distributions. The most common is called using the `radfit()` function (aka rank abundance distribution). We apply this function to rSums, a vector of rowSums (OTU occurrences) calculated from the OTU table. The algorithm fits a few different but commonly used SAD models so that you can compare them. 
+```
+r.sad=radfit(rSums)
+r.sad
+```
+The output from radfit provides some metrics for evaluating the fit of the model, as well as a built-in plotting algorithm. Here we can use either the Akaike (AIC) or the Bayesian (BIC) Information Criterion to evaluate the fit of the model- in both cases, a lower number is a better fit. In actuality, none of these models are awesome fits, but Mandelbrot is best. We can also see from the plot that the Mandelbrot function fits best. 
+```
+plot(r.sad, las=1,main = "Manduca species abundance distribution", ylab="Abundance(No. sequences)", xlab="OTUs ranked by abundance")
+```
+We use the same strategy for species occurrence distributions, but as input we use the total number of occurrences per OTU (out of 76 total observations) instead of the total OTU abundances. From this, there are a few models that are equally acceptable: 
+```
+otu.pa=1*(otu>0)
+rSums.pa=rowSums(otu.pa)
+r.sod=radfit(rSums.pa)
+r.sod
+
+plot(r.sod, las=1,ylab="Occurrence (out of 76 total observations)", xlab="OTUs ranked by occurrence", main="species occurrence distribution")
+```
+#####6.5.4 MultiCOLA 
+I've written a custom script to perform MultiCOLA at different species cut-offs, as per Gobet et al. 2010. The authors of the work also provide some R scripts that you could use instead. I used Mantel tests to compare the "full" dataset with each "reduced" dataset, but you could also use PROTEST. The output of the custom function is a table of cut-offs, number of remaining OTUs, and the Mantel correlation R and p-value for significance.
+``` 
+MantelMultiCOLA.f=function(otu_fp){
+  #Step 1.  Read in full dataset:
+  otu2=otu_fp
+  library(vegan)
+  cutoff=c(1.00,0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.30, 0.20, 0.10, 0.05, 0.025,
+0.01, 0.005, 0.001)
+  m.out=NULL
+  otu.pa=1*(otu2>0)
+  r=rowSums(otu2)
+  #Create a vector of indexes of the ranked OTUs
+  r2=sort(r,decreasing=TRUE, index=TRUE)
+  r2$ix
+  r2$x
+  for(j in 1:length(cutoff)){
+    print(cutoff[j])
+    no.keep=ceiling(cutoff[j]*nrow(otu2))
+    otu.index.keep=r2$ix[1:no.keep]
+    otu.keep=otu2[otu.index.keep,]
+    print(head(otu.keep))
+#Write out otu tables at each cutoff
+    write.table(otu.keep, paste(u[i],"_",cutoff[j],"_otu.txt", sep=""),sep="\t",
+quote=FALSE)
+    all.dist=vegdist(t(otu2), method="bray")
+    subset.dist=vegdist(t(otu.keep),method="bray")
+    m1=mantel(all.dist,subset.dist, method="pearson",permutations=999)
+    m=c(paste(cutoff[j]),m1$statistic,m1$signif,dim(otu.keep)[1])
+    m.out=rbind(m.out,m)
+  }
+  colnames(m.out)=c("Cutoff", "AllvSubsetPearsonR", "AllvSubset_pvalue",
+"NoOTUsSubset")
+  #write.table(m.out, "MantelMultiCOLA.txt", sep="\t", quote=FALSE, row.names=FALSE)
+  return(m.out)
+}
+```
+
+Run the function, and name the output "MultiCOLA.test" 
+```
+MultiCOLA.test=MantelMultiCOLA.f(otu)
+```
+Inspect the output, MultiCOLA.test. The first cut-off is not a cut-off at all, as it contains 100% of the most prevalent OTUs. Where do the patterns start to break down? 
+```
+MultiCOLA.test
+```
+
 
