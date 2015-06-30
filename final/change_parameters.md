@@ -42,7 +42,7 @@ Navigate back to the home directory and grab the parameters file:
 ```
 curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/poro_parameters.txt
 ```
-Use nano to inspect the parameters file.
+Use nano to inspect it.
 
 ![img2](../img/parameters.jpg)
 
