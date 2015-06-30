@@ -63,18 +63,20 @@ That's it! You can now change the OTU cutoff to anything your heart desires!
 
 
 Now for something more complicated; say I want to change the database used for clustering and aligning. We'll use Silva because a lot of you probably want to use it.
-Go to Silva's [download page](http://www.arb-silva.de/no_cache/download/archive/qiime/), and click the most recent release (Silva_104_release.tgz).
+Go to Silva's [download page](http://www.arb-silva.de/no_cache/download/archive/qiime/), and click Silva_108_release_curated.tgz.
 
 Save this in a place where you can find it, like the desktop, use scp to transfer the file to your Amazon instance, stick it in the home directory, and unzip it:
 
 ```
-scp -i [your key file] Silva_104_release.tgz ubuntu@ec2-[your DNS]
-mv Silva_104_release.tgz /home/ubuntu
+scp -i [your key file] Silva_108_release_curated.tgz ubuntu@ec2-[your DNS]
+mv Silva_108_release_curated.tgz /home/ubuntu
 cd /home/ubuntu
-tar -xvzf Silva_104_release.tgz
+tar -xvzf Silva_108_release_curated.tgz
 
 ```
-This will generate a new directory called "silva_104". Navigate there and inspect the new files if you'd like to. 
+This will generate a new directory called "Silva_108_database_curated". Navigate there and inspect the new files if you'd like to. The format notes file can help answer a lot of questions you may have about how the database was created.
+
+![img5](../img/silva_unzipped.jpg)
 
 When you are ready to run the command, navigate back into the home directory and make a new parameters file.
 
@@ -84,23 +86,23 @@ nano parameters_Silva.txt
 Copy and paste these lines, making sure to add the correct file path if you unzipped the Silva database somewhere other than the home directory:
 
 ```
-align_seqs:template_fp    /home/ubuntu/silva_104/core_Silva_aligned.fasta 
+align_seqs:template_fp    /home/ubuntu/Silva_108_database_curated/97_rep_set_Silva_108_aligned.fasta 
 
-assign_taxonomy:id_to_taxonomy_fp   /home/ubuntu/silva_104/Silva_taxa_mapping_104set_97_otus.txt
+assign_taxonomy:id_to_taxonomy_fp   /home/ubuntu/Silva_108_database_curated/97_taxa_map_Silva_108.txt
 
-assign_taxonomy:reference_seqs_fp   /home/ubuntu/silva_104/silva_104_rep_set.fasta
-
-```
-Exit and save the file, then run pick_open_reference_otus.py:
+assign_taxonomy:reference_seqs_fp   /home/ubuntu/Silva_108_database_curated/97_rep_set_Silva_108.fasta
 
 ```
-pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref_Silva/ -f -p parameters_Silva.txt
+Exit and save the file. We need to specify one more thing, which is the reference database to use during the actual pick_otus.py step. It is not possible to add this specification to the parameters file (you can, but it won't run), so we will add a -r flag to specify this.
+
+```
+pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch61_openref_Silva/ -f -p parameters_Silva.txt -r /home/ubuntu/Silva_108_database_curated/97_rep_set_Silva_108.fasta 
 
 ```
 Let it run, then inspect the log file to ensure that the correct database was used:
-![img4](../img/silva.jpg)
+![img4](../img/silva2.jpg)
 
-Hooray! You can now use any database you like so long as the files are formatted correctly.
+Hooray! You can now use any database you like so long as the files are formatted correctly and you specify them in the command and parameters file.
 
 #Resources and help
 ## QIIME
