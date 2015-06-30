@@ -11,7 +11,7 @@ When using a pipeline such as QIIME, you may want to change the default paramete
 
 As an example, when using [pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html), I may want to change the OTU cutoff to 99% instead of the default 97%. Let's try this.
 
-Log onto an EC2 instance and grab the combined_seqs_smaller.fna file, which is a file containing just a fraction of our full sequences for demonstration purposes:
+Start up an EC2 instance with the QIIME AMI (ami-1918ff72) and grab the combined_seqs_smaller.fna file, which is a file containing just a fraction of our full sequences for demonstration purposes:
 
 ```
 curl -O https://raw.githubusercontent.com/edamame-course/2015-tutorials/master/QIIME_files/combined_seqs_smaller.fna
