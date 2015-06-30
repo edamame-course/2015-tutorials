@@ -98,7 +98,7 @@ pick_open_reference_otus.py -i combined_seqs_smaller.fna -m usearch61 -o usearch
 
 ```
 Let it run, then inspect the log file to ensure that the correct database was used:
-[screenshot]
+![img4](../img/silva.jpg)
 
 Hooray! You can now use any database you like so long as the files are formatted correctly.
 
